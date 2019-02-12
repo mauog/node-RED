@@ -4,7 +4,9 @@
     "version": "0.0.1",
     "dependencies": {
         "node-red-contrib-home-assistant-websocket": "0.6.1",
-        "node-red-node-suncalc": "0.0.11"
+        "node-red-node-suncalc": "0.0.11",
+        "node-red-dashboard": "2.13.2",
+        "node-red-contrib-influxdb": "0.2.2"
     },
     "node-red": {
         "settings": {
