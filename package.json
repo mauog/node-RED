@@ -6,7 +6,9 @@
         "node-red-contrib-home-assistant-websocket": "0.6.1",
         "node-red-node-suncalc": "0.0.11",
         "node-red-dashboard": "2.13.2",
-        "node-red-contrib-influxdb": "0.2.2"
+        "node-red-contrib-influxdb": "0.2.2",
+        "node-red-contrib-boolean-logic-ultimate": "1.0.17",
+        "node-red-contrib-eztimer": "1.2.3"
     },
     "node-red": {
         "settings": {
