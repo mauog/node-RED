@@ -1,1 +1,3027 @@
-[{"id":"f841e824.d474f","type":"tab","label":"Consumi Elettrici","disabled":false,"info":""},{"id":"74e4c992.25d51","type":"tab","label":"water_sensor","disabled":false,"info":""},{"id":"b845d607.73c178","type":"tab","label":"Presence","disabled":false,"info":""},{"id":"45dd8798.2cfc88","type":"tab","label":"xmas_light","disabled":false,"info":""},{"id":"eef32c58.cf06d8","type":"tab","label":"Flow 1","disabled":false,"info":""},{"id":"22ed3d76.929c3a","type":"server","z":"","name":"Casa","legacy":false,"rejectUnauthorizedCerts":false,"ha_boolean":"y|yes|true|on|home|open"},{"id":"c6e21e6c.847e8","type":"server","z":"","name":"Casa (local https)","legacy":false,"addon":false,"rejectUnauthorizedCerts":false,"ha_boolean":"y|yes|true|on|home|open","connectionDelay":true,"cacheJson":true},{"id":"e3f4bf15.c436","type":"ui_tab","z":"","name":"Home","icon":"dashboard","disabled":false,"hidden":false},{"id":"b05b932e.9b9a78","type":"ui_base","theme":{"name":"theme-light","lightTheme":{"default":"#0094CE","baseColor":"#0094CE","baseFont":"-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif","edited":true,"reset":false},"darkTheme":{"default":"#097479","baseColor":"#097479","baseFont":"-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif","edited":false},"customTheme":{"name":"Untitled Theme 1","default":"#4B7930","baseColor":"#4B7930","baseFont":"-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif"},"themeState":{"base-color":{"default":"#0094CE","value":"#0094CE","edited":false},"page-titlebar-backgroundColor":{"value":"#0094CE","edited":false},"page-backgroundColor":{"value":"#fafafa","edited":false},"page-sidebar-backgroundColor":{"value":"#ffffff","edited":false},"group-textColor":{"value":"#1bbfff","edited":false},"group-borderColor":{"value":"#ffffff","edited":false},"group-backgroundColor":{"value":"#ffffff","edited":false},"widget-textColor":{"value":"#111111","edited":false},"widget-backgroundColor":{"value":"#0094ce","edited":false},"widget-borderColor":{"value":"#ffffff","edited":false},"base-font":{"value":"-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif"}},"angularTheme":{"primary":"indigo","accents":"blue","warn":"red","background":"grey"}},"site":{"name":"Node-RED Dashboard","hideToolbar":"false","allowSwipe":"false","lockMenu":"false","allowTempTheme":"true","dateFormat":"DD/MM/YYYY","sizes":{"sx":48,"sy":48,"gx":6,"gy":6,"cx":6,"cy":6,"px":0,"py":0}}},{"id":"a7c77e43.dccf78","type":"influxdb","z":"","hostname":"10.9.10.56","port":"8086","protocol":"http","database":"power","name":"influxdb_power","usetls":false,"tls":""},{"id":"efdb8d8d.4fdfe8","type":"mqtt-broker","z":"","name":"mosquitto","broker":"10.9.10.55","port":"1883","clientid":"nodered","usetls":false,"compatmode":true,"keepalive":"60","cleansession":true,"birthTopic":"","birthQos":"0","birthRetain":"false","birthPayload":"","closeTopic":"","closeQos":"0","closeRetain":"false","closePayload":"","willTopic":"","willQos":"0","willRetain":"false","willPayload":""},{"id":"1d5cb08e.a5e67f","type":"ui_tab","z":"","name":"Mutlimetro","icon":"dashboard","disabled":false,"hidden":false},{"id":"7056ab47.4136fc","type":"ui_group","z":"","name":"Default","tab":"1d5cb08e.a5e67f","order":1,"disp":true,"width":"6","collapse":false},{"id":"1c67c688.5c24f1","type":"server","z":"","name":"Home Assistant","legacy":false,"rejectUnauthorizedCerts":true,"ha_boolean":"y|yes|true|on|home|open","connectionDelay":true,"cacheJson":true},{"id":"6e28e075.f9d108","type":"influxdb","z":"","hostname":"10.9.10.56","port":"8086","protocol":"http","database":"network","name":"network","usetls":false,"tls":""},{"id":"1b399b.1c765e66","type":"server-state-changed","z":"74e4c992.25d51","name":"water1","server":"c6e21e6c.847e8","version":"1","exposeToHomeAssistant":false,"haConfig":[{"property":"name","value":""},{"property":"icon","value":""}],"entityidfilter":"binary_sensor.water1","entityidfiltertype":"substring","outputinitially":true,"state_type":"str","haltifstate":"off","halt_if_type":"str","halt_if_compare":"is","outputs":2,"output_only_on_state_change":false,"x":90,"y":160,"wires":[[],["89037470.7bfdb8"]]},{"id":"ad52530b.2d99","type":"api-call-service","z":"74e4c992.25d51","name":"","server":"c6e21e6c.847e8","version":"1","debugenabled":false,"service_domain":"notify","service":"ios_mauro_iphone","entityId":"","data":"{\"message\":\"E' stata rilevata una perdita d'acqua dal sensore \",\"title\":\"Attenzione perdita d'acqua {{payload}}\"}","dataType":"json","mergecontext":"","output_location":"payload","output_location_type":"msg","mustacheAltTags":false,"x":880,"y":240,"wires":[[]]},{"id":"c54846e.fe6b7b8","type":"server-state-changed","z":"74e4c992.25d51","name":"water2","server":"c6e21e6c.847e8","version":"1","exposeToHomeAssistant":false,"haConfig":[{"property":"name","value":""},{"property":"icon","value":""}],"entityidfilter":"binary_sensor.water2","entityidfiltertype":"substring","outputinitially":true,"state_type":"str","haltifstate":"off","halt_if_type":"str","halt_if_compare":"is","outputs":2,"output_only_on_state_change":false,"x":90,"y":240,"wires":[[],["89037470.7bfdb8"]]},{"id":"fc1ceb77.d59ce8","type":"server-state-changed","z":"74e4c992.25d51","name":"water3","server":"c6e21e6c.847e8","version":"1","exposeToHomeAssistant":false,"haConfig":[{"property":"name","value":""},{"property":"icon","value":""}],"entityidfilter":"binary_sensor.water3","entityidfiltertype":"substring","outputinitially":true,"state_type":"str","haltifstate":"off","halt_if_type":"str","halt_if_compare":"is","outputs":2,"output_only_on_state_change":false,"x":90,"y":320,"wires":[[],["89037470.7bfdb8"]]},{"id":"f5488a6c.31f53","type":"sunrise","z":"45dd8798.2cfc88","name":"","lat":"45.6666400","lon":"9.0488400","start":"sunriseEnd","end":"goldenHour","x":110,"y":220,"wires":[[],["3b028a67.70c13e"]],"outputLabels":["payload",""]},{"id":"3b028a67.70c13e","type":"switch","z":"45dd8798.2cfc88","name":"alba o tramonto ?","property":"payload","propertyType":"msg","rules":[{"t":"eq","v":"0","vt":"str"},{"t":"eq","v":"1","vt":"str"}],"checkall":"true","repair":false,"outputs":2,"x":370,"y":220,"wires":[["785b1e0.5e8c7e4"],["7cb064d9.8a1514"]]},{"id":"785b1e0.5e8c7e4","type":"api-call-service","z":"45dd8798.2cfc88","name":"Accende luci di Natale","server":"c6e21e6c.847e8","version":1,"debugenabled":false,"service_domain":"homeassistant","service":"turn_on","entityId":"switch.lucine","data":"","dataType":"json","mergecontext":"","output_location":"payload","output_location_type":"msg","mustacheAltTags":false,"x":700,"y":180,"wires":[[]]},{"id":"7cb064d9.8a1514","type":"api-call-service","z":"45dd8798.2cfc88","name":"Spegne luci di Natale","server":"c6e21e6c.847e8","version":"1","debugenabled":false,"service_domain":"homeassistant","service":"turn_off","entityId":"switch.lucine","data":"","dataType":"json","mergecontext":"","output_location":"payload","output_location_type":"msg","mustacheAltTags":false,"x":700,"y":260,"wires":[[]]},{"id":"9bc871dc.88a4f","type":"comment","z":"45dd8798.2cfc88","name":"Xmas Light","info":"Accende/spegne le luci di Natale all'inizio dell'imbrunire e alla fine dell'alba.","x":80,"y":20,"wires":[]},{"id":"2e9df7be.cb2f28","type":"inject","z":"45dd8798.2cfc88","name":"Spegnimento manuale","topic":"","payload":"","payloadType":"date","repeat":"","crontab":"","once":false,"onceDelay":0.1,"x":500,"y":340,"wires":[["7cb064d9.8a1514"]]},{"id":"1d3111a2.e40926","type":"inject","z":"45dd8798.2cfc88","name":"Accensione manuale","topic":"","payload":"","payloadType":"date","repeat":"","crontab":"","once":false,"onceDelay":0.1,"x":500,"y":100,"wires":[["785b1e0.5e8c7e4"]]},{"id":"929f8303.a26fa8","type":"comment","z":"f841e824.d474f","name":"Monitoraggio consumi elettrici","info":"# **Monitoraggio Consumo Elettrico**\nViene monitorato il consumo elettrico dei seguenti\nelettrodomestici:\n\n - Lavatrice\n - Lavastoviglie\n - Frigorifero\n - Forno\n \nIl monitoraggio è effettuato leggendo da Home Assistant\nil consumo rilevato dalla prese smart Innr\n\nInoltre viene monitorato il consumo globlale misurato\ndallo smart meter posizionato all'ingresso della linea elettrica.\n\nTutti i dati confluiscono verso un database Influxdb","x":120,"y":60,"wires":[]},{"id":"588e2549.c8940c","type":"server-state-changed","z":"74e4c992.25d51","name":"Sensore acqua pozzo lavatoio","server":"c6e21e6c.847e8","version":"1","exposeToHomeAssistant":false,"haConfig":[{"property":"name","value":""},{"property":"icon","value":""}],"entityidfilter":"binary_sensor.water4","entityidfiltertype":"substring","outputinitially":true,"state_type":"str","haltifstate":"on","halt_if_type":"str","halt_if_compare":"is_not","outputs":2,"output_only_on_state_change":false,"x":320,"y":440,"wires":[[],["2a3a534b.71e4dc","160757fa.4d2658","9bdbb95f.75cc78"]]},{"id":"b0e3b84e.37a95","type":"debug","z":"74e4c992.25d51","name":"","active":false,"tosidebar":true,"console":false,"tostatus":false,"complete":"true","x":1050,"y":860,"wires":[]},{"id":"a31e1159.ae248","type":"api-current-state","z":"74e4c992.25d51","name":"water1 battery level","server":"c6e21e6c.847e8","version":"1","outputs":1,"halt_if":"","halt_if_type":"str","halt_if_compare":"is","override_topic":true,"entity_id":"binary_sensor.water1","state_type":"str","state_location":"payload","override_payload":"msg","entity_location":"data","override_data":"msg","blockInputOverrides":false,"x":370,"y":680,"wires":[["e58be3c0.0fe8b8"]]},{"id":"8606ccef.3740a","type":"inject","z":"74e4c992.25d51","name":"","topic":"","payload":"","payloadType":"date","repeat":"","crontab":"00 12 * * *","once":false,"onceDelay":0.1,"x":90,"y":840,"wires":[["a31e1159.ae248","d3b62575.0a52f8","d05b9a31.dc043","9d315b85.112348","ecaefb70.0f3148","a804a23d.6082e8"]]},{"id":"e58be3c0.0fe8b8","type":"function","z":"74e4c992.25d51","name":"if battery level < 20","func":"var battery_level =  msg.data.attributes.battery_level;\nvar sensor_name = msg.data.attributes.friendly_name;\nif (battery_level < 20) {\nmsg.payload =  \"ATTENZIONE: livello batteria sensore \" + sensor_name + \" \" + battery_level + \"%\" \n} else { msg = null }\nreturn msg; ","outputs":1,"noerr":0,"x":810,"y":780,"wires":[["b0e3b84e.37a95","724eba6.0894a44"]]},{"id":"d3b62575.0a52f8","type":"api-current-state","z":"74e4c992.25d51","name":"water2 battery level","server":"c6e21e6c.847e8","version":"1","outputs":1,"halt_if":"","halt_if_type":"str","halt_if_compare":"is","override_topic":true,"entity_id":"binary_sensor.water2","state_type":"str","state_location":"payload","override_payload":"msg","entity_location":"data","override_data":"msg","blockInputOverrides":false,"x":370,"y":740,"wires":[["e58be3c0.0fe8b8"]]},{"id":"9d315b85.112348","type":"api-current-state","z":"74e4c992.25d51","name":"water4 battery level","server":"c6e21e6c.847e8","version":"1","outputs":1,"halt_if":"","halt_if_type":"str","halt_if_compare":"is","override_topic":true,"entity_id":"binary_sensor.water4","state_type":"str","state_location":"payload","override_payload":"msg","entity_location":"data","override_data":"msg","blockInputOverrides":false,"x":370,"y":860,"wires":[["e58be3c0.0fe8b8"]]},{"id":"d05b9a31.dc043","type":"api-current-state","z":"74e4c992.25d51","name":"water3 battery level","server":"c6e21e6c.847e8","version":"1","outputs":1,"halt_if":"","halt_if_type":"str","halt_if_compare":"is","override_topic":true,"entity_id":"binary_sensor.water3","state_type":"str","state_location":"payload","override_payload":"msg","entity_location":"data","override_data":"msg","blockInputOverrides":false,"x":370,"y":800,"wires":[["e58be3c0.0fe8b8"]]},{"id":"89037470.7bfdb8","type":"function","z":"74e4c992.25d51","name":"Modify payload with sensor name","func":"var sensor_name = msg.data.attributes.friendly_name;\nmsg.payload = \"ATTENZIONE: perdita d'acqua rilevata dal sesnore \" + sensor_name\nreturn msg;","outputs":1,"noerr":0,"x":500,"y":240,"wires":[["ad52530b.2d99"]]},{"id":"ecaefb70.0f3148","type":"api-current-state","z":"74e4c992.25d51","name":"switch1 battery level","server":"c6e21e6c.847e8","version":"1","outputs":1,"halt_if":"","halt_if_type":"str","halt_if_compare":"is","override_topic":true,"entity_id":"sensor.switch1_battery_level","state_type":"str","state_location":"payload","override_payload":"msg","entity_location":"data","override_data":"msg","blockInputOverrides":false,"x":380,"y":920,"wires":[["f516de9b.ba657"]]},{"id":"a804a23d.6082e8","type":"api-current-state","z":"74e4c992.25d51","name":"switch2 battery level","server":"c6e21e6c.847e8","version":"1","outputs":1,"halt_if":"","halt_if_type":"str","halt_if_compare":"is","override_topic":true,"entity_id":"sensor.switch2_battery_level","state_type":"str","state_location":"payload","override_payload":"msg","entity_location":"data","override_data":"msg","blockInputOverrides":false,"x":380,"y":980,"wires":[["f516de9b.ba657"]]},{"id":"f516de9b.ba657","type":"function","z":"74e4c992.25d51","name":"if battery level < 20","func":"var battery_level =  msg.payload;\nvar sensor_name = msg.data.attributes.friendly_name;\nif (battery_level < 20) {\nmsg.payload =  \"ATTENZIONE: livello batteria sensore \" + sensor_name + \" \" + battery_level + \"%\" \n} else { msg = null }\nreturn msg; ","outputs":1,"noerr":0,"x":810,"y":940,"wires":[["b0e3b84e.37a95","724eba6.0894a44"]]},{"id":"ffe2d279.f93d88","type":"server-state-changed","z":"f841e824.d474f","name":"Consumo Lavastoviglie Watt","server":"c6e21e6c.847e8","version":1,"exposeToHomeAssistant":false,"haConfig":[{"property":"name","value":""},{"property":"icon","value":""}],"entityidfilter":"sensor.power_15","entityidfiltertype":"exact","outputinitially":true,"state_type":"num","haltifstate":"","halt_if_type":"str","halt_if_compare":"is","outputs":1,"output_only_on_state_change":false,"x":140,"y":300,"wires":[["6e027ae9.8d00ec","dc96e344.03922"]]},{"id":"6e027ae9.8d00ec","type":"switch","z":"f841e824.d474f","name":"<=1 or >5 ?","property":"payload","propertyType":"msg","rules":[{"t":"lte","v":"1","vt":"str"},{"t":"gt","v":"5","vt":"str"},{"t":"btwn","v":"2","vt":"num","v2":"40","v2t":"num"}],"checkall":"false","repair":false,"outputs":3,"x":370,"y":300,"wires":[["e3a6ed46.3e66f"],["a6f2672e.495d1"],[]]},{"id":"e3a6ed46.3e66f","type":"api-current-state","z":"f841e824.d474f","name":"Stato della lavastoviglie","server":"c6e21e6c.847e8","version":1,"outputs":2,"halt_if":"off","halt_if_type":"str","halt_if_compare":"is","override_topic":true,"entity_id":"input_boolean.dishwasher_status","state_type":"str","state_location":"payload","override_payload":"msg","entity_location":"data","override_data":"msg","blockInputOverrides":false,"x":670,"y":240,"wires":[[],["97fa08e7.b95428"]]},{"id":"a6f2672e.495d1","type":"api-current-state","z":"f841e824.d474f","name":"Stato della lavastoviglie","server":"c6e21e6c.847e8","version":1,"outputs":2,"halt_if":"on","halt_if_type":"str","halt_if_compare":"is","override_topic":true,"entity_id":"input_boolean.dishwasher_status","state_type":"str","state_location":"payload","override_payload":"msg","entity_location":"data","override_data":"msg","blockInputOverrides":false,"x":650,"y":340,"wires":[[],["be6f3ee8.6368a"]]},{"id":"3a8a3532.c7912a","type":"api-call-service","z":"f841e824.d474f","name":"imposta la lavastoviglie su \"off\"","server":"c6e21e6c.847e8","version":"1","service_domain":"input_boolean","service":"turn_off","entityId":"input_boolean.dishwasher_status","data":"","dataType":"json","mergecontext":"","output_location":"","output_location_type":"none","mustacheAltTags":false,"x":1570,"y":180,"wires":[[]]},{"id":"be6f3ee8.6368a","type":"api-call-service","z":"f841e824.d474f","name":"Imposta la lavastoviglie su \"on\"","server":"c6e21e6c.847e8","version":1,"debugenabled":false,"service_domain":"input_boolean","service":"turn_on","entityId":"input_boolean.dishwasher_status","data":"","dataType":"json","mergecontext":"","output_location":"","output_location_type":"none","mustacheAltTags":false,"x":1050,"y":380,"wires":[[]]},{"id":"846d2ef1.3d76d","type":"api-call-service","z":"f841e824.d474f","name":"","server":"c6e21e6c.847e8","version":1,"debugenabled":false,"service_domain":"notify","service":"mobile_app_soylents_iphone","entityId":"","data":"{\"title\":\"Piatti Lavati\",\"message\":\"{{payload}}\"}","dataType":"json","mergecontext":"","output_location":"payload","output_location_type":"msg","mustacheAltTags":false,"x":1560,"y":260,"wires":[[]]},{"id":"ec897701.132bc8","type":"server-state-changed","z":"f841e824.d474f","name":"Consumo Lavatrice Watt","server":"c6e21e6c.847e8","version":1,"exposeToHomeAssistant":false,"haConfig":[{"property":"name","value":""},{"property":"icon","value":""}],"entityidfilter":"sensor.power_17","entityidfiltertype":"substring","outputinitially":true,"state_type":"num","haltifstate":"","halt_if_type":"str","halt_if_compare":"is","outputs":1,"output_only_on_state_change":false,"x":130,"y":800,"wires":[["7a46ecc5.71988c","3803720a.e78c9e"]]},{"id":"7a46ecc5.71988c","type":"switch","z":"f841e824.d474f","name":"<= 2 or >2 ?","property":"payload","propertyType":"msg","rules":[{"t":"lte","v":"2","vt":"str"},{"t":"gt","v":"2","vt":"str"}],"checkall":"false","repair":false,"outputs":2,"x":450,"y":800,"wires":[["cce3c7a4.6a7b98"],["c48c05d1.018608","bed4bf4f.e4b8d"]]},{"id":"c0343eb2.3930d8","type":"api-call-service","z":"f841e824.d474f","name":"","server":"c6e21e6c.847e8","version":1,"debugenabled":false,"service_domain":"notify","service":"mobile_app_soylents_iphone","entityId":"","data":"{\"title\":\"Bucato terminato\",\"message\":\"{{payload}}\"}","dataType":"json","mergecontext":"","output_location":"payload","output_location_type":"msg","mustacheAltTags":false,"x":1870,"y":700,"wires":[[]]},{"id":"724eba6.0894a44","type":"api-call-service","z":"74e4c992.25d51","name":"","server":"c6e21e6c.847e8","version":"1","debugenabled":false,"service_domain":"notify","service":"ios_mauro_iphone","entityId":"","data":"{\"title\":\"Piatti Lavati\",\"message\":\"La lavastoviglie ha finito\"}","dataType":"json","mergecontext":"","output_location":"","output_location_type":"none","mustacheAltTags":false,"x":1150,"y":760,"wires":[[]]},{"id":"ddb9425d.c294","type":"api-call-service","z":"f841e824.d474f","name":"","server":"c6e21e6c.847e8","version":1,"debugenabled":false,"service_domain":"notify","service":"mobile_app_grazia_cattaneos_iphone","entityId":"","data":"{\"title\":\"Bucato terminato\",\"message\":\"{{payload}}\"}","dataType":"json","mergecontext":"","output_location":"","output_location_type":"none","mustacheAltTags":false,"x":1890,"y":780,"wires":[[]]},{"id":"64b67a33.f752fc","type":"api-call-service","z":"f841e824.d474f","name":"imposta la lavatrice su \"off\"","server":"c6e21e6c.847e8","version":"1","service_domain":"input_boolean","service":"turn_off","entityId":"input_boolean.washingmachine_status","data":"","dataType":"json","mergecontext":"","output_location":"","output_location_type":"none","mustacheAltTags":false,"x":1820,"y":620,"wires":[[]]},{"id":"dbe27959.21a1b","type":"api-call-service","z":"f841e824.d474f","name":"Imposta la lavatrice su \"on\"","server":"c6e21e6c.847e8","version":"1","service_domain":"input_boolean","service":"turn_on","entityId":"input_boolean.washingmachine_status","data":"","dataType":"json","mergecontext":"","output_location":"","output_location_type":"none","mustacheAltTags":false,"x":980,"y":920,"wires":[[]]},{"id":"c48c05d1.018608","type":"api-current-state","z":"f841e824.d474f","name":"Stato della lavatrice","server":"c6e21e6c.847e8","version":1,"outputs":2,"halt_if":"on","halt_if_type":"str","halt_if_compare":"is","override_topic":false,"entity_id":"input_boolean.washingmachine_status","state_type":"str","state_location":"","override_payload":"none","entity_location":"","override_data":"none","blockInputOverrides":false,"x":680,"y":920,"wires":[[],["dbe27959.21a1b"]]},{"id":"d85460c5.bf3e88","type":"trigger-state","z":"b845d607.73c178","name":"","server":"c6e21e6c.847e8","entityid":"binary_sensor.presence1","entityidfiltertype":"exact","debugenabled":false,"constraints":[{"id":"b1qc4535sfp","targetType":"this_entity","targetValue":"","propertyType":"previous_state","propertyValue":"old_state.state","comparatorType":"is","comparatorValueDatatype":"str","comparatorValue":"off"},{"id":"fcak5e98v64","targetType":"this_entity","targetValue":"","propertyType":"current_state","propertyValue":"new_state.state","comparatorType":"is","comparatorValueDatatype":"str","comparatorValue":"on"}],"constraintsmustmatch":"all","outputs":2,"customoutputs":[],"outputinitially":true,"state_type":"str","x":290,"y":320,"wires":[["79f520d9.186ac8"],[]]},{"id":"66cb26bd.13135","type":"trigger-state","z":"b845d607.73c178","name":"","server":"c6e21e6c.847e8","entityid":"binary_sensor.presence2","entityidfiltertype":"exact","debugenabled":false,"constraints":[{"id":"7xkdetmzmkg","targetType":"this_entity","targetValue":"","propertyType":"previous_state","propertyValue":"old_state.state","comparatorType":"is","comparatorValueDatatype":"str","comparatorValue":"off"},{"id":"y6x71awy6a","targetType":"this_entity","targetValue":"","propertyType":"current_state","propertyValue":"new_state.state","comparatorType":"is","comparatorValueDatatype":"str","comparatorValue":"on"}],"constraintsmustmatch":"all","outputs":2,"customoutputs":[],"outputinitially":true,"state_type":"str","x":290,"y":380,"wires":[["79f520d9.186ac8"],[]]},{"id":"2e8f9e53.812b7a","type":"delay","z":"f841e824.d474f","name":"","pauseType":"rate","timeout":"5","timeoutUnits":"seconds","rate":"1","nbRateUnits":"1","rateUnits":"minute","randomFirst":"1","randomLast":"5","randomUnits":"seconds","drop":true,"x":970,"y":740,"wires":[["ff2d8a29.ed01d"]]},{"id":"f3f0da13.d4cd2","type":"server-state-changed","z":"f841e824.d474f","name":"Consumo Frigorifero Watt","server":"c6e21e6c.847e8","version":1,"exposeToHomeAssistant":false,"haConfig":[{"property":"name","value":""},{"property":"icon","value":""}],"entityidfilter":"sensor.power_23","entityidfiltertype":"substring","outputinitially":true,"state_type":"num","haltifstate":"","halt_if_type":"str","halt_if_compare":"is","outputs":1,"output_only_on_state_change":false,"x":170,"y":1180,"wires":[["3de57654.f35602","609e5d56.9d006c"]]},{"id":"3de57654.f35602","type":"influxdb out","z":"f841e824.d474f","influxdb":"a7c77e43.dccf78","name":"","measurement":"frigorifero","precision":"","retentionPolicy":"","x":190,"y":1360,"wires":[]},{"id":"3803720a.e78c9e","type":"influxdb out","z":"f841e824.d474f","influxdb":"a7c77e43.dccf78","name":"","measurement":"lavatrice","precision":"","retentionPolicy":"","x":350,"y":940,"wires":[]},{"id":"dc96e344.03922","type":"influxdb out","z":"f841e824.d474f","influxdb":"a7c77e43.dccf78","name":"","measurement":"lavastoviglie","precision":"","retentionPolicy":"","x":340,"y":460,"wires":[]},{"id":"d50a9414.8903d","type":"server-state-changed","z":"f841e824.d474f","name":"Consumo Forno Watt","server":"c6e21e6c.847e8","version":1,"exposeToHomeAssistant":false,"haConfig":[{"property":"name","value":""},{"property":"icon","value":""}],"entityidfilter":"sensor.power_25","entityidfiltertype":"substring","outputinitially":true,"state_type":"num","haltifstate":"","halt_if_type":"str","halt_if_compare":"is","outputs":1,"output_only_on_state_change":false,"x":160,"y":1620,"wires":[["f89c9626.f4949"]]},{"id":"f89c9626.f4949","type":"influxdb out","z":"f841e824.d474f","influxdb":"a7c77e43.dccf78","name":"","measurement":"forno","precision":"","retentionPolicy":"","x":500,"y":1620,"wires":[]},{"id":"79f520d9.186ac8","type":"debug","z":"b845d607.73c178","name":"","active":true,"tosidebar":false,"console":false,"tostatus":false,"complete":"true","targetType":"full","x":710,"y":400,"wires":[]},{"id":"2137ec96.33d2d4","type":"trigger-state","z":"b845d607.73c178","name":"","server":"c6e21e6c.847e8","entityid":"binary_sensor.presence3","entityidfiltertype":"exact","debugenabled":false,"constraints":[{"id":"7xkdetmzmkg","targetType":"this_entity","targetValue":"","propertyType":"previous_state","propertyValue":"old_state.state","comparatorType":"is","comparatorValueDatatype":"str","comparatorValue":"off"},{"id":"y6x71awy6a","targetType":"this_entity","targetValue":"","propertyType":"current_state","propertyValue":"new_state.state","comparatorType":"is","comparatorValueDatatype":"str","comparatorValue":"on"}],"constraintsmustmatch":"all","outputs":2,"customoutputs":[],"outputinitially":true,"state_type":"str","x":290,"y":440,"wires":[["79f520d9.186ac8"],[]]},{"id":"8731cbbc.98f41","type":"trigger-state","z":"b845d607.73c178","name":"","server":"c6e21e6c.847e8","entityid":"binary_sensor.presence4","entityidfiltertype":"exact","debugenabled":false,"constraints":[{"id":"7xkdetmzmkg","targetType":"this_entity","targetValue":"","propertyType":"previous_state","propertyValue":"old_state.state","comparatorType":"is","comparatorValueDatatype":"str","comparatorValue":"off"},{"id":"y6x71awy6a","targetType":"this_entity","targetValue":"","propertyType":"current_state","propertyValue":"new_state.state","comparatorType":"is","comparatorValueDatatype":"str","comparatorValue":"on"}],"constraintsmustmatch":"all","outputs":2,"customoutputs":[],"outputinitially":true,"state_type":"str","x":290,"y":500,"wires":[["79f520d9.186ac8"],[]]},{"id":"34e5b1f8.b68496","type":"api-current-state","z":"f841e824.d474f","name":"Stato presa frigorifero","server":"c6e21e6c.847e8","version":1,"outputs":2,"halt_if":"false","halt_if_type":"bool","halt_if_compare":"is_not","override_topic":true,"entity_id":"sensor.power_frigorifero.on","state_type":"habool","state_location":"payload","override_payload":"msg","entity_location":"data","override_data":"msg","blockInputOverrides":false,"x":960,"y":1180,"wires":[[],["5417eda1.31b61c","e3922b5e.aee888","f7e0fc7a.127c5"]]},{"id":"5417eda1.31b61c","type":"api-call-service","z":"f841e824.d474f","name":"","server":"c6e21e6c.847e8","version":1,"debugenabled":false,"service_domain":"notify","service":"mobile_app_soylents_iphone","entityId":"","data":"{\"title\":\"Probelma al frigorifero\",\"message\":\"La presa è spenta!\"}","dataType":"json","mergecontext":"","output_location":"payload","output_location_type":"msg","mustacheAltTags":false,"x":1460,"y":1180,"wires":[[]]},{"id":"609e5d56.9d006c","type":"switch","z":"f841e824.d474f","name":"se <5 or >10","property":"payload","propertyType":"msg","rules":[{"t":"lte","v":"5","vt":"str"},{"t":"gt","v":"5","vt":"str"}],"checkall":"true","repair":false,"outputs":2,"x":430,"y":1180,"wires":[["ef749ecd.b71b48","b35834bb.1da0b8"],["b3d3d616.c7e658"]]},{"id":"ef749ecd.b71b48","type":"delay","z":"f841e824.d474f","name":"","pauseType":"rate","timeout":"5","timeoutUnits":"seconds","rate":"1","nbRateUnits":"5","rateUnits":"minute","randomFirst":"1","randomLast":"5","randomUnits":"seconds","drop":true,"x":680,"y":1180,"wires":[["34e5b1f8.b68496"]]},{"id":"2f9c93eb.587f64","type":"api-call-service","z":"f841e824.d474f","name":"","server":"c6e21e6c.847e8","version":1,"debugenabled":false,"service_domain":"notify","service":"alexa_media_terra","entityId":"","data":"{\"message\":\"{{payload}}\",\"title\":\"Bucato Terminato\",\"data\":{\"type\":\"announce\",\"method\":\"all\"},\"target\":[\"Cucina\"]}","dataType":"json","mergecontext":"","output_location":"payload","output_location_type":"msg","mustacheAltTags":false,"x":1830,"y":860,"wires":[[]]},{"id":"e3922b5e.aee888","type":"api-call-service","z":"f841e824.d474f","name":"","server":"c6e21e6c.847e8","version":"1","service_domain":"notify","service":"alexa_media","entityId":"","data":"{\"message\":\"Attenzione! Sembra che la presa del frigorifero sia spenta. Controlla subito!\",\"title\":\"Presa frigorifero off\",\"data\":{\"type\":\"announce\",\"method\":\"all\"},\"target\":[\"Cucina\"]}","dataType":"json","mergecontext":"","output_location":"payload","output_location_type":"msg","mustacheAltTags":false,"x":1410,"y":1240,"wires":[[]]},{"id":"4a76b909.bb8f48","type":"api-call-service","z":"f841e824.d474f","name":"","server":"c6e21e6c.847e8","version":1,"debugenabled":false,"service_domain":"notify","service":"mobile_app_soylents_iphone","entityId":"","data":"{\"title\":\"Probelma al frigorifero\",\"message\":\"Non è stato rilevato consumo lettrico da più di 60 minuti\"}","dataType":"json","mergecontext":"","output_location":"","output_location_type":"none","mustacheAltTags":false,"x":1020,"y":1300,"wires":[[]]},{"id":"b35834bb.1da0b8","type":"trigger","z":"f841e824.d474f","op1":"","op2":"","op1type":"nul","op2type":"payl","duration":"60","extend":false,"units":"min","reset":"reset","bytopic":"all","name":"","x":710,"y":1300,"wires":[["4a76b909.bb8f48"]]},{"id":"b3d3d616.c7e658","type":"change","z":"f841e824.d474f","name":"reset","rules":[{"t":"set","p":"reset","pt":"msg","to":"true","tot":"bool"},{"t":"set","p":"payload","pt":"msg","to":"false","tot":"bool"}],"action":"","property":"","from":"","to":"","reg":false,"x":490,"y":1300,"wires":[["b35834bb.1da0b8"]]},{"id":"ff2d8a29.ed01d","type":"trigger","z":"f841e824.d474f","op1":"","op2":"","op1type":"nul","op2type":"payl","duration":"3","extend":false,"units":"min","reset":"reset","bytopic":"all","name":"","x":1250,"y":740,"wires":[["11fd7980.c38c37","c0c39c5d.4c3da8"]]},{"id":"bed4bf4f.e4b8d","type":"change","z":"f841e824.d474f","name":"reset","rules":[{"t":"set","p":"reset","pt":"msg","to":"true","tot":"bool"},{"t":"set","p":"payload","pt":"msg","to":"false","tot":"bool"}],"action":"","property":"","from":"","to":"","reg":false,"x":1010,"y":800,"wires":[["ff2d8a29.ed01d"]]},{"id":"2a3a534b.71e4dc","type":"api-call-service","z":"74e4c992.25d51","name":"","server":"c6e21e6c.847e8","version":"1","debugenabled":false,"service_domain":"notify","service":"ios_mauro_iphone","entityId":"","data":"{\"message\":\"Attenzione! Rilevata presenza d'acqua nel pozzo della pompa in lavatoio\",\"title\":\"Attenzione perdita d'acqua pozzo lavatoio\"}","dataType":"json","mergecontext":"","output_location":"payload","output_location_type":"msg","mustacheAltTags":false,"x":760,"y":440,"wires":[[]]},{"id":"160757fa.4d2658","type":"api-call-service","z":"74e4c992.25d51","name":"","server":"c6e21e6c.847e8","version":"1","debugenabled":false,"service_domain":"notify","service":"alexa_media","entityId":"","data":"{\"message\":\"Attenzione! Rilevata presenza d'acqua nel pozzo della pompa in lavatoio\",\"title\":\"Acqua nel pozzo lavatoio\",\"data\":{\"type\":\"announce\",\"method\":\"all\"},\"target\":[\"Terra\"]}","dataType":"json","mergecontext":"","output_location":"payload","output_location_type":"msg","mustacheAltTags":false,"x":750,"y":500,"wires":[[]]},{"id":"9bdbb95f.75cc78","type":"api-call-service","z":"74e4c992.25d51","name":"","server":"c6e21e6c.847e8","version":1,"debugenabled":false,"service_domain":"notify","service":"ios_grazia_iphone","entityId":"","data":"{\"message\":\"Attenzione! Rilevata presenza d'acqua nel pozzo della pompa in lavatoio\",\"title\":\"Attenzione perdita d'acqua pozzo lavatoio\"}","dataType":"json","mergecontext":"","output_location":"","output_location_type":"none","mustacheAltTags":false,"x":760,"y":380,"wires":[[]]},{"id":"c0c39c5d.4c3da8","type":"function","z":"f841e824.d474f","name":"Prepara il messaggio","func":"function millisToMinutesAndSeconds(millis) {\n  var minutes = Math.floor(millis / 60000);\n  var seconds = ((millis % 60000) / 1000).toFixed(0);\n  return minutes + \" minuti e \" + (seconds < 10 ? '0' : '') + seconds + \" secondi\";\n}\n\nvar text = \"La lavatrice ha finito. Ora puoi stendere il bucato. Durata lavaggio: \"\nvar msg1 = {payload: text + millisToMinutesAndSeconds(msg.data.timeSinceChangedMs) }\nreturn msg1\n\n\n  \n\n\n","outputs":1,"noerr":0,"x":1540,"y":740,"wires":[["2f9c93eb.587f64","c0343eb2.3930d8","64b67a33.f752fc","ddb9425d.c294"]]},{"id":"a076a8c2.1374d","type":"poll-state","z":"74e4c992.25d51","name":"","server":"22ed3d76.929c3a","version":"1","exposeToHomeAssistant":false,"haConfig":[{"property":"name","value":""},{"property":"icon","value":""}],"updateinterval":"600","updateIntervalUnits":"seconds","outputinitially":true,"outputonchanged":false,"entity_id":"binary_sensor.water4","state_type":"str","halt_if":"on","halt_if_type":"str","halt_if_compare":"is_not","outputs":2,"x":330,"y":380,"wires":[[],["2a3a534b.71e4dc"]]},{"id":"97fa08e7.b95428","type":"function","z":"f841e824.d474f","name":"Prepara il messaggio","func":"function millisToMinutesAndSeconds(millis) {\n  var minutes = Math.floor(millis / 60000);\n  var seconds = ((millis % 60000) / 1000).toFixed(0);\n  return minutes + \" minuti e \" + (seconds < 10 ? '0' : '') + seconds + \" secondi\";\n}\n\nvar text = \"Piatti lavati. Durata ciclo di lavaggio lavaggio: \"\nvar msg1 = {payload: text + millisToMinutesAndSeconds(msg.data.timeSinceChangedMs) }\nreturn msg1\n  \n\n\n","outputs":1,"noerr":0,"x":980,"y":260,"wires":[["940ec4f1.3bbc9"]]},{"id":"7916216.3f0bc6","type":"mqtt in","z":"f841e824.d474f","name":"Generale W","topic":"1694498882.W","qos":"2","datatype":"auto","broker":"efdb8d8d.4fdfe8","x":150,"y":1880,"wires":[["ccef8db8.407948"]]},{"id":"90ce68bb.28e028","type":"influxdb out","z":"f841e824.d474f","influxdb":"a7c77e43.dccf78","name":"generale_w","measurement":"generale_w","precision":"","retentionPolicy":"","x":550,"y":1880,"wires":[]},{"id":"886d5780.8a7f7","type":"mqtt in","z":"f841e824.d474f","name":"Generale A","topic":"1694498882.A","qos":"2","datatype":"auto","broker":"efdb8d8d.4fdfe8","x":140,"y":1940,"wires":[["ca5476a7.f22e"]]},{"id":"8ecd5a59.d7cac8","type":"mqtt in","z":"f841e824.d474f","name":"Generale V","topic":"1694498882.V","qos":"2","datatype":"auto","broker":"efdb8d8d.4fdfe8","x":140,"y":2000,"wires":[["36c440c6.e32d4"]]},{"id":"f346feec.c9453","type":"mqtt in","z":"f841e824.d474f","name":"Generale PF","topic":"1694498882.PF","qos":"2","datatype":"auto","broker":"efdb8d8d.4fdfe8","x":150,"y":2060,"wires":[["d4adf237.a4de08"]]},{"id":"3aed4e06.6a055a","type":"influxdb out","z":"f841e824.d474f","influxdb":"a7c77e43.dccf78","name":"generale_a","measurement":"generale_a","precision":"","retentionPolicy":"","x":550,"y":1940,"wires":[]},{"id":"388d1b3e.13e2f4","type":"influxdb out","z":"f841e824.d474f","influxdb":"a7c77e43.dccf78","name":"generale_v","measurement":"generale_v","precision":"","retentionPolicy":"","x":550,"y":2000,"wires":[]},{"id":"fb32d4b3.ab5e9","type":"influxdb out","z":"f841e824.d474f","influxdb":"a7c77e43.dccf78","name":"generale_pf","measurement":"generale_pf","precision":"","retentionPolicy":"","x":550,"y":2060,"wires":[]},{"id":"ccef8db8.407948","type":"json","z":"f841e824.d474f","name":"","property":"payload","action":"","pretty":false,"x":330,"y":1880,"wires":[["90ce68bb.28e028","c6ce6533.ab36a8","76701afb.5da6c4","b9c0c857.65e488","740f02d.fe147fc"]]},{"id":"ca5476a7.f22e","type":"json","z":"f841e824.d474f","name":"","property":"payload","action":"","pretty":false,"x":330,"y":1940,"wires":[["3aed4e06.6a055a"]]},{"id":"36c440c6.e32d4","type":"json","z":"f841e824.d474f","name":"","property":"payload","action":"","pretty":false,"x":330,"y":2000,"wires":[["388d1b3e.13e2f4"]]},{"id":"d4adf237.a4de08","type":"json","z":"f841e824.d474f","name":"","property":"payload","action":"","pretty":false,"x":330,"y":2060,"wires":[["fb32d4b3.ab5e9"]]},{"id":"cce3c7a4.6a7b98","type":"api-current-state","z":"f841e824.d474f","name":"Stato della lavatrice","server":"c6e21e6c.847e8","version":"1","outputs":2,"halt_if":"off","halt_if_type":"str","halt_if_compare":"is","override_topic":true,"entity_id":"input_boolean.washingmachine_status","state_type":"str","state_location":"payload","override_payload":"msg","entity_location":"data","override_data":"msg","blockInputOverrides":false,"x":680,"y":740,"wires":[[],["2e8f9e53.812b7a"]]},{"id":"11fd7980.c38c37","type":"debug","z":"f841e824.d474f","name":"prova","active":false,"tosidebar":true,"console":false,"tostatus":false,"complete":"true","targetType":"full","x":1450,"y":640,"wires":[]},{"id":"6fe8555e.62a4ec","type":"inject","z":"f841e824.d474f","name":"Reset","topic":"","payload":"reset","payloadType":"str","repeat":"","crontab":"","once":false,"onceDelay":0.1,"x":1030,"y":640,"wires":[["ff2d8a29.ed01d"]]},{"id":"aa05600a.cc269","type":"inject","z":"f841e824.d474f","name":"Reset","topic":"","payload":"reset","payloadType":"str","repeat":"","crontab":"","once":false,"onceDelay":0.1,"x":490,"y":1400,"wires":[["b35834bb.1da0b8"]]},{"id":"c6ce6533.ab36a8","type":"function","z":"f841e824.d474f","name":"Prepara messaggio se il consumo è >= 3300 W","func":"var max_w = 3300\nif (msg.payload >= max_w) {\n  var msg1 = {payload: \"Attenzione! Il consumo di energia elettrica è pari a \" + msg.payload + \" watt. Rischio di distacco!\"}  \n} else {msg1 = null}\n\nreturn msg1;","outputs":1,"noerr":0,"x":660,"y":1800,"wires":[["b1cf814b.a7b2"]]},{"id":"f3df76e8.56402","type":"api-call-service","z":"f841e824.d474f","name":"","server":"c6e21e6c.847e8","version":"1","service_domain":"notify","service":"alexa_media_ovunque","entityId":"","data":"{\"message\":\"{{payload}}\",\"title\":\"Rischio di distacco\",\"data\":{\"type\":\"announce\",\"method\":\"all\"},\"target\":[\"ovunque\"]}","dataType":"json","mergecontext":"","output_location":"payload","output_location_type":"msg","mustacheAltTags":false,"x":1020,"y":1940,"wires":[[]]},{"id":"b1cf814b.a7b2","type":"delay","z":"f841e824.d474f","name":"","pauseType":"rate","timeout":"5","timeoutUnits":"seconds","rate":"1","nbRateUnits":"1","rateUnits":"minute","randomFirst":"1","randomLast":"5","randomUnits":"seconds","drop":true,"x":1020,"y":1800,"wires":[["f3df76e8.56402"]]},{"id":"a38f8e5e.591a38","type":"api-call-service","z":"f841e824.d474f","name":"Accendi forno","server":"c6e21e6c.847e8","version":1,"debugenabled":false,"service_domain":"switch","service":"turn_on","entityId":"switch.light_5","data":"","dataType":"json","mergecontext":"","output_location":"payload","output_location_type":"msg","mustacheAltTags":false,"x":340,"y":1560,"wires":[["47f4314c.f9005"]]},{"id":"ed54a7c1.7c85b8","type":"inject","z":"f841e824.d474f","name":"","topic":"","payload":"","payloadType":"date","repeat":"","crontab":"","once":false,"onceDelay":0.1,"x":120,"y":1560,"wires":[["a38f8e5e.591a38"]]},{"id":"47f4314c.f9005","type":"api-call-service","z":"f841e824.d474f","name":"","server":"c6e21e6c.847e8","version":1,"debugenabled":true,"service_domain":"notify","service":"mobile_app_soylents_iphone","entityId":"","data":"{\"message\":\"Forno acceso\",\"title\":\"Accensione forno\"}","dataType":"json","mergecontext":"","output_location":"payload","output_location_type":"msg","mustacheAltTags":false,"x":700,"y":1560,"wires":[[]]},{"id":"76701afb.5da6c4","type":"function","z":"f841e824.d474f","name":"Prepara messaggio se il consumo è >= 3300 W","func":"var high_watermark = 4000;\nvar low_watermark = 3300;\nvar timer_high_value = 1;\nvar timer_low_value = 90;\nvar over_power = flow.get('over_power') || false;\nvar low_timer = flow.get('timer_low') || null;\nvar high_timer = flow.get('timer_high') || null;\nvar msg1, msg2 = null;\nvar input = msg.payload;\n// OUTPUT:\n// msg1 Messagge to TTS system\n// msg2 Timer or reset\n// msg3 over_power boolean condition\n\nswitch(true) {\n  case (input >= high_watermark):\n    if (over_power === false) {\n      msg2 = {payload: timer_high_value};\n      msg1 = {payload:\"Attenzione! Distacco energia elettrica imminente! Superata la soglia dei 4000 watt.\"};\n      flow.set('over_power', true);\n      flow.set('timer_low', now.getTime())\n    }\n    break;\n  case (input >= low_watermark):\n    msg2 = {payload: timer_low_value};\n    msg1 = {payload: \"Attenzione! Il consumo di energia elettrica è pari a \" + msg.payload + \" watt. Rischio di distacco!\"}\n    flow.set('over_power', true);\n    break;\n  default:\n    if (over_power === true) {\n      msg2 = {payload: 'reset'};   \n      flow.set('over_power', false);\n    } else {msg2 = null}\n}\n\nif (msg2 !== null) {\n  msg1 = {payload: \"Attenzione! Il consumo di energia elettrica è pari a \" + msg.payload + \" watt. Rischio di distacco!\"}  \n} else {msg1 = null}\nover_power = flow.get('over_power')\nmsg3 = {payload: over_power} \nreturn [msg1, msg2, msg3];\n//\n//","outputs":3,"noerr":0,"x":360,"y":2280,"wires":[["30f032d2.af82e6"],["3ccc78e8.a0785"],["310b9b54.36985c"]]},{"id":"30f032d2.af82e6","type":"debug","z":"f841e824.d474f","name":"","active":false,"tosidebar":true,"console":false,"tostatus":false,"complete":"payload","targetType":"msg","x":770,"y":2220,"wires":[]},{"id":"3ccc78e8.a0785","type":"debug","z":"f841e824.d474f","name":"","active":false,"tosidebar":true,"console":false,"tostatus":false,"complete":"payload","targetType":"msg","x":770,"y":2280,"wires":[]},{"id":"b9c0c857.65e488","type":"debug","z":"f841e824.d474f","name":"","active":false,"tosidebar":true,"console":false,"tostatus":false,"complete":"false","x":440,"y":1720,"wires":[]},{"id":"34f5d045.0511c8","type":"trigger","z":"f841e824.d474f","op1":"","op2":"0","op1type":"nul","op2type":"str","duration":"250","extend":false,"units":"min","reset":"","bytopic":"all","name":"","x":1020,"y":2080,"wires":[[]]},{"id":"310b9b54.36985c","type":"debug","z":"f841e824.d474f","name":"","active":false,"tosidebar":true,"console":false,"tostatus":false,"complete":"false","x":770,"y":2340,"wires":[]},{"id":"2f985a30.8f2576","type":"trigger-state","z":"b845d607.73c178","name":"","server":"c6e21e6c.847e8","entityid":"binary_sensor.allarme","entityidfiltertype":"exact","debugenabled":false,"constraints":[],"constraintsmustmatch":"all","outputs":2,"customoutputs":[],"outputinitially":true,"state_type":"str","x":200,"y":760,"wires":[["aa760b2e.c71f9"],[]]},{"id":"aa760b2e.c71f9","type":"debug","z":"b845d607.73c178","name":"","active":false,"tosidebar":true,"console":false,"tostatus":false,"complete":"true","targetType":"full","x":550,"y":760,"wires":[]},{"id":"f7e0fc7a.127c5","type":"function","z":"f841e824.d474f","name":"","func":"var lastChange = new Date(msg.data.old_state.last_changed).getTime();\nvar now = new Date().getTime();\nvar secs = Math.floor((now / 1000)-(lastChange / 1000));\nmsg.sensor = {};\nmsg.sensor.lastChange = secs;\nreturn msg;","outputs":1,"noerr":0,"x":1180,"y":1100,"wires":[["93f4ae5a.29b42"]]},{"id":"93f4ae5a.29b42","type":"debug","z":"f841e824.d474f","name":"","active":false,"tosidebar":true,"console":false,"tostatus":false,"complete":"false","x":1360,"y":1100,"wires":[]},{"id":"740f02d.fe147fc","type":"ui_gauge","z":"f841e824.d474f","name":"","group":"7056ab47.4136fc","order":0,"width":0,"height":0,"gtype":"gage","title":"Potenza assorbita","label":"Kw","format":"{{value}}","min":0,"max":"4100","colors":["#00b500","#e6e600","#ca3838"],"seg1":"3300","seg2":"3301","x":530,"y":2140,"wires":[]},{"id":"223449e3.378f66","type":"api-call-service","z":"f841e824.d474f","name":"Test Alexa","server":"c6e21e6c.847e8","version":1,"debugenabled":true,"service_domain":"notify","service":"alexa_media_terra","entityId":"","data":"{\"message\":\"Questo è un test\",\"title\":\"Test\",\"data\":{\"type\":\"announce\",\"method\":\"all\"},\"target\":[\"terra\"]}","dataType":"json","mergecontext":"","output_location":"payload","output_location_type":"msg","mustacheAltTags":false,"x":630,"y":80,"wires":[[]]},{"id":"66a59c22.18cf2c","type":"inject","z":"f841e824.d474f","name":"","topic":"","payload":"","payloadType":"date","repeat":"","crontab":"","once":false,"onceDelay":0.1,"x":420,"y":80,"wires":[["223449e3.378f66"]]},{"id":"7d241cf.cbf7de4","type":"BooleanLogicUltimate","z":"45dd8798.2cfc88","name":"","filtertrue":"onlytrue","persist":true,"sInitializeWith":"WaitForPayload","triggertopic":"trigger","outputtriggeredby":"onlyonetopic","inputCount":2,"topic":"result","x":550,"y":540,"wires":[["bfdac7e7.3c8ba"],[],[]]},{"id":"c0f2f156.694aa8","type":"inject","z":"45dd8798.2cfc88","name":"Switch on light at 6:50","topic":"trigger","payload":"true","payloadType":"bool","repeat":"","crontab":"50 06 * * *","once":false,"onceDelay":0.1,"x":230,"y":540,"wires":[["7d241cf.cbf7de4"]]},{"id":"9fc97ba5.55a45","type":"switch","z":"45dd8798.2cfc88","name":"","property":"payload","propertyType":"msg","rules":[{"t":"false"},{"t":"true"}],"checkall":"true","repair":false,"outputs":2,"x":330,"y":800,"wires":[["201a3e15.bedffa"],["bfdac7e7.3c8ba"]]},{"id":"201a3e15.bedffa","type":"api-call-service","z":"45dd8798.2cfc88","name":"Spegne luce1 portico","server":"c6e21e6c.847e8","version":1,"debugenabled":false,"service_domain":"homeassistant","service":"turn_off","entityId":"switch.luce1_portico","data":"","dataType":"json","mergecontext":"","output_location":"payload","output_location_type":"msg","mustacheAltTags":false,"x":720,"y":740,"wires":[[]]},{"id":"bfdac7e7.3c8ba","type":"api-call-service","z":"45dd8798.2cfc88","name":"Accende luce1 portico","server":"c6e21e6c.847e8","version":1,"debugenabled":false,"service_domain":"homeassistant","service":"turn_on","entityId":"switch.luce1_portico","data":"","dataType":"json","mergecontext":"","output_location":"payload","output_location_type":"msg","mustacheAltTags":false,"x":1120,"y":800,"wires":[[]]},{"id":"2685f894.e25be","type":"inject","z":"45dd8798.2cfc88","name":"Spegne la luce a mezzanotte","topic":"","payload":"true","payloadType":"bool","repeat":"","crontab":"00 00 * * *","once":false,"onceDelay":0.1,"x":490,"y":700,"wires":[["201a3e15.bedffa"]]},{"id":"940ec4f1.3bbc9","type":"delay","z":"f841e824.d474f","name":"Limita 1 msg/5min","pauseType":"rate","timeout":"5","timeoutUnits":"seconds","rate":"1","nbRateUnits":"5","rateUnits":"minute","randomFirst":"1","randomLast":"5","randomUnits":"seconds","drop":false,"x":1230,"y":260,"wires":[["3a8a3532.c7912a","846d2ef1.3d76d"]]},{"id":"502eb14.0f3a2d","type":"eztimer","z":"45dd8798.2cfc88","name":"","debug":false,"autoname":"sunset - sunriseEnd","tag":"eztimer","suspended":false,"sendEventsOnSuspend":false,"lat":"45.6666400","lon":"9.0488400","timerType":"1","startupMessage":false,"ontype":"1","ontimesun":"sunset","ontimetod":"17:00","onpropertytype":"msg","onproperty":"payload","onvaluetype":"bool","onvalue":"true","onoffset":0,"onrandomoffset":0,"onsuppressrepeats":true,"offtype":"1","offtimesun":"sunriseEnd","offtimetod":"dusk","offduration":"00:01:00","offpropertytype":"msg","offproperty":"payload","offvaluetype":"bool","offvalue":"false","offoffset":0,"offrandomoffset":0,"offsuppressrepeats":true,"mon":true,"tue":true,"wed":true,"thu":true,"fri":true,"sat":true,"sun":true,"x":120,"y":660,"wires":[["9fc97ba5.55a45","7d241cf.cbf7de4"]]}]
+[
+    {
+        "id": "f841e824.d474f",
+        "type": "tab",
+        "label": "Consumi Elettrici",
+        "disabled": false,
+        "info": ""
+    },
+    {
+        "id": "74e4c992.25d51",
+        "type": "tab",
+        "label": "water_sensor",
+        "disabled": false,
+        "info": ""
+    },
+    {
+        "id": "45dd8798.2cfc88",
+        "type": "tab",
+        "label": "xmas_light",
+        "disabled": false,
+        "info": ""
+    },
+    {
+        "id": "50bf18d8.6664b",
+        "type": "tab",
+        "label": "Network",
+        "disabled": false,
+        "info": ""
+    },
+    {
+        "id": "22ed3d76.929c3a",
+        "type": "server",
+        "name": "Casa",
+        "legacy": false,
+        "rejectUnauthorizedCerts": false,
+        "ha_boolean": "y|yes|true|on|home|open"
+    },
+    {
+        "id": "c6e21e6c.847e8",
+        "type": "server",
+        "name": "Casa (local https)",
+        "legacy": false,
+        "addon": false,
+        "rejectUnauthorizedCerts": false,
+        "ha_boolean": "y|yes|true|on|home|open",
+        "connectionDelay": true,
+        "cacheJson": true
+    },
+    {
+        "id": "e3f4bf15.c436",
+        "type": "ui_tab",
+        "name": "Home",
+        "icon": "dashboard",
+        "disabled": false,
+        "hidden": false
+    },
+    {
+        "id": "b05b932e.9b9a78",
+        "type": "ui_base",
+        "theme": {
+            "name": "theme-light",
+            "lightTheme": {
+                "default": "#0094CE",
+                "baseColor": "#0094CE",
+                "baseFont": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif",
+                "edited": true,
+                "reset": false
+            },
+            "darkTheme": {
+                "default": "#097479",
+                "baseColor": "#097479",
+                "baseFont": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif",
+                "edited": false
+            },
+            "customTheme": {
+                "name": "Untitled Theme 1",
+                "default": "#4B7930",
+                "baseColor": "#4B7930",
+                "baseFont": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif"
+            },
+            "themeState": {
+                "base-color": {
+                    "default": "#0094CE",
+                    "value": "#0094CE",
+                    "edited": false
+                },
+                "page-titlebar-backgroundColor": {
+                    "value": "#0094CE",
+                    "edited": false
+                },
+                "page-backgroundColor": {
+                    "value": "#fafafa",
+                    "edited": false
+                },
+                "page-sidebar-backgroundColor": {
+                    "value": "#ffffff",
+                    "edited": false
+                },
+                "group-textColor": {
+                    "value": "#1bbfff",
+                    "edited": false
+                },
+                "group-borderColor": {
+                    "value": "#ffffff",
+                    "edited": false
+                },
+                "group-backgroundColor": {
+                    "value": "#ffffff",
+                    "edited": false
+                },
+                "widget-textColor": {
+                    "value": "#111111",
+                    "edited": false
+                },
+                "widget-backgroundColor": {
+                    "value": "#0094ce",
+                    "edited": false
+                },
+                "widget-borderColor": {
+                    "value": "#ffffff",
+                    "edited": false
+                },
+                "base-font": {
+                    "value": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif"
+                }
+            },
+            "angularTheme": {
+                "primary": "indigo",
+                "accents": "blue",
+                "warn": "red",
+                "background": "grey"
+            }
+        },
+        "site": {
+            "name": "Node-RED Dashboard",
+            "hideToolbar": "false",
+            "allowSwipe": "false",
+            "lockMenu": "false",
+            "allowTempTheme": "true",
+            "dateFormat": "DD/MM/YYYY",
+            "sizes": {
+                "sx": 48,
+                "sy": 48,
+                "gx": 6,
+                "gy": 6,
+                "cx": 6,
+                "cy": 6,
+                "px": 0,
+                "py": 0
+            }
+        }
+    },
+    {
+        "id": "a7c77e43.dccf78",
+        "type": "influxdb",
+        "hostname": "10.9.10.56",
+        "port": "8086",
+        "protocol": "http",
+        "database": "power",
+        "name": "influxdb_power",
+        "usetls": false,
+        "tls": ""
+    },
+    {
+        "id": "efdb8d8d.4fdfe8",
+        "type": "mqtt-broker",
+        "name": "mosquitto",
+        "broker": "10.9.10.55",
+        "port": "1883",
+        "clientid": "nodered",
+        "usetls": false,
+        "compatmode": true,
+        "keepalive": "60",
+        "cleansession": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthRetain": "false",
+        "birthPayload": "",
+        "closeTopic": "",
+        "closeQos": "0",
+        "closeRetain": "false",
+        "closePayload": "",
+        "willTopic": "",
+        "willQos": "0",
+        "willRetain": "false",
+        "willPayload": ""
+    },
+    {
+        "id": "1d5cb08e.a5e67f",
+        "type": "ui_tab",
+        "name": "Mutlimetro",
+        "icon": "dashboard",
+        "disabled": false,
+        "hidden": false
+    },
+    {
+        "id": "7056ab47.4136fc",
+        "type": "ui_group",
+        "name": "Default",
+        "tab": "1d5cb08e.a5e67f",
+        "order": 1,
+        "disp": true,
+        "width": "6",
+        "collapse": false
+    },
+    {
+        "id": "1c67c688.5c24f1",
+        "type": "server",
+        "name": "Home Assistant",
+        "legacy": false,
+        "rejectUnauthorizedCerts": true,
+        "ha_boolean": "y|yes|true|on|home|open",
+        "connectionDelay": true,
+        "cacheJson": true
+    },
+    {
+        "id": "6e28e075.f9d108",
+        "type": "influxdb",
+        "hostname": "10.9.10.56",
+        "port": "8086",
+        "protocol": "http",
+        "database": "network",
+        "name": "network",
+        "usetls": false,
+        "tls": ""
+    },
+    {
+        "id": "66d7f6c2.eeb478",
+        "type": "influxdb",
+        "hostname": "10.9.10.56",
+        "port": "8086",
+        "protocol": "http",
+        "database": "adsl",
+        "name": "influxdb_adsl",
+        "usetls": false,
+        "tls": ""
+    },
+    {
+        "id": "1b399b.1c765e66",
+        "type": "server-state-changed",
+        "z": "74e4c992.25d51",
+        "name": "water1",
+        "server": "c6e21e6c.847e8",
+        "version": "1",
+        "exposeToHomeAssistant": false,
+        "haConfig": [
+            {
+                "property": "name",
+                "value": ""
+            },
+            {
+                "property": "icon",
+                "value": ""
+            }
+        ],
+        "entityidfilter": "binary_sensor.water1",
+        "entityidfiltertype": "substring",
+        "outputinitially": true,
+        "state_type": "str",
+        "haltifstate": "off",
+        "halt_if_type": "str",
+        "halt_if_compare": "is",
+        "outputs": 2,
+        "output_only_on_state_change": false,
+        "x": 90,
+        "y": 160,
+        "wires": [
+            [],
+            [
+                "89037470.7bfdb8"
+            ]
+        ]
+    },
+    {
+        "id": "ad52530b.2d99",
+        "type": "api-call-service",
+        "z": "74e4c992.25d51",
+        "name": "",
+        "server": "c6e21e6c.847e8",
+        "version": "1",
+        "debugenabled": false,
+        "service_domain": "notify",
+        "service": "ios_mauro_iphone",
+        "entityId": "",
+        "data": "{\"message\":\"E' stata rilevata una perdita d'acqua dal sensore \",\"title\":\"Attenzione perdita d'acqua {{payload}}\"}",
+        "dataType": "json",
+        "mergecontext": "",
+        "output_location": "payload",
+        "output_location_type": "msg",
+        "mustacheAltTags": false,
+        "x": 880,
+        "y": 240,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "c54846e.fe6b7b8",
+        "type": "server-state-changed",
+        "z": "74e4c992.25d51",
+        "name": "water2",
+        "server": "c6e21e6c.847e8",
+        "version": "1",
+        "exposeToHomeAssistant": false,
+        "haConfig": [
+            {
+                "property": "name",
+                "value": ""
+            },
+            {
+                "property": "icon",
+                "value": ""
+            }
+        ],
+        "entityidfilter": "binary_sensor.water2",
+        "entityidfiltertype": "substring",
+        "outputinitially": true,
+        "state_type": "str",
+        "haltifstate": "off",
+        "halt_if_type": "str",
+        "halt_if_compare": "is",
+        "outputs": 2,
+        "output_only_on_state_change": false,
+        "x": 90,
+        "y": 240,
+        "wires": [
+            [],
+            [
+                "89037470.7bfdb8"
+            ]
+        ]
+    },
+    {
+        "id": "fc1ceb77.d59ce8",
+        "type": "server-state-changed",
+        "z": "74e4c992.25d51",
+        "name": "water3",
+        "server": "c6e21e6c.847e8",
+        "version": "1",
+        "exposeToHomeAssistant": false,
+        "haConfig": [
+            {
+                "property": "name",
+                "value": ""
+            },
+            {
+                "property": "icon",
+                "value": ""
+            }
+        ],
+        "entityidfilter": "binary_sensor.water3",
+        "entityidfiltertype": "substring",
+        "outputinitially": true,
+        "state_type": "str",
+        "haltifstate": "off",
+        "halt_if_type": "str",
+        "halt_if_compare": "is",
+        "outputs": 2,
+        "output_only_on_state_change": false,
+        "x": 90,
+        "y": 320,
+        "wires": [
+            [],
+            [
+                "89037470.7bfdb8"
+            ]
+        ]
+    },
+    {
+        "id": "f5488a6c.31f53",
+        "type": "sunrise",
+        "z": "45dd8798.2cfc88",
+        "name": "",
+        "lat": "45.6666400",
+        "lon": "9.0488400",
+        "start": "sunriseEnd",
+        "end": "goldenHour",
+        "x": 110,
+        "y": 220,
+        "wires": [
+            [],
+            [
+                "3b028a67.70c13e"
+            ]
+        ],
+        "outputLabels": [
+            "payload",
+            ""
+        ]
+    },
+    {
+        "id": "3b028a67.70c13e",
+        "type": "switch",
+        "z": "45dd8798.2cfc88",
+        "name": "alba o tramonto ?",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "0",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "1",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 370,
+        "y": 220,
+        "wires": [
+            [
+                "785b1e0.5e8c7e4"
+            ],
+            [
+                "7cb064d9.8a1514"
+            ]
+        ]
+    },
+    {
+        "id": "785b1e0.5e8c7e4",
+        "type": "api-call-service",
+        "z": "45dd8798.2cfc88",
+        "name": "Accende luci di Natale",
+        "server": "c6e21e6c.847e8",
+        "version": 1,
+        "debugenabled": false,
+        "service_domain": "homeassistant",
+        "service": "turn_on",
+        "entityId": "switch.lucine",
+        "data": "",
+        "dataType": "json",
+        "mergecontext": "",
+        "output_location": "payload",
+        "output_location_type": "msg",
+        "mustacheAltTags": false,
+        "x": 700,
+        "y": 180,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "7cb064d9.8a1514",
+        "type": "api-call-service",
+        "z": "45dd8798.2cfc88",
+        "name": "Spegne luci di Natale",
+        "server": "c6e21e6c.847e8",
+        "version": "1",
+        "debugenabled": false,
+        "service_domain": "homeassistant",
+        "service": "turn_off",
+        "entityId": "switch.lucine",
+        "data": "",
+        "dataType": "json",
+        "mergecontext": "",
+        "output_location": "payload",
+        "output_location_type": "msg",
+        "mustacheAltTags": false,
+        "x": 700,
+        "y": 260,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "9bc871dc.88a4f",
+        "type": "comment",
+        "z": "45dd8798.2cfc88",
+        "name": "Xmas Light",
+        "info": "Accende/spegne le luci di Natale all'inizio dell'imbrunire e alla fine dell'alba.",
+        "x": 80,
+        "y": 20,
+        "wires": []
+    },
+    {
+        "id": "2e9df7be.cb2f28",
+        "type": "inject",
+        "z": "45dd8798.2cfc88",
+        "name": "Spegnimento manuale",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 500,
+        "y": 340,
+        "wires": [
+            [
+                "7cb064d9.8a1514"
+            ]
+        ]
+    },
+    {
+        "id": "1d3111a2.e40926",
+        "type": "inject",
+        "z": "45dd8798.2cfc88",
+        "name": "Accensione manuale",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 500,
+        "y": 100,
+        "wires": [
+            [
+                "785b1e0.5e8c7e4"
+            ]
+        ]
+    },
+    {
+        "id": "929f8303.a26fa8",
+        "type": "comment",
+        "z": "f841e824.d474f",
+        "name": "Monitoraggio consumi elettrici",
+        "info": "# **Monitoraggio Consumo Elettrico**\nViene monitorato il consumo elettrico dei seguenti\nelettrodomestici:\n\n - Lavatrice\n - Lavastoviglie\n - Frigorifero\n - Forno\n \nIl monitoraggio è effettuato leggendo da Home Assistant\nil consumo rilevato dalla prese smart Innr\n\nInoltre viene monitorato il consumo globlale misurato\ndallo smart meter posizionato all'ingresso della linea elettrica.\n\nTutti i dati confluiscono verso un database Influxdb",
+        "x": 120,
+        "y": 60,
+        "wires": []
+    },
+    {
+        "id": "588e2549.c8940c",
+        "type": "server-state-changed",
+        "z": "74e4c992.25d51",
+        "name": "Sensore acqua pozzo lavatoio",
+        "server": "c6e21e6c.847e8",
+        "version": "1",
+        "exposeToHomeAssistant": false,
+        "haConfig": [
+            {
+                "property": "name",
+                "value": ""
+            },
+            {
+                "property": "icon",
+                "value": ""
+            }
+        ],
+        "entityidfilter": "binary_sensor.water4",
+        "entityidfiltertype": "substring",
+        "outputinitially": true,
+        "state_type": "str",
+        "haltifstate": "on",
+        "halt_if_type": "str",
+        "halt_if_compare": "is_not",
+        "outputs": 2,
+        "output_only_on_state_change": false,
+        "x": 320,
+        "y": 440,
+        "wires": [
+            [],
+            [
+                "2a3a534b.71e4dc",
+                "160757fa.4d2658",
+                "9bdbb95f.75cc78"
+            ]
+        ]
+    },
+    {
+        "id": "b0e3b84e.37a95",
+        "type": "debug",
+        "z": "74e4c992.25d51",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "x": 1050,
+        "y": 860,
+        "wires": []
+    },
+    {
+        "id": "a31e1159.ae248",
+        "type": "api-current-state",
+        "z": "74e4c992.25d51",
+        "name": "water1 battery level",
+        "server": "c6e21e6c.847e8",
+        "version": "1",
+        "outputs": 1,
+        "halt_if": "",
+        "halt_if_type": "str",
+        "halt_if_compare": "is",
+        "override_topic": true,
+        "entity_id": "binary_sensor.water1",
+        "state_type": "str",
+        "state_location": "payload",
+        "override_payload": "msg",
+        "entity_location": "data",
+        "override_data": "msg",
+        "blockInputOverrides": false,
+        "x": 370,
+        "y": 680,
+        "wires": [
+            [
+                "e58be3c0.0fe8b8"
+            ]
+        ]
+    },
+    {
+        "id": "8606ccef.3740a",
+        "type": "inject",
+        "z": "74e4c992.25d51",
+        "name": "",
+        "repeat": "",
+        "crontab": "00 12 * * *",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 90,
+        "y": 840,
+        "wires": [
+            [
+                "a31e1159.ae248",
+                "d3b62575.0a52f8",
+                "d05b9a31.dc043",
+                "9d315b85.112348",
+                "ecaefb70.0f3148",
+                "a804a23d.6082e8"
+            ]
+        ]
+    },
+    {
+        "id": "e58be3c0.0fe8b8",
+        "type": "function",
+        "z": "74e4c992.25d51",
+        "name": "if battery level < 20",
+        "func": "var battery_level =  msg.data.attributes.battery_level;\nvar sensor_name = msg.data.attributes.friendly_name;\nif (battery_level < 20) {\nmsg.payload =  \"ATTENZIONE: livello batteria sensore \" + sensor_name + \" \" + battery_level + \"%\" \n} else { msg = null }\nreturn msg; ",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 810,
+        "y": 780,
+        "wires": [
+            [
+                "b0e3b84e.37a95",
+                "724eba6.0894a44"
+            ]
+        ]
+    },
+    {
+        "id": "d3b62575.0a52f8",
+        "type": "api-current-state",
+        "z": "74e4c992.25d51",
+        "name": "water2 battery level",
+        "server": "c6e21e6c.847e8",
+        "version": "1",
+        "outputs": 1,
+        "halt_if": "",
+        "halt_if_type": "str",
+        "halt_if_compare": "is",
+        "override_topic": true,
+        "entity_id": "binary_sensor.water2",
+        "state_type": "str",
+        "state_location": "payload",
+        "override_payload": "msg",
+        "entity_location": "data",
+        "override_data": "msg",
+        "blockInputOverrides": false,
+        "x": 370,
+        "y": 740,
+        "wires": [
+            [
+                "e58be3c0.0fe8b8"
+            ]
+        ]
+    },
+    {
+        "id": "9d315b85.112348",
+        "type": "api-current-state",
+        "z": "74e4c992.25d51",
+        "name": "water4 battery level",
+        "server": "c6e21e6c.847e8",
+        "version": "1",
+        "outputs": 1,
+        "halt_if": "",
+        "halt_if_type": "str",
+        "halt_if_compare": "is",
+        "override_topic": true,
+        "entity_id": "binary_sensor.water4",
+        "state_type": "str",
+        "state_location": "payload",
+        "override_payload": "msg",
+        "entity_location": "data",
+        "override_data": "msg",
+        "blockInputOverrides": false,
+        "x": 370,
+        "y": 860,
+        "wires": [
+            [
+                "e58be3c0.0fe8b8"
+            ]
+        ]
+    },
+    {
+        "id": "d05b9a31.dc043",
+        "type": "api-current-state",
+        "z": "74e4c992.25d51",
+        "name": "water3 battery level",
+        "server": "c6e21e6c.847e8",
+        "version": "1",
+        "outputs": 1,
+        "halt_if": "",
+        "halt_if_type": "str",
+        "halt_if_compare": "is",
+        "override_topic": true,
+        "entity_id": "binary_sensor.water3",
+        "state_type": "str",
+        "state_location": "payload",
+        "override_payload": "msg",
+        "entity_location": "data",
+        "override_data": "msg",
+        "blockInputOverrides": false,
+        "x": 370,
+        "y": 800,
+        "wires": [
+            [
+                "e58be3c0.0fe8b8"
+            ]
+        ]
+    },
+    {
+        "id": "89037470.7bfdb8",
+        "type": "function",
+        "z": "74e4c992.25d51",
+        "name": "Modify payload with sensor name",
+        "func": "var sensor_name = msg.data.attributes.friendly_name;\nmsg.payload = \"ATTENZIONE: perdita d'acqua rilevata dal sesnore \" + sensor_name\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 500,
+        "y": 240,
+        "wires": [
+            [
+                "ad52530b.2d99"
+            ]
+        ]
+    },
+    {
+        "id": "ecaefb70.0f3148",
+        "type": "api-current-state",
+        "z": "74e4c992.25d51",
+        "name": "switch1 battery level",
+        "server": "c6e21e6c.847e8",
+        "version": "1",
+        "outputs": 1,
+        "halt_if": "",
+        "halt_if_type": "str",
+        "halt_if_compare": "is",
+        "override_topic": true,
+        "entity_id": "sensor.switch1_battery_level",
+        "state_type": "str",
+        "state_location": "payload",
+        "override_payload": "msg",
+        "entity_location": "data",
+        "override_data": "msg",
+        "blockInputOverrides": false,
+        "x": 380,
+        "y": 920,
+        "wires": [
+            [
+                "f516de9b.ba657"
+            ]
+        ]
+    },
+    {
+        "id": "a804a23d.6082e8",
+        "type": "api-current-state",
+        "z": "74e4c992.25d51",
+        "name": "switch2 battery level",
+        "server": "c6e21e6c.847e8",
+        "version": "1",
+        "outputs": 1,
+        "halt_if": "",
+        "halt_if_type": "str",
+        "halt_if_compare": "is",
+        "override_topic": true,
+        "entity_id": "sensor.switch2_battery_level",
+        "state_type": "str",
+        "state_location": "payload",
+        "override_payload": "msg",
+        "entity_location": "data",
+        "override_data": "msg",
+        "blockInputOverrides": false,
+        "x": 380,
+        "y": 980,
+        "wires": [
+            [
+                "f516de9b.ba657"
+            ]
+        ]
+    },
+    {
+        "id": "f516de9b.ba657",
+        "type": "function",
+        "z": "74e4c992.25d51",
+        "name": "if battery level < 20",
+        "func": "var battery_level =  msg.payload;\nvar sensor_name = msg.data.attributes.friendly_name;\nif (battery_level < 20) {\nmsg.payload =  \"ATTENZIONE: livello batteria sensore \" + sensor_name + \" \" + battery_level + \"%\" \n} else { msg = null }\nreturn msg; ",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 810,
+        "y": 940,
+        "wires": [
+            [
+                "b0e3b84e.37a95",
+                "724eba6.0894a44"
+            ]
+        ]
+    },
+    {
+        "id": "ffe2d279.f93d88",
+        "type": "server-state-changed",
+        "z": "f841e824.d474f",
+        "name": "Consumo Lavastoviglie Watt",
+        "server": "c6e21e6c.847e8",
+        "version": 1,
+        "exposeToHomeAssistant": false,
+        "haConfig": [
+            {
+                "property": "name",
+                "value": ""
+            },
+            {
+                "property": "icon",
+                "value": ""
+            }
+        ],
+        "entityidfilter": "sensor.power_15",
+        "entityidfiltertype": "exact",
+        "outputinitially": true,
+        "state_type": "num",
+        "haltifstate": "",
+        "halt_if_type": "str",
+        "halt_if_compare": "is",
+        "outputs": 1,
+        "output_only_on_state_change": false,
+        "for": "",
+        "forType": "num",
+        "forUnits": "minutes",
+        "ignorePrevStateNull": false,
+        "ignorePrevStateUnknown": false,
+        "ignorePrevStateUnavailable": false,
+        "ignoreCurrentStateUnknown": false,
+        "ignoreCurrentStateUnavailable": false,
+        "x": 140,
+        "y": 300,
+        "wires": [
+            [
+                "6e027ae9.8d00ec",
+                "dc96e344.03922"
+            ]
+        ]
+    },
+    {
+        "id": "6e027ae9.8d00ec",
+        "type": "switch",
+        "z": "f841e824.d474f",
+        "name": "<=1 or >5 ?",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "lte",
+                "v": "1",
+                "vt": "str"
+            },
+            {
+                "t": "gt",
+                "v": "5",
+                "vt": "str"
+            },
+            {
+                "t": "btwn",
+                "v": "2",
+                "vt": "num",
+                "v2": "40",
+                "v2t": "num"
+            }
+        ],
+        "checkall": "false",
+        "repair": false,
+        "outputs": 3,
+        "x": 370,
+        "y": 300,
+        "wires": [
+            [
+                "e3a6ed46.3e66f"
+            ],
+            [
+                "a6f2672e.495d1"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "e3a6ed46.3e66f",
+        "type": "api-current-state",
+        "z": "f841e824.d474f",
+        "name": "Stato della lavastoviglie",
+        "server": "c6e21e6c.847e8",
+        "version": 1,
+        "outputs": 2,
+        "halt_if": "off",
+        "halt_if_type": "str",
+        "halt_if_compare": "is",
+        "override_topic": true,
+        "entity_id": "input_boolean.dishwasher_status",
+        "state_type": "str",
+        "state_location": "payload",
+        "override_payload": "msg",
+        "entity_location": "data",
+        "override_data": "msg",
+        "blockInputOverrides": false,
+        "x": 670,
+        "y": 240,
+        "wires": [
+            [],
+            [
+                "97fa08e7.b95428"
+            ]
+        ]
+    },
+    {
+        "id": "a6f2672e.495d1",
+        "type": "api-current-state",
+        "z": "f841e824.d474f",
+        "name": "Stato della lavastoviglie",
+        "server": "c6e21e6c.847e8",
+        "version": 1,
+        "outputs": 2,
+        "halt_if": "on",
+        "halt_if_type": "str",
+        "halt_if_compare": "is",
+        "override_topic": true,
+        "entity_id": "input_boolean.dishwasher_status",
+        "state_type": "str",
+        "state_location": "payload",
+        "override_payload": "msg",
+        "entity_location": "data",
+        "override_data": "msg",
+        "blockInputOverrides": false,
+        "x": 650,
+        "y": 340,
+        "wires": [
+            [],
+            [
+                "be6f3ee8.6368a"
+            ]
+        ]
+    },
+    {
+        "id": "3a8a3532.c7912a",
+        "type": "api-call-service",
+        "z": "f841e824.d474f",
+        "name": "imposta la lavastoviglie su \"off\"",
+        "server": "c6e21e6c.847e8",
+        "version": "1",
+        "service_domain": "input_boolean",
+        "service": "turn_off",
+        "entityId": "input_boolean.dishwasher_status",
+        "data": "",
+        "dataType": "json",
+        "mergecontext": "",
+        "output_location": "",
+        "output_location_type": "none",
+        "mustacheAltTags": false,
+        "x": 1570,
+        "y": 180,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "be6f3ee8.6368a",
+        "type": "api-call-service",
+        "z": "f841e824.d474f",
+        "name": "Imposta la lavastoviglie su \"on\"",
+        "server": "c6e21e6c.847e8",
+        "version": 1,
+        "debugenabled": false,
+        "service_domain": "input_boolean",
+        "service": "turn_on",
+        "entityId": "input_boolean.dishwasher_status",
+        "data": "",
+        "dataType": "json",
+        "mergecontext": "",
+        "output_location": "",
+        "output_location_type": "none",
+        "mustacheAltTags": false,
+        "x": 1050,
+        "y": 380,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "846d2ef1.3d76d",
+        "type": "api-call-service",
+        "z": "f841e824.d474f",
+        "name": "",
+        "server": "c6e21e6c.847e8",
+        "version": 1,
+        "debugenabled": false,
+        "service_domain": "notify",
+        "service": "mobile_app_soylents_iphone",
+        "entityId": "",
+        "data": "{\"title\":\"Piatti Lavati\",\"message\":\"{{payload}}\"}",
+        "dataType": "json",
+        "mergecontext": "",
+        "output_location": "payload",
+        "output_location_type": "msg",
+        "mustacheAltTags": false,
+        "x": 1560,
+        "y": 260,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "ec897701.132bc8",
+        "type": "server-state-changed",
+        "z": "f841e824.d474f",
+        "name": "Consumo Lavatrice Watt",
+        "server": "c6e21e6c.847e8",
+        "version": 1,
+        "exposeToHomeAssistant": false,
+        "haConfig": [
+            {
+                "property": "name",
+                "value": ""
+            },
+            {
+                "property": "icon",
+                "value": ""
+            }
+        ],
+        "entityidfilter": "sensor.power_20",
+        "entityidfiltertype": "substring",
+        "outputinitially": true,
+        "state_type": "num",
+        "haltifstate": "",
+        "halt_if_type": "str",
+        "halt_if_compare": "is",
+        "outputs": 1,
+        "output_only_on_state_change": false,
+        "for": "",
+        "forType": "num",
+        "forUnits": "minutes",
+        "ignorePrevStateNull": false,
+        "ignorePrevStateUnknown": false,
+        "ignorePrevStateUnavailable": false,
+        "ignoreCurrentStateUnknown": false,
+        "ignoreCurrentStateUnavailable": false,
+        "x": 130,
+        "y": 800,
+        "wires": [
+            [
+                "7a46ecc5.71988c",
+                "3803720a.e78c9e"
+            ]
+        ]
+    },
+    {
+        "id": "7a46ecc5.71988c",
+        "type": "switch",
+        "z": "f841e824.d474f",
+        "name": "<= 2 or >2 ?",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "lte",
+                "v": "2",
+                "vt": "str"
+            },
+            {
+                "t": "gt",
+                "v": "2",
+                "vt": "str"
+            }
+        ],
+        "checkall": "false",
+        "repair": false,
+        "outputs": 2,
+        "x": 450,
+        "y": 800,
+        "wires": [
+            [
+                "cce3c7a4.6a7b98"
+            ],
+            [
+                "c48c05d1.018608",
+                "bed4bf4f.e4b8d"
+            ]
+        ]
+    },
+    {
+        "id": "c0343eb2.3930d8",
+        "type": "api-call-service",
+        "z": "f841e824.d474f",
+        "name": "",
+        "server": "c6e21e6c.847e8",
+        "version": 1,
+        "debugenabled": false,
+        "service_domain": "notify",
+        "service": "mobile_app_soylents_iphone",
+        "entityId": "",
+        "data": "{\"title\":\"Bucato terminato\",\"message\":\"{{payload}}\"}",
+        "dataType": "json",
+        "mergecontext": "",
+        "output_location": "payload",
+        "output_location_type": "msg",
+        "mustacheAltTags": false,
+        "x": 1870,
+        "y": 700,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "724eba6.0894a44",
+        "type": "api-call-service",
+        "z": "74e4c992.25d51",
+        "name": "",
+        "server": "c6e21e6c.847e8",
+        "version": "1",
+        "debugenabled": false,
+        "service_domain": "notify",
+        "service": "ios_mauro_iphone",
+        "entityId": "",
+        "data": "{\"title\":\"Piatti Lavati\",\"message\":\"La lavastoviglie ha finito\"}",
+        "dataType": "json",
+        "mergecontext": "",
+        "output_location": "",
+        "output_location_type": "none",
+        "mustacheAltTags": false,
+        "x": 1150,
+        "y": 760,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "ddb9425d.c294",
+        "type": "api-call-service",
+        "z": "f841e824.d474f",
+        "name": "",
+        "server": "c6e21e6c.847e8",
+        "version": 1,
+        "debugenabled": false,
+        "service_domain": "notify",
+        "service": "mobile_app_grazia_cattaneos_iphone",
+        "entityId": "",
+        "data": "{\"title\":\"Bucato terminato\",\"message\":\"{{payload}}\"}",
+        "dataType": "json",
+        "mergecontext": "",
+        "output_location": "",
+        "output_location_type": "none",
+        "mustacheAltTags": false,
+        "x": 1890,
+        "y": 780,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "64b67a33.f752fc",
+        "type": "api-call-service",
+        "z": "f841e824.d474f",
+        "name": "imposta la lavatrice su \"off\"",
+        "server": "c6e21e6c.847e8",
+        "version": "1",
+        "service_domain": "input_boolean",
+        "service": "turn_off",
+        "entityId": "input_boolean.washingmachine_status",
+        "data": "",
+        "dataType": "json",
+        "mergecontext": "",
+        "output_location": "",
+        "output_location_type": "none",
+        "mustacheAltTags": false,
+        "x": 1820,
+        "y": 620,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "dbe27959.21a1b",
+        "type": "api-call-service",
+        "z": "f841e824.d474f",
+        "name": "Imposta la lavatrice su \"on\"",
+        "server": "c6e21e6c.847e8",
+        "version": "1",
+        "service_domain": "input_boolean",
+        "service": "turn_on",
+        "entityId": "input_boolean.washingmachine_status",
+        "data": "",
+        "dataType": "json",
+        "mergecontext": "",
+        "output_location": "",
+        "output_location_type": "none",
+        "mustacheAltTags": false,
+        "x": 980,
+        "y": 920,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "c48c05d1.018608",
+        "type": "api-current-state",
+        "z": "f841e824.d474f",
+        "name": "Stato della lavatrice",
+        "server": "c6e21e6c.847e8",
+        "version": 1,
+        "outputs": 2,
+        "halt_if": "on",
+        "halt_if_type": "str",
+        "halt_if_compare": "is",
+        "override_topic": false,
+        "entity_id": "input_boolean.washingmachine_status",
+        "state_type": "str",
+        "state_location": "",
+        "override_payload": "none",
+        "entity_location": "",
+        "override_data": "none",
+        "blockInputOverrides": false,
+        "x": 680,
+        "y": 920,
+        "wires": [
+            [],
+            [
+                "dbe27959.21a1b"
+            ]
+        ]
+    },
+    {
+        "id": "2e8f9e53.812b7a",
+        "type": "delay",
+        "z": "f841e824.d474f",
+        "name": "",
+        "pauseType": "rate",
+        "timeout": "5",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "minute",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": true,
+        "x": 970,
+        "y": 740,
+        "wires": [
+            [
+                "ff2d8a29.ed01d"
+            ]
+        ]
+    },
+    {
+        "id": "f3f0da13.d4cd2",
+        "type": "server-state-changed",
+        "z": "f841e824.d474f",
+        "name": "Consumo Frigorifero Watt",
+        "server": "c6e21e6c.847e8",
+        "version": 1,
+        "exposeToHomeAssistant": false,
+        "haConfig": [
+            {
+                "property": "name",
+                "value": ""
+            },
+            {
+                "property": "icon",
+                "value": ""
+            }
+        ],
+        "entityidfilter": "sensor.power_25",
+        "entityidfiltertype": "substring",
+        "outputinitially": true,
+        "state_type": "num",
+        "haltifstate": "",
+        "halt_if_type": "str",
+        "halt_if_compare": "is",
+        "outputs": 1,
+        "output_only_on_state_change": false,
+        "for": "",
+        "forType": "num",
+        "forUnits": "minutes",
+        "ignorePrevStateNull": false,
+        "ignorePrevStateUnknown": false,
+        "ignorePrevStateUnavailable": false,
+        "ignoreCurrentStateUnknown": false,
+        "ignoreCurrentStateUnavailable": false,
+        "x": 170,
+        "y": 1180,
+        "wires": [
+            [
+                "3de57654.f35602",
+                "609e5d56.9d006c"
+            ]
+        ]
+    },
+    {
+        "id": "3de57654.f35602",
+        "type": "influxdb out",
+        "z": "f841e824.d474f",
+        "influxdb": "a7c77e43.dccf78",
+        "name": "",
+        "measurement": "frigorifero",
+        "precision": "",
+        "retentionPolicy": "",
+        "x": 190,
+        "y": 1360,
+        "wires": []
+    },
+    {
+        "id": "3803720a.e78c9e",
+        "type": "influxdb out",
+        "z": "f841e824.d474f",
+        "influxdb": "a7c77e43.dccf78",
+        "name": "",
+        "measurement": "lavatrice",
+        "precision": "",
+        "retentionPolicy": "",
+        "x": 350,
+        "y": 940,
+        "wires": []
+    },
+    {
+        "id": "dc96e344.03922",
+        "type": "influxdb out",
+        "z": "f841e824.d474f",
+        "influxdb": "a7c77e43.dccf78",
+        "name": "",
+        "measurement": "lavastoviglie",
+        "precision": "",
+        "retentionPolicy": "",
+        "x": 340,
+        "y": 460,
+        "wires": []
+    },
+    {
+        "id": "d50a9414.8903d",
+        "type": "server-state-changed",
+        "z": "f841e824.d474f",
+        "name": "Consumo Forno Watt",
+        "server": "c6e21e6c.847e8",
+        "version": 1,
+        "exposeToHomeAssistant": false,
+        "haConfig": [
+            {
+                "property": "name",
+                "value": ""
+            },
+            {
+                "property": "icon",
+                "value": ""
+            }
+        ],
+        "entityidfilter": "sensor.power_23",
+        "entityidfiltertype": "substring",
+        "outputinitially": true,
+        "state_type": "num",
+        "haltifstate": "",
+        "halt_if_type": "str",
+        "halt_if_compare": "is",
+        "outputs": 1,
+        "output_only_on_state_change": false,
+        "for": "",
+        "forType": "num",
+        "forUnits": "minutes",
+        "ignorePrevStateNull": false,
+        "ignorePrevStateUnknown": false,
+        "ignorePrevStateUnavailable": false,
+        "ignoreCurrentStateUnknown": false,
+        "ignoreCurrentStateUnavailable": false,
+        "x": 160,
+        "y": 1620,
+        "wires": [
+            [
+                "f89c9626.f4949"
+            ]
+        ]
+    },
+    {
+        "id": "f89c9626.f4949",
+        "type": "influxdb out",
+        "z": "f841e824.d474f",
+        "influxdb": "a7c77e43.dccf78",
+        "name": "",
+        "measurement": "forno",
+        "precision": "",
+        "retentionPolicy": "",
+        "x": 500,
+        "y": 1620,
+        "wires": []
+    },
+    {
+        "id": "34e5b1f8.b68496",
+        "type": "api-current-state",
+        "z": "f841e824.d474f",
+        "name": "Stato presa frigorifero",
+        "server": "c6e21e6c.847e8",
+        "version": 1,
+        "outputs": 2,
+        "halt_if": "false",
+        "halt_if_type": "bool",
+        "halt_if_compare": "is_not",
+        "override_topic": true,
+        "entity_id": "sensor.power_25.on",
+        "state_type": "habool",
+        "state_location": "payload",
+        "override_payload": "msg",
+        "entity_location": "data",
+        "override_data": "msg",
+        "blockInputOverrides": false,
+        "x": 960,
+        "y": 1180,
+        "wires": [
+            [],
+            [
+                "5417eda1.31b61c",
+                "e3922b5e.aee888",
+                "f7e0fc7a.127c5"
+            ]
+        ]
+    },
+    {
+        "id": "5417eda1.31b61c",
+        "type": "api-call-service",
+        "z": "f841e824.d474f",
+        "name": "",
+        "server": "c6e21e6c.847e8",
+        "version": 1,
+        "debugenabled": false,
+        "service_domain": "notify",
+        "service": "mobile_app_soylents_iphone",
+        "entityId": "",
+        "data": "{\"title\":\"Probelma al frigorifero\",\"message\":\"La presa è spenta!\"}",
+        "dataType": "json",
+        "mergecontext": "",
+        "output_location": "payload",
+        "output_location_type": "msg",
+        "mustacheAltTags": false,
+        "x": 1460,
+        "y": 1180,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "609e5d56.9d006c",
+        "type": "switch",
+        "z": "f841e824.d474f",
+        "name": "se <5 or >10",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "lte",
+                "v": "5",
+                "vt": "str"
+            },
+            {
+                "t": "gt",
+                "v": "5",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 430,
+        "y": 1180,
+        "wires": [
+            [
+                "ef749ecd.b71b48",
+                "b35834bb.1da0b8"
+            ],
+            [
+                "b3d3d616.c7e658"
+            ]
+        ]
+    },
+    {
+        "id": "ef749ecd.b71b48",
+        "type": "delay",
+        "z": "f841e824.d474f",
+        "name": "",
+        "pauseType": "rate",
+        "timeout": "5",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "5",
+        "rateUnits": "minute",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": true,
+        "x": 680,
+        "y": 1180,
+        "wires": [
+            [
+                "34e5b1f8.b68496"
+            ]
+        ]
+    },
+    {
+        "id": "2f9c93eb.587f64",
+        "type": "api-call-service",
+        "z": "f841e824.d474f",
+        "name": "",
+        "server": "c6e21e6c.847e8",
+        "version": 1,
+        "debugenabled": false,
+        "service_domain": "notify",
+        "service": "alexa_media_terra",
+        "entityId": "",
+        "data": "{\"message\":\"{{payload}}\",\"title\":\"Bucato Terminato\",\"data\":{\"type\":\"announce\",\"method\":\"all\"},\"target\":[\"Cucina\"]}",
+        "dataType": "json",
+        "mergecontext": "",
+        "output_location": "payload",
+        "output_location_type": "msg",
+        "mustacheAltTags": false,
+        "x": 1830,
+        "y": 860,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "e3922b5e.aee888",
+        "type": "api-call-service",
+        "z": "f841e824.d474f",
+        "name": "",
+        "server": "c6e21e6c.847e8",
+        "version": "1",
+        "service_domain": "notify",
+        "service": "alexa_media",
+        "entityId": "",
+        "data": "{\"message\":\"Attenzione! Sembra che la presa del frigorifero sia spenta. Controlla subito!\",\"title\":\"Presa frigorifero off\",\"data\":{\"type\":\"announce\",\"method\":\"all\"},\"target\":[\"Cucina\"]}",
+        "dataType": "json",
+        "mergecontext": "",
+        "output_location": "payload",
+        "output_location_type": "msg",
+        "mustacheAltTags": false,
+        "x": 1410,
+        "y": 1240,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "4a76b909.bb8f48",
+        "type": "api-call-service",
+        "z": "f841e824.d474f",
+        "name": "",
+        "server": "c6e21e6c.847e8",
+        "version": 1,
+        "debugenabled": false,
+        "service_domain": "notify",
+        "service": "mobile_app_soylents_iphone",
+        "entityId": "",
+        "data": "{\"title\":\"Probelma al frigorifero\",\"message\":\"Non è stato rilevato consumo lettrico da più di 60 minuti\"}",
+        "dataType": "json",
+        "mergecontext": "",
+        "output_location": "",
+        "output_location_type": "none",
+        "mustacheAltTags": false,
+        "x": 1020,
+        "y": 1300,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "b35834bb.1da0b8",
+        "type": "trigger",
+        "z": "f841e824.d474f",
+        "name": "",
+        "op1": "",
+        "op2": "",
+        "op1type": "nul",
+        "op2type": "payl",
+        "duration": "60",
+        "extend": false,
+        "units": "min",
+        "reset": "reset",
+        "bytopic": "all",
+        "outputs": 1,
+        "x": 710,
+        "y": 1300,
+        "wires": [
+            [
+                "4a76b909.bb8f48"
+            ]
+        ]
+    },
+    {
+        "id": "b3d3d616.c7e658",
+        "type": "change",
+        "z": "f841e824.d474f",
+        "name": "reset",
+        "rules": [
+            {
+                "t": "set",
+                "p": "reset",
+                "pt": "msg",
+                "to": "true",
+                "tot": "bool"
+            },
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "false",
+                "tot": "bool"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 490,
+        "y": 1300,
+        "wires": [
+            [
+                "b35834bb.1da0b8"
+            ]
+        ]
+    },
+    {
+        "id": "ff2d8a29.ed01d",
+        "type": "trigger",
+        "z": "f841e824.d474f",
+        "name": "",
+        "op1": "",
+        "op2": "",
+        "op1type": "nul",
+        "op2type": "payl",
+        "duration": "3",
+        "extend": false,
+        "units": "min",
+        "reset": "reset",
+        "bytopic": "all",
+        "outputs": 1,
+        "x": 1250,
+        "y": 740,
+        "wires": [
+            [
+                "11fd7980.c38c37",
+                "c0c39c5d.4c3da8"
+            ]
+        ]
+    },
+    {
+        "id": "bed4bf4f.e4b8d",
+        "type": "change",
+        "z": "f841e824.d474f",
+        "name": "reset",
+        "rules": [
+            {
+                "t": "set",
+                "p": "reset",
+                "pt": "msg",
+                "to": "true",
+                "tot": "bool"
+            },
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "false",
+                "tot": "bool"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1010,
+        "y": 800,
+        "wires": [
+            [
+                "ff2d8a29.ed01d"
+            ]
+        ]
+    },
+    {
+        "id": "2a3a534b.71e4dc",
+        "type": "api-call-service",
+        "z": "74e4c992.25d51",
+        "name": "",
+        "server": "c6e21e6c.847e8",
+        "version": "1",
+        "debugenabled": false,
+        "service_domain": "notify",
+        "service": "ios_mauro_iphone",
+        "entityId": "",
+        "data": "{\"message\":\"Attenzione! Rilevata presenza d'acqua nel pozzo della pompa in lavatoio\",\"title\":\"Attenzione perdita d'acqua pozzo lavatoio\"}",
+        "dataType": "json",
+        "mergecontext": "",
+        "output_location": "payload",
+        "output_location_type": "msg",
+        "mustacheAltTags": false,
+        "x": 760,
+        "y": 440,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "160757fa.4d2658",
+        "type": "api-call-service",
+        "z": "74e4c992.25d51",
+        "name": "",
+        "server": "c6e21e6c.847e8",
+        "version": "1",
+        "debugenabled": false,
+        "service_domain": "notify",
+        "service": "alexa_media",
+        "entityId": "",
+        "data": "{\"message\":\"Attenzione! Rilevata presenza d'acqua nel pozzo della pompa in lavatoio\",\"title\":\"Acqua nel pozzo lavatoio\",\"data\":{\"type\":\"announce\",\"method\":\"all\"},\"target\":[\"Terra\"]}",
+        "dataType": "json",
+        "mergecontext": "",
+        "output_location": "payload",
+        "output_location_type": "msg",
+        "mustacheAltTags": false,
+        "x": 750,
+        "y": 500,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "9bdbb95f.75cc78",
+        "type": "api-call-service",
+        "z": "74e4c992.25d51",
+        "name": "",
+        "server": "c6e21e6c.847e8",
+        "version": 1,
+        "debugenabled": false,
+        "service_domain": "notify",
+        "service": "ios_grazia_iphone",
+        "entityId": "",
+        "data": "{\"message\":\"Attenzione! Rilevata presenza d'acqua nel pozzo della pompa in lavatoio\",\"title\":\"Attenzione perdita d'acqua pozzo lavatoio\"}",
+        "dataType": "json",
+        "mergecontext": "",
+        "output_location": "",
+        "output_location_type": "none",
+        "mustacheAltTags": false,
+        "x": 760,
+        "y": 380,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "c0c39c5d.4c3da8",
+        "type": "function",
+        "z": "f841e824.d474f",
+        "name": "Prepara il messaggio",
+        "func": "function millisToMinutesAndSeconds(millis) {\n  var minutes = Math.floor(millis / 60000);\n  var seconds = ((millis % 60000) / 1000).toFixed(0);\n  return minutes + \" minuti e \" + (seconds < 10 ? '0' : '') + seconds + \" secondi\";\n}\n\nvar text = \"La lavatrice ha finito. Ora puoi stendere il bucato. Durata lavaggio: \"\nvar msg1 = {payload: text + millisToMinutesAndSeconds(msg.data.timeSinceChangedMs) }\nreturn msg1\n\n\n  \n\n\n",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 1540,
+        "y": 740,
+        "wires": [
+            [
+                "2f9c93eb.587f64",
+                "c0343eb2.3930d8",
+                "64b67a33.f752fc",
+                "ddb9425d.c294"
+            ]
+        ]
+    },
+    {
+        "id": "a076a8c2.1374d",
+        "type": "poll-state",
+        "z": "74e4c992.25d51",
+        "name": "",
+        "server": "22ed3d76.929c3a",
+        "version": "1",
+        "exposeToHomeAssistant": false,
+        "haConfig": [
+            {
+                "property": "name",
+                "value": ""
+            },
+            {
+                "property": "icon",
+                "value": ""
+            }
+        ],
+        "updateinterval": "600",
+        "updateIntervalUnits": "seconds",
+        "outputinitially": true,
+        "outputonchanged": false,
+        "entity_id": "binary_sensor.water4",
+        "state_type": "str",
+        "halt_if": "on",
+        "halt_if_type": "str",
+        "halt_if_compare": "is_not",
+        "outputs": 2,
+        "x": 330,
+        "y": 380,
+        "wires": [
+            [],
+            [
+                "2a3a534b.71e4dc"
+            ]
+        ]
+    },
+    {
+        "id": "97fa08e7.b95428",
+        "type": "function",
+        "z": "f841e824.d474f",
+        "name": "Prepara il messaggio",
+        "func": "function millisToMinutesAndSeconds(millis) {\n  var minutes = Math.floor(millis / 60000);\n  var seconds = ((millis % 60000) / 1000).toFixed(0);\n  return minutes + \" minuti e \" + (seconds < 10 ? '0' : '') + seconds + \" secondi\";\n}\n\nvar text = \"Piatti lavati. Durata ciclo di lavaggio lavaggio: \"\nvar msg1 = {payload: text + millisToMinutesAndSeconds(msg.data.timeSinceChangedMs) }\nreturn msg1\n  \n\n\n",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 980,
+        "y": 260,
+        "wires": [
+            [
+                "940ec4f1.3bbc9"
+            ]
+        ]
+    },
+    {
+        "id": "7916216.3f0bc6",
+        "type": "mqtt in",
+        "z": "f841e824.d474f",
+        "name": "Generale W",
+        "topic": "1694498882.W",
+        "qos": "2",
+        "datatype": "auto",
+        "broker": "efdb8d8d.4fdfe8",
+        "x": 150,
+        "y": 1880,
+        "wires": [
+            [
+                "ccef8db8.407948"
+            ]
+        ]
+    },
+    {
+        "id": "90ce68bb.28e028",
+        "type": "influxdb out",
+        "z": "f841e824.d474f",
+        "influxdb": "a7c77e43.dccf78",
+        "name": "generale_w",
+        "measurement": "generale_w",
+        "precision": "",
+        "retentionPolicy": "",
+        "x": 550,
+        "y": 1880,
+        "wires": []
+    },
+    {
+        "id": "886d5780.8a7f7",
+        "type": "mqtt in",
+        "z": "f841e824.d474f",
+        "name": "Generale A",
+        "topic": "1694498882.A",
+        "qos": "2",
+        "datatype": "auto",
+        "broker": "efdb8d8d.4fdfe8",
+        "x": 140,
+        "y": 1940,
+        "wires": [
+            [
+                "ca5476a7.f22e"
+            ]
+        ]
+    },
+    {
+        "id": "8ecd5a59.d7cac8",
+        "type": "mqtt in",
+        "z": "f841e824.d474f",
+        "name": "Generale V",
+        "topic": "1694498882.V",
+        "qos": "2",
+        "datatype": "auto",
+        "broker": "efdb8d8d.4fdfe8",
+        "x": 140,
+        "y": 2000,
+        "wires": [
+            [
+                "36c440c6.e32d4"
+            ]
+        ]
+    },
+    {
+        "id": "f346feec.c9453",
+        "type": "mqtt in",
+        "z": "f841e824.d474f",
+        "name": "Generale PF",
+        "topic": "1694498882.PF",
+        "qos": "2",
+        "datatype": "auto",
+        "broker": "efdb8d8d.4fdfe8",
+        "x": 150,
+        "y": 2060,
+        "wires": [
+            [
+                "d4adf237.a4de08"
+            ]
+        ]
+    },
+    {
+        "id": "3aed4e06.6a055a",
+        "type": "influxdb out",
+        "z": "f841e824.d474f",
+        "influxdb": "a7c77e43.dccf78",
+        "name": "generale_a",
+        "measurement": "generale_a",
+        "precision": "",
+        "retentionPolicy": "",
+        "x": 550,
+        "y": 1940,
+        "wires": []
+    },
+    {
+        "id": "388d1b3e.13e2f4",
+        "type": "influxdb out",
+        "z": "f841e824.d474f",
+        "influxdb": "a7c77e43.dccf78",
+        "name": "generale_v",
+        "measurement": "generale_v",
+        "precision": "",
+        "retentionPolicy": "",
+        "x": 550,
+        "y": 2000,
+        "wires": []
+    },
+    {
+        "id": "fb32d4b3.ab5e9",
+        "type": "influxdb out",
+        "z": "f841e824.d474f",
+        "influxdb": "a7c77e43.dccf78",
+        "name": "generale_pf",
+        "measurement": "generale_pf",
+        "precision": "",
+        "retentionPolicy": "",
+        "x": 550,
+        "y": 2060,
+        "wires": []
+    },
+    {
+        "id": "ccef8db8.407948",
+        "type": "json",
+        "z": "f841e824.d474f",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 330,
+        "y": 1880,
+        "wires": [
+            [
+                "90ce68bb.28e028",
+                "c6ce6533.ab36a8",
+                "76701afb.5da6c4",
+                "b9c0c857.65e488",
+                "740f02d.fe147fc"
+            ]
+        ]
+    },
+    {
+        "id": "ca5476a7.f22e",
+        "type": "json",
+        "z": "f841e824.d474f",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 330,
+        "y": 1940,
+        "wires": [
+            [
+                "3aed4e06.6a055a"
+            ]
+        ]
+    },
+    {
+        "id": "36c440c6.e32d4",
+        "type": "json",
+        "z": "f841e824.d474f",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 330,
+        "y": 2000,
+        "wires": [
+            [
+                "388d1b3e.13e2f4"
+            ]
+        ]
+    },
+    {
+        "id": "d4adf237.a4de08",
+        "type": "json",
+        "z": "f841e824.d474f",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 330,
+        "y": 2060,
+        "wires": [
+            [
+                "fb32d4b3.ab5e9"
+            ]
+        ]
+    },
+    {
+        "id": "cce3c7a4.6a7b98",
+        "type": "api-current-state",
+        "z": "f841e824.d474f",
+        "name": "Stato della lavatrice",
+        "server": "c6e21e6c.847e8",
+        "version": "1",
+        "outputs": 2,
+        "halt_if": "off",
+        "halt_if_type": "str",
+        "halt_if_compare": "is",
+        "override_topic": true,
+        "entity_id": "input_boolean.washingmachine_status",
+        "state_type": "str",
+        "state_location": "payload",
+        "override_payload": "msg",
+        "entity_location": "data",
+        "override_data": "msg",
+        "blockInputOverrides": false,
+        "x": 680,
+        "y": 740,
+        "wires": [
+            [],
+            [
+                "2e8f9e53.812b7a"
+            ]
+        ]
+    },
+    {
+        "id": "11fd7980.c38c37",
+        "type": "debug",
+        "z": "f841e824.d474f",
+        "name": "prova",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "x": 1450,
+        "y": 640,
+        "wires": []
+    },
+    {
+        "id": "6fe8555e.62a4ec",
+        "type": "inject",
+        "z": "f841e824.d474f",
+        "name": "Reset",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "reset",
+        "payloadType": "str",
+        "x": 1030,
+        "y": 640,
+        "wires": [
+            [
+                "ff2d8a29.ed01d"
+            ]
+        ]
+    },
+    {
+        "id": "aa05600a.cc269",
+        "type": "inject",
+        "z": "f841e824.d474f",
+        "name": "Reset",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "reset",
+        "payloadType": "str",
+        "x": 490,
+        "y": 1400,
+        "wires": [
+            [
+                "b35834bb.1da0b8"
+            ]
+        ]
+    },
+    {
+        "id": "c6ce6533.ab36a8",
+        "type": "function",
+        "z": "f841e824.d474f",
+        "name": "Prepara messaggio se il consumo è >= 3300 W",
+        "func": "var max_w = 3300\nif (msg.payload >= max_w) {\n  var msg1 = {payload: \"Attenzione! Il consumo di energia elettrica è pari a \" + msg.payload + \" watt. Rischio di distacco!\"}  \n} else {msg1 = null}\n\nreturn msg1;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 660,
+        "y": 1800,
+        "wires": [
+            [
+                "b1cf814b.a7b2"
+            ]
+        ]
+    },
+    {
+        "id": "f3df76e8.56402",
+        "type": "api-call-service",
+        "z": "f841e824.d474f",
+        "name": "",
+        "server": "c6e21e6c.847e8",
+        "version": 1,
+        "debugenabled": false,
+        "service_domain": "notify",
+        "service": "alexa_media_ovunque",
+        "entityId": "",
+        "data": "{\"message\":\"{{payload}}\",\"title\":\"Rischio di distacco\",\"data\":{\"type\":\"announce\",\"method\":\"all\"},\"target\":[\"ovunque\"]}",
+        "dataType": "json",
+        "mergecontext": "",
+        "output_location": "payload",
+        "output_location_type": "msg",
+        "mustacheAltTags": false,
+        "x": 1020,
+        "y": 1940,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "b1cf814b.a7b2",
+        "type": "delay",
+        "z": "f841e824.d474f",
+        "name": "",
+        "pauseType": "rate",
+        "timeout": "5",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "minute",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": true,
+        "x": 1020,
+        "y": 1800,
+        "wires": [
+            [
+                "f3df76e8.56402"
+            ]
+        ]
+    },
+    {
+        "id": "a38f8e5e.591a38",
+        "type": "api-call-service",
+        "z": "f841e824.d474f",
+        "name": "Accendi forno",
+        "server": "c6e21e6c.847e8",
+        "version": 1,
+        "debugenabled": false,
+        "service_domain": "switch",
+        "service": "turn_on",
+        "entityId": "switch.light_5",
+        "data": "",
+        "dataType": "json",
+        "mergecontext": "",
+        "output_location": "payload",
+        "output_location_type": "msg",
+        "mustacheAltTags": false,
+        "x": 340,
+        "y": 1560,
+        "wires": [
+            [
+                "47f4314c.f9005"
+            ]
+        ]
+    },
+    {
+        "id": "ed54a7c1.7c85b8",
+        "type": "inject",
+        "z": "f841e824.d474f",
+        "name": "",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 120,
+        "y": 1560,
+        "wires": [
+            [
+                "a38f8e5e.591a38"
+            ]
+        ]
+    },
+    {
+        "id": "47f4314c.f9005",
+        "type": "api-call-service",
+        "z": "f841e824.d474f",
+        "name": "",
+        "server": "c6e21e6c.847e8",
+        "version": 1,
+        "debugenabled": true,
+        "service_domain": "notify",
+        "service": "mobile_app_soylents_iphone",
+        "entityId": "",
+        "data": "{\"message\":\"Forno acceso\",\"title\":\"Accensione forno\"}",
+        "dataType": "json",
+        "mergecontext": "",
+        "output_location": "payload",
+        "output_location_type": "msg",
+        "mustacheAltTags": false,
+        "x": 700,
+        "y": 1560,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "76701afb.5da6c4",
+        "type": "function",
+        "z": "f841e824.d474f",
+        "name": "Prepara messaggio se il consumo è >= 3300 W",
+        "func": "var high_watermark = 4000;\nvar low_watermark = 3300;\nvar timer_high_value = 1;\nvar timer_low_value = 90;\nvar over_power = flow.get('over_power') || false;\nvar low_timer = flow.get('timer_low') || null;\nvar high_timer = flow.get('timer_high') || null;\nvar msg1, msg2 = null;\nvar input = msg.payload;\n// OUTPUT:\n// msg1 Messagge to TTS system\n// msg2 Timer or reset\n// msg3 over_power boolean condition\n\nswitch(true) {\n  case (input >= high_watermark):\n    if (over_power === false) {\n      msg2 = {payload: timer_high_value};\n      msg1 = {payload:\"Attenzione! Distacco energia elettrica imminente! Superata la soglia dei 4000 watt.\"};\n      flow.set('over_power', true);\n      flow.set('timer_low', now.getTime())\n    }\n    break;\n  case (input >= low_watermark):\n    msg2 = {payload: timer_low_value};\n    msg1 = {payload: \"Attenzione! Il consumo di energia elettrica è pari a \" + msg.payload + \" watt. Rischio di distacco!\"}\n    flow.set('over_power', true);\n    break;\n  default:\n    if (over_power === true) {\n      msg2 = {payload: 'reset'};   \n      flow.set('over_power', false);\n    } else {msg2 = null}\n}\n\nif (msg2 !== null) {\n  msg1 = {payload: \"Attenzione! Il consumo di energia elettrica è pari a \" + msg.payload + \" watt. Rischio di distacco!\"}  \n} else {msg1 = null}\nover_power = flow.get('over_power')\nmsg3 = {payload: over_power} \nreturn [msg1, msg2, msg3];\n//\n//",
+        "outputs": 3,
+        "noerr": 0,
+        "x": 360,
+        "y": 2280,
+        "wires": [
+            [
+                "30f032d2.af82e6"
+            ],
+            [
+                "3ccc78e8.a0785"
+            ],
+            [
+                "310b9b54.36985c"
+            ]
+        ]
+    },
+    {
+        "id": "30f032d2.af82e6",
+        "type": "debug",
+        "z": "f841e824.d474f",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "x": 770,
+        "y": 2220,
+        "wires": []
+    },
+    {
+        "id": "3ccc78e8.a0785",
+        "type": "debug",
+        "z": "f841e824.d474f",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "x": 770,
+        "y": 2280,
+        "wires": []
+    },
+    {
+        "id": "b9c0c857.65e488",
+        "type": "debug",
+        "z": "f841e824.d474f",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "x": 440,
+        "y": 1720,
+        "wires": []
+    },
+    {
+        "id": "34f5d045.0511c8",
+        "type": "trigger",
+        "z": "f841e824.d474f",
+        "name": "",
+        "op1": "",
+        "op2": "0",
+        "op1type": "nul",
+        "op2type": "str",
+        "duration": "250",
+        "extend": false,
+        "units": "min",
+        "reset": "",
+        "bytopic": "all",
+        "outputs": 1,
+        "x": 1020,
+        "y": 2080,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "310b9b54.36985c",
+        "type": "debug",
+        "z": "f841e824.d474f",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "x": 770,
+        "y": 2340,
+        "wires": []
+    },
+    {
+        "id": "f7e0fc7a.127c5",
+        "type": "function",
+        "z": "f841e824.d474f",
+        "name": "",
+        "func": "var lastChange = new Date(msg.data.old_state.last_changed).getTime();\nvar now = new Date().getTime();\nvar secs = Math.floor((now / 1000)-(lastChange / 1000));\nmsg.sensor = {};\nmsg.sensor.lastChange = secs;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 1180,
+        "y": 1100,
+        "wires": [
+            [
+                "93f4ae5a.29b42"
+            ]
+        ]
+    },
+    {
+        "id": "93f4ae5a.29b42",
+        "type": "debug",
+        "z": "f841e824.d474f",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "x": 1360,
+        "y": 1100,
+        "wires": []
+    },
+    {
+        "id": "740f02d.fe147fc",
+        "type": "ui_gauge",
+        "z": "f841e824.d474f",
+        "name": "",
+        "group": "7056ab47.4136fc",
+        "order": 0,
+        "width": 0,
+        "height": 0,
+        "gtype": "gage",
+        "title": "Potenza assorbita",
+        "label": "Kw",
+        "format": "{{value}}",
+        "min": 0,
+        "max": "4100",
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": "3300",
+        "seg2": "3301",
+        "x": 530,
+        "y": 2140,
+        "wires": []
+    },
+    {
+        "id": "223449e3.378f66",
+        "type": "api-call-service",
+        "z": "f841e824.d474f",
+        "name": "Test Alexa",
+        "server": "c6e21e6c.847e8",
+        "version": 1,
+        "debugenabled": true,
+        "service_domain": "notify",
+        "service": "alexa_media_studio",
+        "entityId": "",
+        "data": "{\"message\":\"Questo è un test\",\"title\":\"Test\",\"data\":{\"type\":\"announce\",\"method\":\"all\"},\"target\":[\"terra\"]}",
+        "dataType": "json",
+        "mergecontext": "",
+        "output_location": "payload",
+        "output_location_type": "msg",
+        "mustacheAltTags": false,
+        "x": 630,
+        "y": 80,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "66a59c22.18cf2c",
+        "type": "inject",
+        "z": "f841e824.d474f",
+        "name": "",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 420,
+        "y": 80,
+        "wires": [
+            [
+                "223449e3.378f66"
+            ]
+        ]
+    },
+    {
+        "id": "7d241cf.cbf7de4",
+        "type": "BooleanLogicUltimate",
+        "z": "45dd8798.2cfc88",
+        "name": "",
+        "filtertrue": "onlytrue",
+        "persist": true,
+        "sInitializeWith": "WaitForPayload",
+        "triggertopic": "trigger",
+        "outputtriggeredby": "onlyonetopic",
+        "inputCount": 2,
+        "topic": "result",
+        "x": 550,
+        "y": 540,
+        "wires": [
+            [
+                "bfdac7e7.3c8ba"
+            ],
+            [],
+            []
+        ]
+    },
+    {
+        "id": "c0f2f156.694aa8",
+        "type": "inject",
+        "z": "45dd8798.2cfc88",
+        "name": "Switch on light at 6:50",
+        "repeat": "",
+        "crontab": "50 06 * * *",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "trigger",
+        "payload": "true",
+        "payloadType": "bool",
+        "x": 230,
+        "y": 540,
+        "wires": [
+            [
+                "7d241cf.cbf7de4"
+            ]
+        ]
+    },
+    {
+        "id": "9fc97ba5.55a45",
+        "type": "switch",
+        "z": "45dd8798.2cfc88",
+        "name": "",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "false"
+            },
+            {
+                "t": "true"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 330,
+        "y": 800,
+        "wires": [
+            [
+                "201a3e15.bedffa"
+            ],
+            [
+                "bfdac7e7.3c8ba"
+            ]
+        ]
+    },
+    {
+        "id": "201a3e15.bedffa",
+        "type": "api-call-service",
+        "z": "45dd8798.2cfc88",
+        "name": "Spegne luce1 portico",
+        "server": "c6e21e6c.847e8",
+        "version": 1,
+        "debugenabled": false,
+        "service_domain": "homeassistant",
+        "service": "turn_off",
+        "entityId": "switch.luce1_portico",
+        "data": "",
+        "dataType": "json",
+        "mergecontext": "",
+        "output_location": "payload",
+        "output_location_type": "msg",
+        "mustacheAltTags": false,
+        "x": 720,
+        "y": 740,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "bfdac7e7.3c8ba",
+        "type": "api-call-service",
+        "z": "45dd8798.2cfc88",
+        "name": "Accende luce1 portico",
+        "server": "c6e21e6c.847e8",
+        "version": 1,
+        "debugenabled": false,
+        "service_domain": "homeassistant",
+        "service": "turn_on",
+        "entityId": "switch.luce1_portico",
+        "data": "",
+        "dataType": "json",
+        "mergecontext": "",
+        "output_location": "payload",
+        "output_location_type": "msg",
+        "mustacheAltTags": false,
+        "x": 1120,
+        "y": 800,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "2685f894.e25be",
+        "type": "inject",
+        "z": "45dd8798.2cfc88",
+        "name": "Spegne la luce a mezzanotte",
+        "repeat": "",
+        "crontab": "00 00 * * *",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "true",
+        "payloadType": "bool",
+        "x": 490,
+        "y": 700,
+        "wires": [
+            [
+                "201a3e15.bedffa"
+            ]
+        ]
+    },
+    {
+        "id": "940ec4f1.3bbc9",
+        "type": "delay",
+        "z": "f841e824.d474f",
+        "name": "Limita 1 msg/5min",
+        "pauseType": "rate",
+        "timeout": "5",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "5",
+        "rateUnits": "minute",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "x": 1230,
+        "y": 260,
+        "wires": [
+            [
+                "3a8a3532.c7912a",
+                "846d2ef1.3d76d"
+            ]
+        ]
+    },
+    {
+        "id": "502eb14.0f3a2d",
+        "type": "eztimer",
+        "z": "45dd8798.2cfc88",
+        "name": "",
+        "debug": false,
+        "autoname": "sunset - sunriseEnd",
+        "tag": "eztimer",
+        "suspended": false,
+        "sendEventsOnSuspend": false,
+        "lat": "45.6666400",
+        "lon": "9.0488400",
+        "timerType": "1",
+        "startupMessage": false,
+        "ontype": "1",
+        "ontimesun": "sunset",
+        "ontimetod": "17:00",
+        "onpropertytype": "msg",
+        "onproperty": "payload",
+        "onvaluetype": "bool",
+        "onvalue": "true",
+        "onoffset": 0,
+        "onrandomoffset": 0,
+        "onsuppressrepeats": true,
+        "offtype": "1",
+        "offtimesun": "sunriseEnd",
+        "offtimetod": "dusk",
+        "offduration": "00:01:00",
+        "offpropertytype": "msg",
+        "offproperty": "payload",
+        "offvaluetype": "bool",
+        "offvalue": "false",
+        "offoffset": 0,
+        "offrandomoffset": 0,
+        "offsuppressrepeats": true,
+        "mon": true,
+        "tue": true,
+        "wed": true,
+        "thu": true,
+        "fri": true,
+        "sat": true,
+        "sun": true,
+        "x": 120,
+        "y": 660,
+        "wires": [
+            [
+                "9fc97ba5.55a45",
+                "7d241cf.cbf7de4"
+            ]
+        ]
+    },
+    {
+        "id": "911d6b9f.9a9d98",
+        "type": "eztimer",
+        "z": "45dd8798.2cfc88",
+        "name": "",
+        "debug": false,
+        "autoname": "08:00:00 - 22:00:00",
+        "tag": "eztimer",
+        "suspended": false,
+        "sendEventsOnSuspend": false,
+        "lat": "",
+        "lon": "",
+        "timerType": "1",
+        "startupMessage": false,
+        "ontype": "2",
+        "ontimesun": "dawn",
+        "ontimetod": "08:00:00",
+        "onpropertytype": "msg",
+        "onproperty": "payload",
+        "onvaluetype": "bool",
+        "onvalue": "true",
+        "onoffset": 0,
+        "onrandomoffset": 0,
+        "onsuppressrepeats": false,
+        "offtype": "2",
+        "offtimesun": "dusk",
+        "offtimetod": "22:00:00",
+        "offduration": "00:01:00",
+        "offpropertytype": "msg",
+        "offproperty": "payload",
+        "offvaluetype": "bool",
+        "offvalue": "false",
+        "offoffset": 0,
+        "offrandomoffset": 0,
+        "offsuppressrepeats": false,
+        "mon": true,
+        "tue": true,
+        "wed": true,
+        "thu": true,
+        "fri": true,
+        "sat": true,
+        "sun": false,
+        "x": 150,
+        "y": 1060,
+        "wires": [
+            [
+                "18afb449.c170ec"
+            ]
+        ]
+    },
+    {
+        "id": "18afb449.c170ec",
+        "type": "switch",
+        "z": "45dd8798.2cfc88",
+        "name": "",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "true"
+            },
+            {
+                "t": "false"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 390,
+        "y": 1060,
+        "wires": [
+            [
+                "c1b22605.377748"
+            ],
+            [
+                "4be6e581.2d624c"
+            ]
+        ]
+    },
+    {
+        "id": "c1b22605.377748",
+        "type": "api-call-service",
+        "z": "45dd8798.2cfc88",
+        "name": "Accende ionizzatore",
+        "server": "c6e21e6c.847e8",
+        "version": 1,
+        "debugenabled": false,
+        "service_domain": "homeassistant",
+        "service": "turn_on",
+        "entityId": "switch.jonix",
+        "data": "",
+        "dataType": "json",
+        "mergecontext": "",
+        "output_location": "payload",
+        "output_location_type": "msg",
+        "mustacheAltTags": false,
+        "x": 620,
+        "y": 1040,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "4be6e581.2d624c",
+        "type": "api-call-service",
+        "z": "45dd8798.2cfc88",
+        "name": "Spegne ionizzatore",
+        "server": "c6e21e6c.847e8",
+        "version": 1,
+        "debugenabled": false,
+        "service_domain": "homeassistant",
+        "service": "turn_off",
+        "entityId": "switch.jonix",
+        "data": "",
+        "dataType": "json",
+        "mergecontext": "",
+        "output_location": "payload",
+        "output_location_type": "msg",
+        "mustacheAltTags": false,
+        "x": 610,
+        "y": 1100,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "89d06883.009c7",
+        "type": "inject",
+        "z": "45dd8798.2cfc88",
+        "name": "Accensione",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "true",
+        "payloadType": "bool",
+        "x": 190,
+        "y": 980,
+        "wires": [
+            [
+                "18afb449.c170ec"
+            ]
+        ]
+    },
+    {
+        "id": "e9e8bb0e.af5ec8",
+        "type": "inject",
+        "z": "45dd8798.2cfc88",
+        "name": "Spegnimento",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "false",
+        "payloadType": "bool",
+        "x": 190,
+        "y": 1160,
+        "wires": [
+            [
+                "18afb449.c170ec"
+            ]
+        ]
+    },
+    {
+        "id": "f39978f9.c01c18",
+        "type": "server-state-changed",
+        "z": "50bf18d8.6664b",
+        "name": "",
+        "server": "c6e21e6c.847e8",
+        "version": 1,
+        "exposeToHomeAssistant": false,
+        "haConfig": [
+            {
+                "property": "name",
+                "value": ""
+            },
+            {
+                "property": "icon",
+                "value": ""
+            }
+        ],
+        "entityidfilter": "sensor.fritz_netmonitor",
+        "entityidfiltertype": "exact",
+        "outputinitially": true,
+        "state_type": "str",
+        "haltifstate": "",
+        "halt_if_type": "str",
+        "halt_if_compare": "is",
+        "outputs": 1,
+        "output_only_on_state_change": false,
+        "for": 0,
+        "forType": "num",
+        "forUnits": "minutes",
+        "ignorePrevStateNull": false,
+        "ignorePrevStateUnknown": false,
+        "ignorePrevStateUnavailable": false,
+        "ignoreCurrentStateUnknown": false,
+        "ignoreCurrentStateUnavailable": false,
+        "x": 210,
+        "y": 240,
+        "wires": [
+            [
+                "670df638.93fa38",
+                "6d385b20.1bc29c",
+                "1b2947f6.e2d178",
+                "220559a7.61c69e"
+            ]
+        ]
+    },
+    {
+        "id": "670df638.93fa38",
+        "type": "change",
+        "z": "50bf18d8.6664b",
+        "name": "transmission_rate_up",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "data.new_state.attributes.transmission_rate_up",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 600,
+        "y": 160,
+        "wires": [
+            [
+                "b99955ff.67b77"
+            ]
+        ]
+    },
+    {
+        "id": "6d385b20.1bc29c",
+        "type": "change",
+        "z": "50bf18d8.6664b",
+        "name": "transmission_rate_down",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "data.new_state.attributes.transmission_rate_down",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 610,
+        "y": 220,
+        "wires": [
+            [
+                "d93d82af.f1982"
+            ]
+        ]
+    },
+    {
+        "id": "1b2947f6.e2d178",
+        "type": "change",
+        "z": "50bf18d8.6664b",
+        "name": "max_byte_rate_up",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "data.new_state.attributes.max_byte_rate_up",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 590,
+        "y": 280,
+        "wires": [
+            [
+                "33c025e8.fcfcea"
+            ]
+        ]
+    },
+    {
+        "id": "220559a7.61c69e",
+        "type": "change",
+        "z": "50bf18d8.6664b",
+        "name": "max_byte_rate_down",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "data.new_state.attributes.transmission_rate_down",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 600,
+        "y": 340,
+        "wires": [
+            [
+                "ec2fd6f9.61e55"
+            ]
+        ]
+    },
+    {
+        "id": "b99955ff.67b77",
+        "type": "influxdb out",
+        "z": "50bf18d8.6664b",
+        "influxdb": "66d7f6c2.eeb478",
+        "name": "",
+        "measurement": "adsl.transmission_rate_up",
+        "precision": "",
+        "retentionPolicy": "",
+        "x": 940,
+        "y": 160,
+        "wires": []
+    },
+    {
+        "id": "d93d82af.f1982",
+        "type": "influxdb out",
+        "z": "50bf18d8.6664b",
+        "influxdb": "66d7f6c2.eeb478",
+        "name": "",
+        "measurement": "adsl.transmission_rate_down",
+        "precision": "",
+        "retentionPolicy": "",
+        "x": 950,
+        "y": 220,
+        "wires": []
+    },
+    {
+        "id": "33c025e8.fcfcea",
+        "type": "influxdb out",
+        "z": "50bf18d8.6664b",
+        "influxdb": "66d7f6c2.eeb478",
+        "name": "",
+        "measurement": "adsl.max_byte_rate_up",
+        "precision": "",
+        "retentionPolicy": "",
+        "x": 930,
+        "y": 280,
+        "wires": []
+    },
+    {
+        "id": "ec2fd6f9.61e55",
+        "type": "influxdb out",
+        "z": "50bf18d8.6664b",
+        "influxdb": "66d7f6c2.eeb478",
+        "name": "",
+        "measurement": "adsl.max_byte_rate_down",
+        "precision": "",
+        "retentionPolicy": "",
+        "x": 940,
+        "y": 340,
+        "wires": []
+    }
+]
