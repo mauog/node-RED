@@ -159,7 +159,8 @@
         "database": "power",
         "name": "influxdb_power",
         "usetls": false,
-        "tls": ""
+        "tls": "",
+        "influxdbVersion": "1.x"
     },
     {
         "id": "efdb8d8d.4fdfe8",
@@ -222,7 +223,8 @@
         "database": "network",
         "name": "network",
         "usetls": false,
-        "tls": ""
+        "tls": "",
+        "influxdbVersion": "1.x"
     },
     {
         "id": "66d7f6c2.eeb478",
@@ -233,7 +235,8 @@
         "database": "adsl",
         "name": "influxdb_adsl",
         "usetls": false,
-        "tls": ""
+        "tls": "",
+        "influxdbVersion": "1.x"
     },
     {
         "id": "1b399b.1c765e66",
@@ -1073,25 +1076,25 @@
         "id": "7a46ecc5.71988c",
         "type": "switch",
         "z": "f841e824.d474f",
-        "name": "<= 2 or >2 ?",
+        "name": "<= 5 or >50 ?",
         "property": "payload",
         "propertyType": "msg",
         "rules": [
             {
                 "t": "lte",
-                "v": "2",
+                "v": "5",
                 "vt": "str"
             },
             {
                 "t": "gt",
-                "v": "2",
+                "v": "50",
                 "vt": "str"
             }
         ],
         "checkall": "false",
         "repair": false,
         "outputs": 2,
-        "x": 450,
+        "x": 460,
         "y": 800,
         "wires": [
             [
@@ -2034,7 +2037,7 @@
         "z": "f841e824.d474f",
         "name": "Stato della lavatrice",
         "server": "c6e21e6c.847e8",
-        "version": "1",
+        "version": 1,
         "outputs": 2,
         "halt_if": "off",
         "halt_if_type": "str",
@@ -2350,6 +2353,8 @@
         "func": "var lastChange = new Date(msg.data.old_state.last_changed).getTime();\nvar now = new Date().getTime();\nvar secs = Math.floor((now / 1000)-(lastChange / 1000));\nmsg.sensor = {};\nmsg.sensor.lastChange = secs;\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
+        "initialize": "",
+        "finalize": "",
         "x": 1180,
         "y": 1100,
         "wires": [
@@ -2445,6 +2450,7 @@
         "id": "7d241cf.cbf7de4",
         "type": "BooleanLogicUltimate",
         "z": "45dd8798.2cfc88",
+        "d": true,
         "name": "",
         "filtertrue": "onlytrue",
         "persist": true,
@@ -2467,7 +2473,17 @@
         "id": "c0f2f156.694aa8",
         "type": "inject",
         "z": "45dd8798.2cfc88",
+        "d": true,
         "name": "Switch on light at 6:50",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
         "repeat": "",
         "crontab": "50 06 * * *",
         "once": false,
@@ -2487,6 +2503,7 @@
         "id": "9fc97ba5.55a45",
         "type": "switch",
         "z": "45dd8798.2cfc88",
+        "d": true,
         "name": "",
         "property": "payload",
         "propertyType": "msg",
@@ -2516,6 +2533,7 @@
         "id": "201a3e15.bedffa",
         "type": "api-call-service",
         "z": "45dd8798.2cfc88",
+        "d": true,
         "name": "Spegne luce1 portico",
         "server": "c6e21e6c.847e8",
         "version": 1,
@@ -2539,6 +2557,7 @@
         "id": "bfdac7e7.3c8ba",
         "type": "api-call-service",
         "z": "45dd8798.2cfc88",
+        "d": true,
         "name": "Accende luce1 portico",
         "server": "c6e21e6c.847e8",
         "version": 1,
@@ -2562,7 +2581,17 @@
         "id": "2685f894.e25be",
         "type": "inject",
         "z": "45dd8798.2cfc88",
+        "d": true,
         "name": "Spegne la luce a mezzanotte",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
         "repeat": "",
         "crontab": "00 00 * * *",
         "once": false,
@@ -2606,6 +2635,7 @@
         "id": "502eb14.0f3a2d",
         "type": "eztimer",
         "z": "45dd8798.2cfc88",
+        "d": true,
         "name": "",
         "debug": false,
         "autoname": "sunset - sunriseEnd",
@@ -2654,56 +2684,6 @@
         ]
     },
     {
-        "id": "911d6b9f.9a9d98",
-        "type": "eztimer",
-        "z": "45dd8798.2cfc88",
-        "name": "",
-        "debug": false,
-        "autoname": "08:00:00 - 22:00:00",
-        "tag": "eztimer",
-        "suspended": false,
-        "sendEventsOnSuspend": false,
-        "lat": "",
-        "lon": "",
-        "timerType": "1",
-        "startupMessage": false,
-        "ontype": "2",
-        "ontimesun": "dawn",
-        "ontimetod": "08:00:00",
-        "onpropertytype": "msg",
-        "onproperty": "payload",
-        "onvaluetype": "bool",
-        "onvalue": "true",
-        "onoffset": 0,
-        "onrandomoffset": 0,
-        "onsuppressrepeats": false,
-        "offtype": "2",
-        "offtimesun": "dusk",
-        "offtimetod": "22:00:00",
-        "offduration": "00:01:00",
-        "offpropertytype": "msg",
-        "offproperty": "payload",
-        "offvaluetype": "bool",
-        "offvalue": "false",
-        "offoffset": 0,
-        "offrandomoffset": 0,
-        "offsuppressrepeats": false,
-        "mon": true,
-        "tue": true,
-        "wed": true,
-        "thu": true,
-        "fri": true,
-        "sat": true,
-        "sun": false,
-        "x": 150,
-        "y": 1060,
-        "wires": [
-            [
-                "18afb449.c170ec"
-            ]
-        ]
-    },
-    {
         "id": "18afb449.c170ec",
         "type": "switch",
         "z": "45dd8798.2cfc88",
@@ -2712,10 +2692,14 @@
         "propertyType": "msg",
         "rules": [
             {
-                "t": "true"
+                "t": "eq",
+                "v": "on",
+                "vt": "str"
             },
             {
-                "t": "false"
+                "t": "eq",
+                "v": "off",
+                "vt": "str"
             }
         ],
         "checkall": "true",
@@ -2783,13 +2767,18 @@
         "type": "inject",
         "z": "45dd8798.2cfc88",
         "name": "Accensione",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
         "repeat": "",
         "crontab": "",
         "once": false,
         "onceDelay": 0.1,
         "topic": "",
-        "payload": "true",
-        "payloadType": "bool",
+        "payload": "on",
+        "payloadType": "str",
         "x": 190,
         "y": 980,
         "wires": [
@@ -2803,13 +2792,18 @@
         "type": "inject",
         "z": "45dd8798.2cfc88",
         "name": "Spegnimento",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
         "repeat": "",
         "crontab": "",
         "once": false,
         "onceDelay": 0.1,
         "topic": "",
-        "payload": "false",
-        "payloadType": "bool",
+        "payload": "off",
+        "payloadType": "str",
         "x": 190,
         "y": 1160,
         "wires": [
@@ -2955,7 +2949,7 @@
                 "t": "set",
                 "p": "payload",
                 "pt": "msg",
-                "to": "data.new_state.attributes.transmission_rate_down",
+                "to": "data.new_state.attributes.max_byte_rate_down",
                 "tot": "msg"
             }
         ],
@@ -3023,5 +3017,1049 @@
         "x": 940,
         "y": 340,
         "wires": []
+    },
+    {
+        "id": "cec6f7e5.771578",
+        "type": "server-state-changed",
+        "z": "f841e824.d474f",
+        "name": "",
+        "server": "c6e21e6c.847e8",
+        "version": 1,
+        "exposeToHomeAssistant": false,
+        "haConfig": [
+            {
+                "property": "name",
+                "value": ""
+            },
+            {
+                "property": "icon",
+                "value": ""
+            }
+        ],
+        "entityidfilter": "sensor.zinto1000_status_data",
+        "entityidfiltertype": "exact",
+        "outputinitially": true,
+        "state_type": "str",
+        "haltifstate": "",
+        "halt_if_type": "str",
+        "halt_if_compare": "is",
+        "outputs": 1,
+        "output_only_on_state_change": true,
+        "for": 0,
+        "forType": "num",
+        "forUnits": "minutes",
+        "ignorePrevStateNull": false,
+        "ignorePrevStateUnknown": true,
+        "ignorePrevStateUnavailable": true,
+        "ignoreCurrentStateUnknown": true,
+        "ignoreCurrentStateUnavailable": true,
+        "x": 590,
+        "y": 2540,
+        "wires": [
+            [
+                "d46c8dfb.835408"
+            ]
+        ]
+    },
+    {
+        "id": "f5b0b328.e7cb28",
+        "type": "api-current-state",
+        "z": "f841e824.d474f",
+        "name": "",
+        "server": "c6e21e6c.847e8",
+        "version": 1,
+        "outputs": 1,
+        "halt_if": "",
+        "halt_if_type": "str",
+        "halt_if_compare": "is",
+        "override_topic": false,
+        "entity_id": "sensor.zinto1000_status_data",
+        "state_type": "str",
+        "state_location": "payload",
+        "override_payload": "msg",
+        "entity_location": "data",
+        "override_data": "msg",
+        "blockInputOverrides": false,
+        "x": 590,
+        "y": 2600,
+        "wires": [
+            [
+                "d46c8dfb.835408"
+            ]
+        ]
+    },
+    {
+        "id": "46e98a09.a047dc",
+        "type": "inject",
+        "z": "f841e824.d474f",
+        "name": "check every minutes",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "60",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 180,
+        "y": 2600,
+        "wires": [
+            [
+                "f5b0b328.e7cb28"
+            ]
+        ]
+    },
+    {
+        "id": "d46c8dfb.835408",
+        "type": "influxdb out",
+        "z": "f841e824.d474f",
+        "influxdb": "a7c77e43.dccf78",
+        "name": "",
+        "measurement": "power.ups_status",
+        "precision": "",
+        "retentionPolicy": "",
+        "x": 1000,
+        "y": 2600,
+        "wires": []
+    },
+    {
+        "id": "73cb327a.b2ec1c",
+        "type": "server-state-changed",
+        "z": "f841e824.d474f",
+        "d": true,
+        "name": "Controlla stato presa lavatrice",
+        "server": "c6e21e6c.847e8",
+        "version": 1,
+        "exposeToHomeAssistant": false,
+        "haConfig": [
+            {
+                "property": "name",
+                "value": ""
+            },
+            {
+                "property": "icon",
+                "value": ""
+            }
+        ],
+        "entityidfilter": "switch.on_off_plug_in_unit_6",
+        "entityidfiltertype": "exact",
+        "outputinitially": true,
+        "state_type": "str",
+        "haltifstate": "off",
+        "halt_if_type": "str",
+        "halt_if_compare": "is",
+        "outputs": 2,
+        "output_only_on_state_change": true,
+        "for": 0,
+        "forType": "num",
+        "forUnits": "minutes",
+        "ignorePrevStateNull": false,
+        "ignorePrevStateUnknown": false,
+        "ignorePrevStateUnavailable": false,
+        "ignoreCurrentStateUnknown": false,
+        "ignoreCurrentStateUnavailable": false,
+        "x": 220,
+        "y": 640,
+        "wires": [
+            [
+                "52ae1916.e0d3b"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "52ae1916.e0d3b",
+        "type": "api-call-service",
+        "z": "f841e824.d474f",
+        "d": true,
+        "name": "Accendi presa lavatrice",
+        "server": "c6e21e6c.847e8",
+        "version": 1,
+        "debugenabled": false,
+        "service_domain": "switch",
+        "service": "turn_on",
+        "entityId": "switch.on_off_plug_in_unit_6",
+        "data": "",
+        "dataType": "json",
+        "mergecontext": "",
+        "output_location": "",
+        "output_location_type": "none",
+        "mustacheAltTags": false,
+        "x": 510,
+        "y": 640,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "ddea01dc.143568",
+        "type": "bigtimer",
+        "z": "45dd8798.2cfc88",
+        "outtopic": "",
+        "outpayload1": "on",
+        "outpayload2": "off",
+        "name": "Big Timer",
+        "comment": "",
+        "lat": "45.6666400",
+        "lon": "9.0488400",
+        "starttime": "5004",
+        "endtime": "5003",
+        "starttime2": 0,
+        "endtime2": 0,
+        "startoff": 0,
+        "endoff": 0,
+        "startoff2": 0,
+        "endoff2": 0,
+        "offs": 0,
+        "outtext1": "",
+        "outtext2": "",
+        "timeout": 1440,
+        "sun": true,
+        "mon": true,
+        "tue": true,
+        "wed": true,
+        "thu": true,
+        "fri": true,
+        "sat": true,
+        "jan": true,
+        "feb": true,
+        "mar": true,
+        "apr": true,
+        "may": true,
+        "jun": true,
+        "jul": true,
+        "aug": true,
+        "sep": true,
+        "oct": true,
+        "nov": true,
+        "dec": true,
+        "day1": "18",
+        "month1": "12",
+        "day2": "24",
+        "month2": "12",
+        "day3": "25",
+        "month3": "12",
+        "day4": "31",
+        "month4": "12",
+        "day5": "1",
+        "month5": "1",
+        "day6": 0,
+        "month6": 0,
+        "day7": 0,
+        "month7": 0,
+        "day8": 0,
+        "month8": 0,
+        "day9": 0,
+        "month9": 0,
+        "day10": 0,
+        "month10": 0,
+        "day11": 0,
+        "month11": 0,
+        "day12": 0,
+        "month12": 0,
+        "d1": 0,
+        "w1": 0,
+        "d2": 0,
+        "w2": 0,
+        "d3": 0,
+        "w3": 0,
+        "d4": 0,
+        "w4": 0,
+        "d5": 0,
+        "w5": 0,
+        "d6": 0,
+        "w6": 0,
+        "xday1": 0,
+        "xmonth1": 0,
+        "xday2": 0,
+        "xmonth2": 0,
+        "xday3": 0,
+        "xmonth3": 0,
+        "xday4": 0,
+        "xmonth4": 0,
+        "xday5": 0,
+        "xmonth5": 0,
+        "xday6": 0,
+        "xmonth6": 0,
+        "xd1": 0,
+        "xw1": 0,
+        "xd2": 0,
+        "xw2": 0,
+        "xd3": 0,
+        "xw3": 0,
+        "xd4": 0,
+        "xw4": 0,
+        "xd5": 0,
+        "xw5": 0,
+        "xd6": 0,
+        "xw6": 0,
+        "suspend": false,
+        "random": false,
+        "randon1": false,
+        "randoff1": false,
+        "randon2": false,
+        "randoff2": false,
+        "repeat": true,
+        "atstart": true,
+        "odd": false,
+        "even": false,
+        "x": 440,
+        "y": 1480,
+        "wires": [
+            [
+                "8afecaaa.8c372"
+            ],
+            [],
+            []
+        ]
+    },
+    {
+        "id": "8afecaaa.8c372",
+        "type": "switch",
+        "z": "45dd8798.2cfc88",
+        "name": "",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "on",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "off",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 650,
+        "y": 1460,
+        "wires": [
+            [
+                "8370caff.e9d598"
+            ],
+            [
+                "e0b505.65217af8"
+            ]
+        ]
+    },
+    {
+        "id": "8370caff.e9d598",
+        "type": "api-call-service",
+        "z": "45dd8798.2cfc88",
+        "name": "Accende luci di Natale",
+        "server": "c6e21e6c.847e8",
+        "version": 1,
+        "debugenabled": false,
+        "service_domain": "homeassistant",
+        "service": "turn_on",
+        "entityId": "switch.lucine",
+        "data": "",
+        "dataType": "json",
+        "mergecontext": "",
+        "output_location": "payload",
+        "output_location_type": "msg",
+        "mustacheAltTags": false,
+        "x": 900,
+        "y": 1420,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "e0b505.65217af8",
+        "type": "api-call-service",
+        "z": "45dd8798.2cfc88",
+        "name": "Accende luci di Natale",
+        "server": "c6e21e6c.847e8",
+        "version": 1,
+        "debugenabled": false,
+        "service_domain": "homeassistant",
+        "service": "turn_off",
+        "entityId": "switch.lucine",
+        "data": "",
+        "dataType": "json",
+        "mergecontext": "",
+        "output_location": "payload",
+        "output_location_type": "msg",
+        "mustacheAltTags": false,
+        "x": 900,
+        "y": 1500,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "6ba30cbd.72bd54",
+        "type": "inject",
+        "z": "45dd8798.2cfc88",
+        "name": "ON",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "1",
+        "payloadType": "num",
+        "x": 200,
+        "y": 1400,
+        "wires": [
+            [
+                "ddea01dc.143568"
+            ]
+        ]
+    },
+    {
+        "id": "652aa4d2.2bd8e4",
+        "type": "inject",
+        "z": "45dd8798.2cfc88",
+        "name": "OFF",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "0",
+        "payloadType": "num",
+        "x": 200,
+        "y": 1460,
+        "wires": [
+            [
+                "ddea01dc.143568"
+            ]
+        ]
+    },
+    {
+        "id": "2f4cf924.ecb3b6",
+        "type": "inject",
+        "z": "45dd8798.2cfc88",
+        "name": "AUTO",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "auto",
+        "payloadType": "str",
+        "x": 200,
+        "y": 1520,
+        "wires": [
+            [
+                "ddea01dc.143568"
+            ]
+        ]
+    },
+    {
+        "id": "a52dde9d.4c702",
+        "type": "inject",
+        "z": "45dd8798.2cfc88",
+        "name": "MANUAL",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "manual",
+        "payloadType": "str",
+        "x": 200,
+        "y": 1580,
+        "wires": [
+            [
+                "ddea01dc.143568"
+            ]
+        ]
+    },
+    {
+        "id": "7499bbf1.248c1c",
+        "type": "inject",
+        "z": "45dd8798.2cfc88",
+        "name": "STOP",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "stop",
+        "payloadType": "str",
+        "x": 210,
+        "y": 1640,
+        "wires": [
+            [
+                "ddea01dc.143568"
+            ]
+        ]
+    },
+    {
+        "id": "1c6c3860.64b63",
+        "type": "bigtimer",
+        "z": "45dd8798.2cfc88",
+        "outtopic": "effemeridi",
+        "outpayload1": "true",
+        "outpayload2": "false",
+        "name": "Effemeridi",
+        "comment": "",
+        "lat": "45.6666400",
+        "lon": "9.0488400",
+        "starttime": "5004",
+        "endtime": "5003",
+        "starttime2": 0,
+        "endtime2": 0,
+        "startoff": 0,
+        "endoff": "20",
+        "startoff2": 0,
+        "endoff2": 0,
+        "offs": 0,
+        "outtext1": "",
+        "outtext2": "",
+        "timeout": 1440,
+        "sun": true,
+        "mon": true,
+        "tue": true,
+        "wed": true,
+        "thu": true,
+        "fri": true,
+        "sat": true,
+        "jan": true,
+        "feb": true,
+        "mar": true,
+        "apr": true,
+        "may": true,
+        "jun": true,
+        "jul": true,
+        "aug": true,
+        "sep": true,
+        "oct": true,
+        "nov": true,
+        "dec": true,
+        "day1": 0,
+        "month1": 0,
+        "day2": 0,
+        "month2": 0,
+        "day3": 0,
+        "month3": 0,
+        "day4": 0,
+        "month4": 0,
+        "day5": 0,
+        "month5": 0,
+        "day6": 0,
+        "month6": 0,
+        "day7": 0,
+        "month7": 0,
+        "day8": 0,
+        "month8": 0,
+        "day9": 0,
+        "month9": 0,
+        "day10": 0,
+        "month10": 0,
+        "day11": 0,
+        "month11": 0,
+        "day12": 0,
+        "month12": 0,
+        "d1": 0,
+        "w1": 0,
+        "d2": 0,
+        "w2": 0,
+        "d3": 0,
+        "w3": 0,
+        "d4": 0,
+        "w4": 0,
+        "d5": 0,
+        "w5": 0,
+        "d6": 0,
+        "w6": 0,
+        "xday1": 0,
+        "xmonth1": 0,
+        "xday2": 0,
+        "xmonth2": 0,
+        "xday3": 0,
+        "xmonth3": 0,
+        "xday4": 0,
+        "xmonth4": 0,
+        "xday5": 0,
+        "xmonth5": 0,
+        "xday6": 0,
+        "xmonth6": 0,
+        "xday7": "",
+        "xmonth7": "",
+        "xday8": "",
+        "xmonth8": "",
+        "xday9": "",
+        "xmonth9": "",
+        "xday10": "",
+        "xmonth10": "",
+        "xday11": "",
+        "xmonth11": "",
+        "xday12": "",
+        "xmonth12": "",
+        "xd1": 0,
+        "xw1": 0,
+        "xd2": 0,
+        "xw2": 0,
+        "xd3": 0,
+        "xw3": 0,
+        "xd4": 0,
+        "xw4": 0,
+        "xd5": 0,
+        "xw5": 0,
+        "xd6": 0,
+        "xw6": 0,
+        "suspend": false,
+        "random": false,
+        "randon1": false,
+        "randoff1": false,
+        "randon2": false,
+        "randoff2": false,
+        "repeat": true,
+        "atstart": true,
+        "odd": false,
+        "even": false,
+        "x": 80,
+        "y": 1960,
+        "wires": [
+            [
+                "2e796d2e.df7ed2"
+            ],
+            [],
+            []
+        ]
+    },
+    {
+        "id": "2e796d2e.df7ed2",
+        "type": "BooleanLogicUltimate",
+        "z": "45dd8798.2cfc88",
+        "name": "AND",
+        "filtertrue": "both",
+        "persist": true,
+        "sInitializeWith": "WaitForPayload",
+        "triggertopic": "trigger",
+        "outputtriggeredby": "all",
+        "inputCount": 2,
+        "topic": "and",
+        "x": 400,
+        "y": 1920,
+        "wires": [
+            [
+                "a6043f1f.5f1878"
+            ],
+            [],
+            []
+        ]
+    },
+    {
+        "id": "1c190096.45e9ff",
+        "type": "bigtimer",
+        "z": "45dd8798.2cfc88",
+        "outtopic": "intervallo",
+        "outpayload1": "true",
+        "outpayload2": "false",
+        "name": "Intervallo di necessità della luce",
+        "comment": "",
+        "lat": "45.6666400",
+        "lon": "9.0488400",
+        "starttime": "360",
+        "endtime": "1410",
+        "starttime2": 0,
+        "endtime2": 0,
+        "startoff": 0,
+        "endoff": "0",
+        "startoff2": 0,
+        "endoff2": 0,
+        "offs": 0,
+        "outtext1": "",
+        "outtext2": "",
+        "timeout": 1440,
+        "sun": true,
+        "mon": true,
+        "tue": true,
+        "wed": true,
+        "thu": true,
+        "fri": true,
+        "sat": true,
+        "jan": true,
+        "feb": true,
+        "mar": true,
+        "apr": true,
+        "may": true,
+        "jun": true,
+        "jul": true,
+        "aug": true,
+        "sep": true,
+        "oct": true,
+        "nov": true,
+        "dec": true,
+        "day1": 0,
+        "month1": 0,
+        "day2": 0,
+        "month2": 0,
+        "day3": 0,
+        "month3": 0,
+        "day4": 0,
+        "month4": 0,
+        "day5": 0,
+        "month5": 0,
+        "day6": 0,
+        "month6": 0,
+        "day7": 0,
+        "month7": 0,
+        "day8": 0,
+        "month8": 0,
+        "day9": 0,
+        "month9": 0,
+        "day10": 0,
+        "month10": 0,
+        "day11": 0,
+        "month11": 0,
+        "day12": 0,
+        "month12": 0,
+        "d1": 0,
+        "w1": 0,
+        "d2": 0,
+        "w2": 0,
+        "d3": 0,
+        "w3": 0,
+        "d4": 0,
+        "w4": 0,
+        "d5": 0,
+        "w5": 0,
+        "d6": 0,
+        "w6": 0,
+        "xday1": 0,
+        "xmonth1": 0,
+        "xday2": 0,
+        "xmonth2": 0,
+        "xday3": 0,
+        "xmonth3": 0,
+        "xday4": 0,
+        "xmonth4": 0,
+        "xday5": 0,
+        "xmonth5": 0,
+        "xday6": 0,
+        "xmonth6": 0,
+        "xday7": "",
+        "xmonth7": "",
+        "xday8": "",
+        "xmonth8": "",
+        "xday9": "",
+        "xmonth9": "",
+        "xday10": "",
+        "xmonth10": "",
+        "xday11": "",
+        "xmonth11": "",
+        "xday12": "",
+        "xmonth12": "",
+        "xd1": 0,
+        "xw1": 0,
+        "xd2": 0,
+        "xw2": 0,
+        "xd3": 0,
+        "xw3": 0,
+        "xd4": 0,
+        "xw4": 0,
+        "xd5": 0,
+        "xw5": 0,
+        "xd6": 0,
+        "xw6": 0,
+        "suspend": false,
+        "random": false,
+        "randon1": false,
+        "randoff1": false,
+        "randon2": false,
+        "randoff2": false,
+        "repeat": true,
+        "atstart": true,
+        "odd": false,
+        "even": false,
+        "x": 150,
+        "y": 1860,
+        "wires": [
+            [
+                "2e796d2e.df7ed2"
+            ],
+            [],
+            []
+        ]
+    },
+    {
+        "id": "a6043f1f.5f1878",
+        "type": "rbe",
+        "z": "45dd8798.2cfc88",
+        "name": "Blocca se non cambia valore",
+        "func": "rbe",
+        "gap": "",
+        "start": "",
+        "inout": "out",
+        "property": "payload",
+        "x": 720,
+        "y": 1840,
+        "wires": [
+            [
+                "e3759707.e305b8"
+            ]
+        ]
+    },
+    {
+        "id": "e3759707.e305b8",
+        "type": "switch",
+        "z": "45dd8798.2cfc88",
+        "name": "Switch true/false",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "true"
+            },
+            {
+                "t": "false"
+            }
+        ],
+        "checkall": "false",
+        "repair": false,
+        "outputs": 2,
+        "x": 730,
+        "y": 1920,
+        "wires": [
+            [
+                "9961feea.ca7998"
+            ],
+            [
+                "d8e14562.ecb91"
+            ]
+        ]
+    },
+    {
+        "id": "9961feea.ca7998",
+        "type": "api-call-service",
+        "z": "45dd8798.2cfc88",
+        "name": "Accende luce portico 1",
+        "server": "c6e21e6c.847e8",
+        "version": 1,
+        "debugenabled": false,
+        "service_domain": "homeassistant",
+        "service": "turn_on",
+        "entityId": "switch.luce1_portico",
+        "data": "",
+        "dataType": "json",
+        "mergecontext": "",
+        "output_location": "payload",
+        "output_location_type": "msg",
+        "mustacheAltTags": false,
+        "x": 1070,
+        "y": 1840,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "d8e14562.ecb91",
+        "type": "api-call-service",
+        "z": "45dd8798.2cfc88",
+        "name": "Spegne luce portico 1",
+        "server": "c6e21e6c.847e8",
+        "version": 1,
+        "debugenabled": false,
+        "service_domain": "homeassistant",
+        "service": "turn_off",
+        "entityId": "switch.luce1_portico",
+        "data": "",
+        "dataType": "json",
+        "mergecontext": "",
+        "output_location": "payload",
+        "output_location_type": "msg",
+        "mustacheAltTags": false,
+        "x": 1080,
+        "y": 1920,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "b16ed515.1dec6",
+        "type": "bigtimer",
+        "z": "45dd8798.2cfc88",
+        "outtopic": "",
+        "outpayload1": "on",
+        "outpayload2": "off",
+        "name": "Big Timer",
+        "comment": "",
+        "lat": "45.6666400",
+        "lon": "9.0488400",
+        "starttime": "480",
+        "endtime": "1200",
+        "starttime2": 0,
+        "endtime2": 0,
+        "startoff": 0,
+        "endoff": 0,
+        "startoff2": 0,
+        "endoff2": 0,
+        "offs": 0,
+        "outtext1": "",
+        "outtext2": "",
+        "timeout": 1440,
+        "sun": false,
+        "mon": true,
+        "tue": true,
+        "wed": true,
+        "thu": true,
+        "fri": true,
+        "sat": false,
+        "jan": true,
+        "feb": true,
+        "mar": true,
+        "apr": true,
+        "may": true,
+        "jun": true,
+        "jul": true,
+        "aug": true,
+        "sep": true,
+        "oct": true,
+        "nov": true,
+        "dec": true,
+        "day1": "18",
+        "month1": "12",
+        "day2": "24",
+        "month2": "12",
+        "day3": "25",
+        "month3": "12",
+        "day4": "31",
+        "month4": "12",
+        "day5": "1",
+        "month5": "1",
+        "day6": 0,
+        "month6": 0,
+        "day7": 0,
+        "month7": 0,
+        "day8": 0,
+        "month8": 0,
+        "day9": 0,
+        "month9": 0,
+        "day10": 0,
+        "month10": 0,
+        "day11": 0,
+        "month11": 0,
+        "day12": 0,
+        "month12": 0,
+        "d1": 0,
+        "w1": 0,
+        "d2": 0,
+        "w2": 0,
+        "d3": 0,
+        "w3": 0,
+        "d4": 0,
+        "w4": 0,
+        "d5": 0,
+        "w5": 0,
+        "d6": 0,
+        "w6": 0,
+        "xday1": 0,
+        "xmonth1": 0,
+        "xday2": 0,
+        "xmonth2": 0,
+        "xday3": 0,
+        "xmonth3": 0,
+        "xday4": 0,
+        "xmonth4": 0,
+        "xday5": 0,
+        "xmonth5": 0,
+        "xday6": 0,
+        "xmonth6": 0,
+        "xday7": "",
+        "xmonth7": "",
+        "xday8": "",
+        "xmonth8": "",
+        "xday9": "",
+        "xmonth9": "",
+        "xday10": "",
+        "xmonth10": "",
+        "xday11": "",
+        "xmonth11": "",
+        "xday12": "",
+        "xmonth12": "",
+        "xd1": 0,
+        "xw1": 0,
+        "xd2": 0,
+        "xw2": 0,
+        "xd3": 0,
+        "xw3": 0,
+        "xd4": 0,
+        "xw4": 0,
+        "xd5": 0,
+        "xw5": 0,
+        "xd6": 0,
+        "xw6": 0,
+        "suspend": false,
+        "random": false,
+        "randon1": false,
+        "randoff1": false,
+        "randon2": false,
+        "randoff2": false,
+        "repeat": true,
+        "atstart": true,
+        "odd": false,
+        "even": false,
+        "x": 160,
+        "y": 1080,
+        "wires": [
+            [
+                "18afb449.c170ec"
+            ],
+            [],
+            []
+        ]
     }
 ]
