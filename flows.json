@@ -28,11 +28,17 @@
         "info": ""
     },
     {
+        "id": "ea0b4953.6bd2b",
+        "type": "tab",
+        "label": "Test Flow",
+        "disabled": false,
+        "info": ""
+    },
+    {
         "id": "c6e21e6c.847e8",
         "type": "server",
         "name": "Casa (local https)",
         "version": 1,
-        "legacy": false,
         "addon": false,
         "rejectUnauthorizedCerts": false,
         "ha_boolean": "y|yes|true|on|home|open",
@@ -214,14 +220,1914 @@
     {
         "id": "66d7f6c2.eeb478",
         "type": "influxdb",
-        "hostname": "10.9.10.56",
+        "hostname": "192.168.101.21",
         "port": "8086",
         "protocol": "http",
         "database": "adsl",
         "name": "influxdb_adsl",
         "usetls": false,
         "tls": "",
-        "influxdbVersion": "1.x"
+        "influxdbVersion": "1.x",
+        "url": "",
+        "rejectUnauthorized": false
+    },
+    {
+        "id": "929f8303.a26fa8",
+        "type": "comment",
+        "z": "f841e824.d474f",
+        "name": "Monitoraggio consumi elettrici",
+        "info": "# **Monitoraggio Consumo Elettrico**\nViene monitorato il consumo elettrico dei seguenti\nelettrodomestici:\n\n - Lavatrice\n - Lavastoviglie\n - Frigorifero\n - Forno\n \nIl monitoraggio è effettuato leggendo da Home Assistant\nil consumo rilevato dalla prese smart Innr\n\nInoltre viene monitorato il consumo globlale misurato\ndallo smart meter posizionato all'ingresso della linea elettrica.\n\nTutti i dati confluiscono verso un database Influxdb",
+        "x": 120,
+        "y": 60,
+        "wires": []
+    },
+    {
+        "id": "ffe2d279.f93d88",
+        "type": "server-state-changed",
+        "z": "f841e824.d474f",
+        "name": "Consumo Lavastoviglie Watt",
+        "server": "c6e21e6c.847e8",
+        "version": 3,
+        "exposeToHomeAssistant": false,
+        "haConfig": [
+            {
+                "property": "name",
+                "value": ""
+            },
+            {
+                "property": "icon",
+                "value": ""
+            }
+        ],
+        "entityidfilter": "sensor.power_15",
+        "entityidfiltertype": "exact",
+        "outputinitially": true,
+        "state_type": "num",
+        "haltifstate": "",
+        "halt_if_type": "str",
+        "halt_if_compare": "is",
+        "outputs": 1,
+        "output_only_on_state_change": false,
+        "for": "",
+        "forType": "num",
+        "forUnits": "minutes",
+        "ignorePrevStateNull": false,
+        "ignorePrevStateUnknown": false,
+        "ignorePrevStateUnavailable": false,
+        "ignoreCurrentStateUnknown": false,
+        "ignoreCurrentStateUnavailable": false,
+        "outputProperties": [
+            {
+                "property": "payload",
+                "propertyType": "msg",
+                "value": "",
+                "valueType": "entityState"
+            },
+            {
+                "property": "data",
+                "propertyType": "msg",
+                "value": "",
+                "valueType": "eventData"
+            },
+            {
+                "property": "topic",
+                "propertyType": "msg",
+                "value": "",
+                "valueType": "triggerId"
+            }
+        ],
+        "x": 140,
+        "y": 300,
+        "wires": [
+            [
+                "6e027ae9.8d00ec",
+                "dc96e344.03922"
+            ]
+        ]
+    },
+    {
+        "id": "6e027ae9.8d00ec",
+        "type": "switch",
+        "z": "f841e824.d474f",
+        "name": "<=1 or >5 ?",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "lte",
+                "v": "1",
+                "vt": "str"
+            },
+            {
+                "t": "gt",
+                "v": "5",
+                "vt": "str"
+            },
+            {
+                "t": "btwn",
+                "v": "2",
+                "vt": "num",
+                "v2": "40",
+                "v2t": "num"
+            }
+        ],
+        "checkall": "false",
+        "repair": false,
+        "outputs": 3,
+        "x": 370,
+        "y": 300,
+        "wires": [
+            [
+                "e3a6ed46.3e66f"
+            ],
+            [
+                "a6f2672e.495d1"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "e3a6ed46.3e66f",
+        "type": "api-current-state",
+        "z": "f841e824.d474f",
+        "name": "Stato della lavastoviglie",
+        "server": "c6e21e6c.847e8",
+        "version": 2,
+        "outputs": 2,
+        "halt_if": "off",
+        "halt_if_type": "str",
+        "halt_if_compare": "is",
+        "entity_id": "input_boolean.dishwasher_status",
+        "state_type": "str",
+        "blockInputOverrides": false,
+        "outputProperties": [
+            {
+                "property": "payload",
+                "propertyType": "msg",
+                "value": "",
+                "valueType": "entityState"
+            },
+            {
+                "property": "data",
+                "propertyType": "msg",
+                "value": "",
+                "valueType": "entity"
+            },
+            {
+                "property": "topic",
+                "propertyType": "msg",
+                "value": "",
+                "valueType": "triggerId"
+            }
+        ],
+        "x": 670,
+        "y": 240,
+        "wires": [
+            [],
+            [
+                "97fa08e7.b95428"
+            ]
+        ]
+    },
+    {
+        "id": "a6f2672e.495d1",
+        "type": "api-current-state",
+        "z": "f841e824.d474f",
+        "name": "Stato della lavastoviglie",
+        "server": "c6e21e6c.847e8",
+        "version": 2,
+        "outputs": 2,
+        "halt_if": "on",
+        "halt_if_type": "str",
+        "halt_if_compare": "is",
+        "entity_id": "input_boolean.dishwasher_status",
+        "state_type": "str",
+        "blockInputOverrides": false,
+        "outputProperties": [
+            {
+                "property": "payload",
+                "propertyType": "msg",
+                "value": "",
+                "valueType": "entityState"
+            },
+            {
+                "property": "data",
+                "propertyType": "msg",
+                "value": "",
+                "valueType": "entity"
+            },
+            {
+                "property": "topic",
+                "propertyType": "msg",
+                "value": "",
+                "valueType": "triggerId"
+            }
+        ],
+        "x": 650,
+        "y": 340,
+        "wires": [
+            [],
+            [
+                "be6f3ee8.6368a"
+            ]
+        ]
+    },
+    {
+        "id": "3a8a3532.c7912a",
+        "type": "api-call-service",
+        "z": "f841e824.d474f",
+        "name": "imposta la lavastoviglie su \"off\"",
+        "server": "c6e21e6c.847e8",
+        "version": 3,
+        "debugenabled": false,
+        "service_domain": "input_boolean",
+        "service": "turn_off",
+        "entityId": "input_boolean.dishwasher_status",
+        "data": "",
+        "dataType": "json",
+        "mergecontext": "",
+        "mustacheAltTags": false,
+        "outputProperties": [],
+        "queue": "none",
+        "x": 1570,
+        "y": 180,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "be6f3ee8.6368a",
+        "type": "api-call-service",
+        "z": "f841e824.d474f",
+        "name": "Imposta la lavastoviglie su \"on\"",
+        "server": "c6e21e6c.847e8",
+        "version": 3,
+        "debugenabled": false,
+        "service_domain": "input_boolean",
+        "service": "turn_on",
+        "entityId": "input_boolean.dishwasher_status",
+        "data": "",
+        "dataType": "json",
+        "mergecontext": "",
+        "mustacheAltTags": false,
+        "outputProperties": [],
+        "queue": "none",
+        "x": 1050,
+        "y": 380,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "846d2ef1.3d76d",
+        "type": "api-call-service",
+        "z": "f841e824.d474f",
+        "name": "",
+        "server": "c6e21e6c.847e8",
+        "version": 3,
+        "debugenabled": false,
+        "service_domain": "notify",
+        "service": "mobile_app_soylents_iphone",
+        "entityId": "",
+        "data": "{\"title\":\"Piatti Lavati\",\"message\":\"{{payload}}\"}",
+        "dataType": "json",
+        "mergecontext": "",
+        "mustacheAltTags": false,
+        "outputProperties": [
+            {
+                "property": "payload",
+                "propertyType": "msg",
+                "value": "",
+                "valueType": "data"
+            }
+        ],
+        "queue": "none",
+        "x": 1560,
+        "y": 260,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "ec897701.132bc8",
+        "type": "server-state-changed",
+        "z": "f841e824.d474f",
+        "name": "Consumo Lavatrice Watt",
+        "server": "c6e21e6c.847e8",
+        "version": 3,
+        "exposeToHomeAssistant": false,
+        "haConfig": [
+            {
+                "property": "name",
+                "value": ""
+            },
+            {
+                "property": "icon",
+                "value": ""
+            }
+        ],
+        "entityidfilter": "sensor.power_20",
+        "entityidfiltertype": "substring",
+        "outputinitially": true,
+        "state_type": "num",
+        "haltifstate": "",
+        "halt_if_type": "str",
+        "halt_if_compare": "is",
+        "outputs": 1,
+        "output_only_on_state_change": false,
+        "for": "",
+        "forType": "num",
+        "forUnits": "minutes",
+        "ignorePrevStateNull": false,
+        "ignorePrevStateUnknown": false,
+        "ignorePrevStateUnavailable": false,
+        "ignoreCurrentStateUnknown": false,
+        "ignoreCurrentStateUnavailable": false,
+        "outputProperties": [
+            {
+                "property": "payload",
+                "propertyType": "msg",
+                "value": "",
+                "valueType": "entityState"
+            },
+            {
+                "property": "data",
+                "propertyType": "msg",
+                "value": "",
+                "valueType": "eventData"
+            },
+            {
+                "property": "topic",
+                "propertyType": "msg",
+                "value": "",
+                "valueType": "triggerId"
+            }
+        ],
+        "x": 130,
+        "y": 800,
+        "wires": [
+            [
+                "7a46ecc5.71988c",
+                "3803720a.e78c9e"
+            ]
+        ]
+    },
+    {
+        "id": "7a46ecc5.71988c",
+        "type": "switch",
+        "z": "f841e824.d474f",
+        "name": "<= 5 or >50 ?",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "lte",
+                "v": "5",
+                "vt": "str"
+            },
+            {
+                "t": "gt",
+                "v": "50",
+                "vt": "str"
+            }
+        ],
+        "checkall": "false",
+        "repair": false,
+        "outputs": 2,
+        "x": 460,
+        "y": 800,
+        "wires": [
+            [
+                "cce3c7a4.6a7b98"
+            ],
+            [
+                "c48c05d1.018608",
+                "bed4bf4f.e4b8d"
+            ]
+        ]
+    },
+    {
+        "id": "c0343eb2.3930d8",
+        "type": "api-call-service",
+        "z": "f841e824.d474f",
+        "name": "",
+        "server": "c6e21e6c.847e8",
+        "version": 3,
+        "debugenabled": false,
+        "service_domain": "notify",
+        "service": "mobile_app_soylents_iphone",
+        "entityId": "",
+        "data": "{\"title\":\"Bucato terminato\",\"message\":\"{{payload}}\"}",
+        "dataType": "json",
+        "mergecontext": "",
+        "mustacheAltTags": false,
+        "outputProperties": [
+            {
+                "property": "payload",
+                "propertyType": "msg",
+                "value": "",
+                "valueType": "data"
+            }
+        ],
+        "queue": "none",
+        "x": 1870,
+        "y": 700,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "ddb9425d.c294",
+        "type": "api-call-service",
+        "z": "f841e824.d474f",
+        "name": "",
+        "server": "c6e21e6c.847e8",
+        "version": 3,
+        "debugenabled": false,
+        "service_domain": "notify",
+        "service": "mobile_app_grazia_cattaneos_iphone",
+        "entityId": "",
+        "data": "{\"title\":\"Bucato terminato\",\"message\":\"{{payload}}\"}",
+        "dataType": "json",
+        "mergecontext": "",
+        "mustacheAltTags": false,
+        "outputProperties": [],
+        "queue": "none",
+        "x": 1890,
+        "y": 780,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "64b67a33.f752fc",
+        "type": "api-call-service",
+        "z": "f841e824.d474f",
+        "name": "imposta la lavatrice su \"off\"",
+        "server": "c6e21e6c.847e8",
+        "version": 3,
+        "debugenabled": false,
+        "service_domain": "input_boolean",
+        "service": "turn_off",
+        "entityId": "input_boolean.washingmachine_status",
+        "data": "",
+        "dataType": "json",
+        "mergecontext": "",
+        "mustacheAltTags": false,
+        "outputProperties": [],
+        "queue": "none",
+        "x": 1820,
+        "y": 620,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "dbe27959.21a1b",
+        "type": "api-call-service",
+        "z": "f841e824.d474f",
+        "name": "Imposta la lavatrice su \"on\"",
+        "server": "c6e21e6c.847e8",
+        "version": 3,
+        "debugenabled": false,
+        "service_domain": "input_boolean",
+        "service": "turn_on",
+        "entityId": "input_boolean.washingmachine_status",
+        "data": "",
+        "dataType": "json",
+        "mergecontext": "",
+        "mustacheAltTags": false,
+        "outputProperties": [],
+        "queue": "none",
+        "x": 980,
+        "y": 920,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "c48c05d1.018608",
+        "type": "api-current-state",
+        "z": "f841e824.d474f",
+        "name": "Stato della lavatrice",
+        "server": "c6e21e6c.847e8",
+        "version": 2,
+        "outputs": 2,
+        "halt_if": "on",
+        "halt_if_type": "str",
+        "halt_if_compare": "is",
+        "entity_id": "input_boolean.washingmachine_status",
+        "state_type": "str",
+        "blockInputOverrides": false,
+        "outputProperties": [],
+        "x": 680,
+        "y": 920,
+        "wires": [
+            [],
+            [
+                "dbe27959.21a1b"
+            ]
+        ]
+    },
+    {
+        "id": "2e8f9e53.812b7a",
+        "type": "delay",
+        "z": "f841e824.d474f",
+        "name": "",
+        "pauseType": "rate",
+        "timeout": "5",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "minute",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": true,
+        "outputs": 1,
+        "x": 970,
+        "y": 740,
+        "wires": [
+            [
+                "ff2d8a29.ed01d"
+            ]
+        ]
+    },
+    {
+        "id": "f3f0da13.d4cd2",
+        "type": "server-state-changed",
+        "z": "f841e824.d474f",
+        "name": "Consumo Frigorifero Watt",
+        "server": "c6e21e6c.847e8",
+        "version": 3,
+        "exposeToHomeAssistant": false,
+        "haConfig": [
+            {
+                "property": "name",
+                "value": ""
+            },
+            {
+                "property": "icon",
+                "value": ""
+            }
+        ],
+        "entityidfilter": "sensor.power_25",
+        "entityidfiltertype": "substring",
+        "outputinitially": true,
+        "state_type": "num",
+        "haltifstate": "",
+        "halt_if_type": "str",
+        "halt_if_compare": "is",
+        "outputs": 1,
+        "output_only_on_state_change": false,
+        "for": "",
+        "forType": "num",
+        "forUnits": "minutes",
+        "ignorePrevStateNull": false,
+        "ignorePrevStateUnknown": false,
+        "ignorePrevStateUnavailable": false,
+        "ignoreCurrentStateUnknown": false,
+        "ignoreCurrentStateUnavailable": false,
+        "outputProperties": [
+            {
+                "property": "payload",
+                "propertyType": "msg",
+                "value": "",
+                "valueType": "entityState"
+            },
+            {
+                "property": "data",
+                "propertyType": "msg",
+                "value": "",
+                "valueType": "eventData"
+            },
+            {
+                "property": "topic",
+                "propertyType": "msg",
+                "value": "",
+                "valueType": "triggerId"
+            }
+        ],
+        "x": 170,
+        "y": 1180,
+        "wires": [
+            [
+                "3de57654.f35602",
+                "609e5d56.9d006c"
+            ]
+        ]
+    },
+    {
+        "id": "3de57654.f35602",
+        "type": "influxdb out",
+        "z": "f841e824.d474f",
+        "influxdb": "a7c77e43.dccf78",
+        "name": "",
+        "measurement": "frigorifero",
+        "precision": "",
+        "retentionPolicy": "",
+        "x": 190,
+        "y": 1360,
+        "wires": []
+    },
+    {
+        "id": "3803720a.e78c9e",
+        "type": "influxdb out",
+        "z": "f841e824.d474f",
+        "influxdb": "a7c77e43.dccf78",
+        "name": "",
+        "measurement": "lavatrice",
+        "precision": "",
+        "retentionPolicy": "",
+        "x": 350,
+        "y": 940,
+        "wires": []
+    },
+    {
+        "id": "dc96e344.03922",
+        "type": "influxdb out",
+        "z": "f841e824.d474f",
+        "influxdb": "a7c77e43.dccf78",
+        "name": "",
+        "measurement": "lavastoviglie",
+        "precision": "",
+        "retentionPolicy": "",
+        "database": "",
+        "precisionV18FluxV20": "ns",
+        "retentionPolicyV18Flux": "",
+        "org": "",
+        "bucket": "",
+        "x": 340,
+        "y": 460,
+        "wires": []
+    },
+    {
+        "id": "d50a9414.8903d",
+        "type": "server-state-changed",
+        "z": "f841e824.d474f",
+        "name": "Consumo Forno Watt",
+        "server": "c6e21e6c.847e8",
+        "version": 3,
+        "exposeToHomeAssistant": false,
+        "haConfig": [
+            {
+                "property": "name",
+                "value": ""
+            },
+            {
+                "property": "icon",
+                "value": ""
+            }
+        ],
+        "entityidfilter": "sensor.power_23",
+        "entityidfiltertype": "substring",
+        "outputinitially": true,
+        "state_type": "num",
+        "haltifstate": "",
+        "halt_if_type": "str",
+        "halt_if_compare": "is",
+        "outputs": 1,
+        "output_only_on_state_change": false,
+        "for": "",
+        "forType": "num",
+        "forUnits": "minutes",
+        "ignorePrevStateNull": false,
+        "ignorePrevStateUnknown": false,
+        "ignorePrevStateUnavailable": false,
+        "ignoreCurrentStateUnknown": false,
+        "ignoreCurrentStateUnavailable": false,
+        "outputProperties": [
+            {
+                "property": "payload",
+                "propertyType": "msg",
+                "value": "",
+                "valueType": "entityState"
+            },
+            {
+                "property": "data",
+                "propertyType": "msg",
+                "value": "",
+                "valueType": "eventData"
+            },
+            {
+                "property": "topic",
+                "propertyType": "msg",
+                "value": "",
+                "valueType": "triggerId"
+            }
+        ],
+        "x": 160,
+        "y": 1620,
+        "wires": [
+            [
+                "f89c9626.f4949"
+            ]
+        ]
+    },
+    {
+        "id": "f89c9626.f4949",
+        "type": "influxdb out",
+        "z": "f841e824.d474f",
+        "influxdb": "a7c77e43.dccf78",
+        "name": "",
+        "measurement": "forno",
+        "precision": "",
+        "retentionPolicy": "",
+        "x": 500,
+        "y": 1620,
+        "wires": []
+    },
+    {
+        "id": "34e5b1f8.b68496",
+        "type": "api-current-state",
+        "z": "f841e824.d474f",
+        "name": "Stato presa frigorifero",
+        "server": "c6e21e6c.847e8",
+        "version": 2,
+        "outputs": 2,
+        "halt_if": "false",
+        "halt_if_type": "bool",
+        "halt_if_compare": "is_not",
+        "entity_id": "sensor.power_25.on",
+        "state_type": "habool",
+        "blockInputOverrides": false,
+        "outputProperties": [
+            {
+                "property": "payload",
+                "propertyType": "msg",
+                "value": "",
+                "valueType": "entityState"
+            },
+            {
+                "property": "data",
+                "propertyType": "msg",
+                "value": "",
+                "valueType": "entity"
+            },
+            {
+                "property": "topic",
+                "propertyType": "msg",
+                "value": "",
+                "valueType": "triggerId"
+            }
+        ],
+        "x": 960,
+        "y": 1180,
+        "wires": [
+            [],
+            [
+                "5417eda1.31b61c",
+                "e3922b5e.aee888",
+                "f7e0fc7a.127c5"
+            ]
+        ]
+    },
+    {
+        "id": "5417eda1.31b61c",
+        "type": "api-call-service",
+        "z": "f841e824.d474f",
+        "name": "",
+        "server": "c6e21e6c.847e8",
+        "version": 3,
+        "debugenabled": false,
+        "service_domain": "notify",
+        "service": "mobile_app_soylents_iphone",
+        "entityId": "",
+        "data": "{\"title\":\"Probelma al frigorifero\",\"message\":\"La presa è spenta!\"}",
+        "dataType": "json",
+        "mergecontext": "",
+        "mustacheAltTags": false,
+        "outputProperties": [
+            {
+                "property": "payload",
+                "propertyType": "msg",
+                "value": "",
+                "valueType": "data"
+            }
+        ],
+        "queue": "none",
+        "x": 1460,
+        "y": 1180,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "609e5d56.9d006c",
+        "type": "switch",
+        "z": "f841e824.d474f",
+        "name": "se <5 or >10",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "lte",
+                "v": "5",
+                "vt": "str"
+            },
+            {
+                "t": "gt",
+                "v": "5",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 430,
+        "y": 1180,
+        "wires": [
+            [
+                "ef749ecd.b71b48",
+                "b35834bb.1da0b8"
+            ],
+            [
+                "b3d3d616.c7e658"
+            ]
+        ]
+    },
+    {
+        "id": "ef749ecd.b71b48",
+        "type": "delay",
+        "z": "f841e824.d474f",
+        "name": "",
+        "pauseType": "rate",
+        "timeout": "5",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "5",
+        "rateUnits": "minute",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": true,
+        "outputs": 1,
+        "x": 680,
+        "y": 1180,
+        "wires": [
+            [
+                "34e5b1f8.b68496"
+            ]
+        ]
+    },
+    {
+        "id": "2f9c93eb.587f64",
+        "type": "api-call-service",
+        "z": "f841e824.d474f",
+        "name": "",
+        "server": "c6e21e6c.847e8",
+        "version": 3,
+        "debugenabled": false,
+        "service_domain": "notify",
+        "service": "alexa_media_terra",
+        "entityId": "",
+        "data": "{\"message\":\"{{payload}}\",\"title\":\"Bucato Terminato\",\"data\":{\"type\":\"announce\",\"method\":\"all\"},\"target\":[\"Cucina\"]}",
+        "dataType": "json",
+        "mergecontext": "",
+        "mustacheAltTags": false,
+        "outputProperties": [
+            {
+                "property": "payload",
+                "propertyType": "msg",
+                "value": "",
+                "valueType": "data"
+            }
+        ],
+        "queue": "none",
+        "x": 1830,
+        "y": 860,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "e3922b5e.aee888",
+        "type": "api-call-service",
+        "z": "f841e824.d474f",
+        "name": "",
+        "server": "c6e21e6c.847e8",
+        "version": 3,
+        "debugenabled": false,
+        "service_domain": "notify",
+        "service": "alexa_media",
+        "entityId": "",
+        "data": "{\"message\":\"Attenzione! Sembra che la presa del frigorifero sia spenta. Controlla subito!\",\"title\":\"Presa frigorifero off\",\"data\":{\"type\":\"announce\",\"method\":\"all\"},\"target\":[\"Cucina\"]}",
+        "dataType": "json",
+        "mergecontext": "",
+        "mustacheAltTags": false,
+        "outputProperties": [
+            {
+                "property": "payload",
+                "propertyType": "msg",
+                "value": "",
+                "valueType": "data"
+            }
+        ],
+        "queue": "none",
+        "x": 1410,
+        "y": 1240,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "4a76b909.bb8f48",
+        "type": "api-call-service",
+        "z": "f841e824.d474f",
+        "name": "",
+        "server": "c6e21e6c.847e8",
+        "version": 3,
+        "debugenabled": false,
+        "service_domain": "notify",
+        "service": "mobile_app_soylents_iphone",
+        "entityId": "",
+        "data": "{\"title\":\"Probelma al frigorifero\",\"message\":\"Non è stato rilevato consumo lettrico da più di 60 minuti\"}",
+        "dataType": "json",
+        "mergecontext": "",
+        "mustacheAltTags": false,
+        "outputProperties": [],
+        "queue": "none",
+        "x": 1020,
+        "y": 1300,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "b35834bb.1da0b8",
+        "type": "trigger",
+        "z": "f841e824.d474f",
+        "name": "",
+        "op1": "",
+        "op2": "",
+        "op1type": "nul",
+        "op2type": "payl",
+        "duration": "60",
+        "extend": false,
+        "units": "min",
+        "reset": "reset",
+        "bytopic": "all",
+        "outputs": 1,
+        "x": 710,
+        "y": 1300,
+        "wires": [
+            [
+                "4a76b909.bb8f48"
+            ]
+        ]
+    },
+    {
+        "id": "b3d3d616.c7e658",
+        "type": "change",
+        "z": "f841e824.d474f",
+        "name": "reset",
+        "rules": [
+            {
+                "t": "set",
+                "p": "reset",
+                "pt": "msg",
+                "to": "true",
+                "tot": "bool"
+            },
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "false",
+                "tot": "bool"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 490,
+        "y": 1300,
+        "wires": [
+            [
+                "b35834bb.1da0b8"
+            ]
+        ]
+    },
+    {
+        "id": "ff2d8a29.ed01d",
+        "type": "trigger",
+        "z": "f841e824.d474f",
+        "name": "",
+        "op1": "",
+        "op2": "",
+        "op1type": "nul",
+        "op2type": "payl",
+        "duration": "3",
+        "extend": false,
+        "units": "min",
+        "reset": "reset",
+        "bytopic": "all",
+        "outputs": 1,
+        "x": 1250,
+        "y": 740,
+        "wires": [
+            [
+                "11fd7980.c38c37",
+                "c0c39c5d.4c3da8"
+            ]
+        ]
+    },
+    {
+        "id": "bed4bf4f.e4b8d",
+        "type": "change",
+        "z": "f841e824.d474f",
+        "name": "reset",
+        "rules": [
+            {
+                "t": "set",
+                "p": "reset",
+                "pt": "msg",
+                "to": "true",
+                "tot": "bool"
+            },
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "false",
+                "tot": "bool"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1010,
+        "y": 800,
+        "wires": [
+            [
+                "ff2d8a29.ed01d"
+            ]
+        ]
+    },
+    {
+        "id": "c0c39c5d.4c3da8",
+        "type": "function",
+        "z": "f841e824.d474f",
+        "name": "Prepara il messaggio",
+        "func": "function millisToMinutesAndSeconds(millis) {\n  var minutes = Math.floor(millis / 60000);\n  var seconds = ((millis % 60000) / 1000).toFixed(0);\n  return minutes + \" minuti e \" + (seconds < 10 ? '0' : '') + seconds + \" secondi\";\n}\n\nvar text = \"La lavatrice ha finito. Ora puoi stendere il bucato. Durata lavaggio: \"\nvar msg1 = {payload: text + millisToMinutesAndSeconds(msg.data.timeSinceChangedMs) }\nreturn msg1\n\n\n  \n\n\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1540,
+        "y": 740,
+        "wires": [
+            [
+                "2f9c93eb.587f64",
+                "c0343eb2.3930d8",
+                "64b67a33.f752fc",
+                "ddb9425d.c294"
+            ]
+        ]
+    },
+    {
+        "id": "97fa08e7.b95428",
+        "type": "function",
+        "z": "f841e824.d474f",
+        "name": "Prepara il messaggio",
+        "func": "function millisToMinutesAndSeconds(millis) {\n  var minutes = Math.floor(millis / 60000);\n  var seconds = ((millis % 60000) / 1000).toFixed(0);\n  return minutes + \" minuti e \" + (seconds < 10 ? '0' : '') + seconds + \" secondi\";\n}\n\nvar text = \"Piatti lavati. Durata ciclo di lavaggio lavaggio: \"\nvar msg1 = {payload: text + millisToMinutesAndSeconds(msg.data.timeSinceChangedMs) }\nreturn msg1\n  \n\n\n",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 980,
+        "y": 260,
+        "wires": [
+            [
+                "940ec4f1.3bbc9"
+            ]
+        ]
+    },
+    {
+        "id": "7916216.3f0bc6",
+        "type": "mqtt in",
+        "z": "f841e824.d474f",
+        "name": "Generale W",
+        "topic": "1694498882.W",
+        "qos": "2",
+        "datatype": "auto",
+        "broker": "efdb8d8d.4fdfe8",
+        "inputs": 0,
+        "x": 150,
+        "y": 1880,
+        "wires": [
+            [
+                "ccef8db8.407948"
+            ]
+        ]
+    },
+    {
+        "id": "90ce68bb.28e028",
+        "type": "influxdb out",
+        "z": "f841e824.d474f",
+        "influxdb": "a7c77e43.dccf78",
+        "name": "generale_w",
+        "measurement": "generale_w",
+        "precision": "",
+        "retentionPolicy": "",
+        "x": 550,
+        "y": 1880,
+        "wires": []
+    },
+    {
+        "id": "886d5780.8a7f7",
+        "type": "mqtt in",
+        "z": "f841e824.d474f",
+        "name": "Generale A",
+        "topic": "1694498882.A",
+        "qos": "2",
+        "datatype": "auto",
+        "broker": "efdb8d8d.4fdfe8",
+        "inputs": 0,
+        "x": 140,
+        "y": 1940,
+        "wires": [
+            [
+                "ca5476a7.f22e"
+            ]
+        ]
+    },
+    {
+        "id": "8ecd5a59.d7cac8",
+        "type": "mqtt in",
+        "z": "f841e824.d474f",
+        "name": "Generale V",
+        "topic": "1694498882.V",
+        "qos": "2",
+        "datatype": "auto",
+        "broker": "efdb8d8d.4fdfe8",
+        "inputs": 0,
+        "x": 140,
+        "y": 2000,
+        "wires": [
+            [
+                "36c440c6.e32d4"
+            ]
+        ]
+    },
+    {
+        "id": "f346feec.c9453",
+        "type": "mqtt in",
+        "z": "f841e824.d474f",
+        "name": "Generale PF",
+        "topic": "1694498882.PF",
+        "qos": "2",
+        "datatype": "auto",
+        "broker": "efdb8d8d.4fdfe8",
+        "inputs": 0,
+        "x": 150,
+        "y": 2060,
+        "wires": [
+            [
+                "d4adf237.a4de08"
+            ]
+        ]
+    },
+    {
+        "id": "3aed4e06.6a055a",
+        "type": "influxdb out",
+        "z": "f841e824.d474f",
+        "influxdb": "a7c77e43.dccf78",
+        "name": "generale_a",
+        "measurement": "generale_a",
+        "precision": "",
+        "retentionPolicy": "",
+        "x": 550,
+        "y": 1940,
+        "wires": []
+    },
+    {
+        "id": "388d1b3e.13e2f4",
+        "type": "influxdb out",
+        "z": "f841e824.d474f",
+        "influxdb": "a7c77e43.dccf78",
+        "name": "generale_v",
+        "measurement": "generale_v",
+        "precision": "",
+        "retentionPolicy": "",
+        "x": 550,
+        "y": 2000,
+        "wires": []
+    },
+    {
+        "id": "fb32d4b3.ab5e9",
+        "type": "influxdb out",
+        "z": "f841e824.d474f",
+        "influxdb": "a7c77e43.dccf78",
+        "name": "generale_pf",
+        "measurement": "generale_pf",
+        "precision": "",
+        "retentionPolicy": "",
+        "x": 550,
+        "y": 2060,
+        "wires": []
+    },
+    {
+        "id": "ccef8db8.407948",
+        "type": "json",
+        "z": "f841e824.d474f",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 330,
+        "y": 1880,
+        "wires": [
+            [
+                "90ce68bb.28e028",
+                "c6ce6533.ab36a8",
+                "76701afb.5da6c4",
+                "b9c0c857.65e488",
+                "740f02d.fe147fc"
+            ]
+        ]
+    },
+    {
+        "id": "ca5476a7.f22e",
+        "type": "json",
+        "z": "f841e824.d474f",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 330,
+        "y": 1940,
+        "wires": [
+            [
+                "3aed4e06.6a055a"
+            ]
+        ]
+    },
+    {
+        "id": "36c440c6.e32d4",
+        "type": "json",
+        "z": "f841e824.d474f",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 330,
+        "y": 2000,
+        "wires": [
+            [
+                "388d1b3e.13e2f4"
+            ]
+        ]
+    },
+    {
+        "id": "d4adf237.a4de08",
+        "type": "json",
+        "z": "f841e824.d474f",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 330,
+        "y": 2060,
+        "wires": [
+            [
+                "fb32d4b3.ab5e9"
+            ]
+        ]
+    },
+    {
+        "id": "cce3c7a4.6a7b98",
+        "type": "api-current-state",
+        "z": "f841e824.d474f",
+        "name": "Stato della lavatrice",
+        "server": "c6e21e6c.847e8",
+        "version": 2,
+        "outputs": 2,
+        "halt_if": "off",
+        "halt_if_type": "str",
+        "halt_if_compare": "is",
+        "entity_id": "input_boolean.washingmachine_status",
+        "state_type": "str",
+        "blockInputOverrides": false,
+        "outputProperties": [
+            {
+                "property": "payload",
+                "propertyType": "msg",
+                "value": "",
+                "valueType": "entityState"
+            },
+            {
+                "property": "data",
+                "propertyType": "msg",
+                "value": "",
+                "valueType": "entity"
+            },
+            {
+                "property": "topic",
+                "propertyType": "msg",
+                "value": "",
+                "valueType": "triggerId"
+            }
+        ],
+        "x": 680,
+        "y": 740,
+        "wires": [
+            [],
+            [
+                "2e8f9e53.812b7a"
+            ]
+        ]
+    },
+    {
+        "id": "11fd7980.c38c37",
+        "type": "debug",
+        "z": "f841e824.d474f",
+        "name": "prova",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "x": 1450,
+        "y": 640,
+        "wires": []
+    },
+    {
+        "id": "6fe8555e.62a4ec",
+        "type": "inject",
+        "z": "f841e824.d474f",
+        "name": "Reset",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "reset",
+        "payloadType": "str",
+        "x": 1030,
+        "y": 640,
+        "wires": [
+            [
+                "ff2d8a29.ed01d"
+            ]
+        ]
+    },
+    {
+        "id": "aa05600a.cc269",
+        "type": "inject",
+        "z": "f841e824.d474f",
+        "name": "Reset",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "reset",
+        "payloadType": "str",
+        "x": 490,
+        "y": 1400,
+        "wires": [
+            [
+                "b35834bb.1da0b8"
+            ]
+        ]
+    },
+    {
+        "id": "c6ce6533.ab36a8",
+        "type": "function",
+        "z": "f841e824.d474f",
+        "name": "Prepara messaggio se il consumo è >= 3300 W",
+        "func": "var max_w = 6600\nif (msg.payload >= max_w) {\n  var msg1 = {payload: \"Attenzione! Il consumo di energia elettrica è pari a \" + msg.payload + \" watt. Rischio di distacco!\"}  \n} else {msg1 = null}\n\nreturn msg1;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 660,
+        "y": 1800,
+        "wires": [
+            [
+                "b1cf814b.a7b2"
+            ]
+        ]
+    },
+    {
+        "id": "f3df76e8.56402",
+        "type": "api-call-service",
+        "z": "f841e824.d474f",
+        "name": "",
+        "server": "c6e21e6c.847e8",
+        "version": 3,
+        "debugenabled": false,
+        "service_domain": "notify",
+        "service": "alexa_media_ovunque",
+        "entityId": "",
+        "data": "{\"message\":\"{{payload}}\",\"title\":\"Rischio di distacco\",\"data\":{\"type\":\"announce\",\"method\":\"all\"},\"target\":[\"ovunque\"]}",
+        "dataType": "json",
+        "mergecontext": "",
+        "mustacheAltTags": false,
+        "outputProperties": [
+            {
+                "property": "payload",
+                "propertyType": "msg",
+                "value": "",
+                "valueType": "data"
+            }
+        ],
+        "queue": "none",
+        "x": 1020,
+        "y": 1940,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "b1cf814b.a7b2",
+        "type": "delay",
+        "z": "f841e824.d474f",
+        "name": "",
+        "pauseType": "rate",
+        "timeout": "5",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "minute",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": true,
+        "outputs": 1,
+        "x": 1020,
+        "y": 1800,
+        "wires": [
+            [
+                "f3df76e8.56402"
+            ]
+        ]
+    },
+    {
+        "id": "a38f8e5e.591a38",
+        "type": "api-call-service",
+        "z": "f841e824.d474f",
+        "name": "Accendi forno",
+        "server": "c6e21e6c.847e8",
+        "version": 3,
+        "debugenabled": false,
+        "service_domain": "switch",
+        "service": "turn_on",
+        "entityId": "switch.forno",
+        "data": "",
+        "dataType": "json",
+        "mergecontext": "",
+        "mustacheAltTags": false,
+        "outputProperties": [
+            {
+                "property": "payload",
+                "propertyType": "msg",
+                "value": "",
+                "valueType": "data"
+            }
+        ],
+        "queue": "none",
+        "x": 340,
+        "y": 1560,
+        "wires": [
+            [
+                "47f4314c.f9005"
+            ]
+        ]
+    },
+    {
+        "id": "ed54a7c1.7c85b8",
+        "type": "inject",
+        "z": "f841e824.d474f",
+        "name": "",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 120,
+        "y": 1560,
+        "wires": [
+            [
+                "a38f8e5e.591a38"
+            ]
+        ]
+    },
+    {
+        "id": "47f4314c.f9005",
+        "type": "api-call-service",
+        "z": "f841e824.d474f",
+        "name": "",
+        "server": "c6e21e6c.847e8",
+        "version": 3,
+        "debugenabled": true,
+        "service_domain": "notify",
+        "service": "mobile_app_soylents_iphone",
+        "entityId": "",
+        "data": "{\"message\":\"Forno acceso\",\"title\":\"Accensione forno\"}",
+        "dataType": "json",
+        "mergecontext": "",
+        "mustacheAltTags": false,
+        "outputProperties": [
+            {
+                "property": "payload",
+                "propertyType": "msg",
+                "value": "",
+                "valueType": "data"
+            }
+        ],
+        "queue": "none",
+        "x": 700,
+        "y": 1560,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "76701afb.5da6c4",
+        "type": "function",
+        "z": "f841e824.d474f",
+        "name": "Prepara messaggio se il consumo è >= 3300 W",
+        "func": "var high_watermark = 4000;\nvar low_watermark = 3300;\nvar timer_high_value = 1;\nvar timer_low_value = 90;\nvar over_power = flow.get('over_power') || false;\nvar low_timer = flow.get('timer_low') || null;\nvar high_timer = flow.get('timer_high') || null;\nvar msg1, msg2 = null;\nvar input = msg.payload;\n// OUTPUT:\n// msg1 Messagge to TTS system\n// msg2 Timer or reset\n// msg3 over_power boolean condition\n\nswitch(true) {\n  case (input >= high_watermark):\n    if (over_power === false) {\n      msg2 = {payload: timer_high_value};\n      msg1 = {payload:\"Attenzione! Distacco energia elettrica imminente! Superata la soglia dei 4000 watt.\"};\n      flow.set('over_power', true);\n      flow.set('timer_low', now.getTime())\n    }\n    break;\n  case (input >= low_watermark):\n    msg2 = {payload: timer_low_value};\n    msg1 = {payload: \"Attenzione! Il consumo di energia elettrica è pari a \" + msg.payload + \" watt. Rischio di distacco!\"}\n    flow.set('over_power', true);\n    break;\n  default:\n    if (over_power === true) {\n      msg2 = {payload: 'reset'};   \n      flow.set('over_power', false);\n    } else {msg2 = null}\n}\n\nif (msg2 !== null) {\n  msg1 = {payload: \"Attenzione! Il consumo di energia elettrica è pari a \" + msg.payload + \" watt. Rischio di distacco!\"}  \n} else {msg1 = null}\nover_power = flow.get('over_power')\nmsg3 = {payload: over_power} \nreturn [msg1, msg2, msg3];\n//\n//",
+        "outputs": 3,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 360,
+        "y": 2280,
+        "wires": [
+            [
+                "30f032d2.af82e6"
+            ],
+            [
+                "3ccc78e8.a0785"
+            ],
+            [
+                "310b9b54.36985c"
+            ]
+        ]
+    },
+    {
+        "id": "30f032d2.af82e6",
+        "type": "debug",
+        "z": "f841e824.d474f",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "x": 770,
+        "y": 2220,
+        "wires": []
+    },
+    {
+        "id": "3ccc78e8.a0785",
+        "type": "debug",
+        "z": "f841e824.d474f",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "x": 770,
+        "y": 2280,
+        "wires": []
+    },
+    {
+        "id": "b9c0c857.65e488",
+        "type": "debug",
+        "z": "f841e824.d474f",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "x": 440,
+        "y": 1720,
+        "wires": []
+    },
+    {
+        "id": "34f5d045.0511c8",
+        "type": "trigger",
+        "z": "f841e824.d474f",
+        "name": "",
+        "op1": "",
+        "op2": "0",
+        "op1type": "nul",
+        "op2type": "str",
+        "duration": "250",
+        "extend": false,
+        "units": "min",
+        "reset": "",
+        "bytopic": "all",
+        "outputs": 1,
+        "x": 1020,
+        "y": 2080,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "310b9b54.36985c",
+        "type": "debug",
+        "z": "f841e824.d474f",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "x": 770,
+        "y": 2340,
+        "wires": []
+    },
+    {
+        "id": "f7e0fc7a.127c5",
+        "type": "function",
+        "z": "f841e824.d474f",
+        "name": "",
+        "func": "var lastChange = new Date(msg.data.old_state.last_changed).getTime();\nvar now = new Date().getTime();\nvar secs = Math.floor((now / 1000)-(lastChange / 1000));\nmsg.sensor = {};\nmsg.sensor.lastChange = secs;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "x": 1180,
+        "y": 1100,
+        "wires": [
+            [
+                "93f4ae5a.29b42"
+            ]
+        ]
+    },
+    {
+        "id": "93f4ae5a.29b42",
+        "type": "debug",
+        "z": "f841e824.d474f",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "x": 1360,
+        "y": 1100,
+        "wires": []
+    },
+    {
+        "id": "740f02d.fe147fc",
+        "type": "ui_gauge",
+        "z": "f841e824.d474f",
+        "name": "",
+        "group": "7056ab47.4136fc",
+        "order": 0,
+        "width": 0,
+        "height": 0,
+        "gtype": "gage",
+        "title": "Potenza assorbita",
+        "label": "Kw",
+        "format": "{{value}}",
+        "min": 0,
+        "max": "4100",
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": "3300",
+        "seg2": "3301",
+        "x": 530,
+        "y": 2140,
+        "wires": []
+    },
+    {
+        "id": "223449e3.378f66",
+        "type": "api-call-service",
+        "z": "f841e824.d474f",
+        "name": "Test Alexa",
+        "server": "c6e21e6c.847e8",
+        "version": 3,
+        "debugenabled": true,
+        "service_domain": "notify",
+        "service": "alexa_media_studio",
+        "entityId": "",
+        "data": "{\"message\":\"Questo è un test\",\"title\":\"Test\",\"data\":{\"type\":\"announce\",\"method\":\"all\"},\"target\":[\"terra\"]}",
+        "dataType": "json",
+        "mergecontext": "",
+        "mustacheAltTags": false,
+        "outputProperties": [
+            {
+                "property": "payload",
+                "propertyType": "msg",
+                "value": "",
+                "valueType": "data"
+            }
+        ],
+        "queue": "none",
+        "x": 630,
+        "y": 80,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "66a59c22.18cf2c",
+        "type": "inject",
+        "z": "f841e824.d474f",
+        "name": "",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 420,
+        "y": 80,
+        "wires": [
+            [
+                "223449e3.378f66"
+            ]
+        ]
+    },
+    {
+        "id": "940ec4f1.3bbc9",
+        "type": "delay",
+        "z": "f841e824.d474f",
+        "name": "Limita 1 msg/5min",
+        "pauseType": "rate",
+        "timeout": "5",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "5",
+        "rateUnits": "minute",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "outputs": 1,
+        "x": 1230,
+        "y": 260,
+        "wires": [
+            [
+                "3a8a3532.c7912a",
+                "846d2ef1.3d76d"
+            ]
+        ]
+    },
+    {
+        "id": "cec6f7e5.771578",
+        "type": "server-state-changed",
+        "z": "f841e824.d474f",
+        "name": "",
+        "server": "c6e21e6c.847e8",
+        "version": 3,
+        "exposeToHomeAssistant": false,
+        "haConfig": [
+            {
+                "property": "name",
+                "value": ""
+            },
+            {
+                "property": "icon",
+                "value": ""
+            }
+        ],
+        "entityidfilter": "sensor.zinto1000_status_data",
+        "entityidfiltertype": "exact",
+        "outputinitially": true,
+        "state_type": "str",
+        "haltifstate": "",
+        "halt_if_type": "str",
+        "halt_if_compare": "is",
+        "outputs": 1,
+        "output_only_on_state_change": true,
+        "for": 0,
+        "forType": "num",
+        "forUnits": "minutes",
+        "ignorePrevStateNull": false,
+        "ignorePrevStateUnknown": true,
+        "ignorePrevStateUnavailable": true,
+        "ignoreCurrentStateUnknown": true,
+        "ignoreCurrentStateUnavailable": true,
+        "outputProperties": [
+            {
+                "property": "payload",
+                "propertyType": "msg",
+                "value": "",
+                "valueType": "entityState"
+            },
+            {
+                "property": "data",
+                "propertyType": "msg",
+                "value": "",
+                "valueType": "eventData"
+            },
+            {
+                "property": "topic",
+                "propertyType": "msg",
+                "value": "",
+                "valueType": "triggerId"
+            }
+        ],
+        "x": 590,
+        "y": 2540,
+        "wires": [
+            [
+                "d46c8dfb.835408"
+            ]
+        ]
+    },
+    {
+        "id": "f5b0b328.e7cb28",
+        "type": "api-current-state",
+        "z": "f841e824.d474f",
+        "name": "",
+        "server": "c6e21e6c.847e8",
+        "version": 2,
+        "outputs": 1,
+        "halt_if": "",
+        "halt_if_type": "str",
+        "halt_if_compare": "is",
+        "entity_id": "sensor.zinto1000_status_data",
+        "state_type": "str",
+        "blockInputOverrides": false,
+        "outputProperties": [
+            {
+                "property": "payload",
+                "propertyType": "msg",
+                "value": "",
+                "valueType": "entityState"
+            },
+            {
+                "property": "data",
+                "propertyType": "msg",
+                "value": "",
+                "valueType": "entity"
+            }
+        ],
+        "x": 590,
+        "y": 2600,
+        "wires": [
+            [
+                "d46c8dfb.835408"
+            ]
+        ]
+    },
+    {
+        "id": "46e98a09.a047dc",
+        "type": "inject",
+        "z": "f841e824.d474f",
+        "name": "check every minutes",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "60",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 180,
+        "y": 2600,
+        "wires": [
+            [
+                "f5b0b328.e7cb28"
+            ]
+        ]
+    },
+    {
+        "id": "d46c8dfb.835408",
+        "type": "influxdb out",
+        "z": "f841e824.d474f",
+        "influxdb": "a7c77e43.dccf78",
+        "name": "",
+        "measurement": "power.ups_status",
+        "precision": "",
+        "retentionPolicy": "",
+        "x": 1000,
+        "y": 2600,
+        "wires": []
     },
     {
         "id": "1b399b.1c765e66",
@@ -444,159 +2350,6 @@
                 "89037470.7bfdb8"
             ]
         ]
-    },
-    {
-        "id": "3b028a67.70c13e",
-        "type": "switch",
-        "z": "45dd8798.2cfc88",
-        "name": "alba o tramonto ?",
-        "property": "payload",
-        "propertyType": "msg",
-        "rules": [
-            {
-                "t": "eq",
-                "v": "on",
-                "vt": "str"
-            },
-            {
-                "t": "eq",
-                "v": "off",
-                "vt": "str"
-            }
-        ],
-        "checkall": "true",
-        "repair": false,
-        "outputs": 2,
-        "x": 370,
-        "y": 220,
-        "wires": [
-            [
-                "785b1e0.5e8c7e4"
-            ],
-            [
-                "7cb064d9.8a1514"
-            ]
-        ]
-    },
-    {
-        "id": "785b1e0.5e8c7e4",
-        "type": "api-call-service",
-        "z": "45dd8798.2cfc88",
-        "name": "Accende luci di Natale",
-        "server": "c6e21e6c.847e8",
-        "version": 3,
-        "debugenabled": false,
-        "service_domain": "homeassistant",
-        "service": "turn_on",
-        "entityId": "switch.lucine",
-        "data": "",
-        "dataType": "json",
-        "mergecontext": "",
-        "mustacheAltTags": false,
-        "outputProperties": [
-            {
-                "property": "payload",
-                "propertyType": "msg",
-                "value": "",
-                "valueType": "data"
-            }
-        ],
-        "queue": "none",
-        "x": 700,
-        "y": 180,
-        "wires": [
-            []
-        ]
-    },
-    {
-        "id": "7cb064d9.8a1514",
-        "type": "api-call-service",
-        "z": "45dd8798.2cfc88",
-        "name": "Spegne luci di Natale",
-        "server": "c6e21e6c.847e8",
-        "version": 3,
-        "debugenabled": false,
-        "service_domain": "homeassistant",
-        "service": "turn_off",
-        "entityId": "switch.lucine",
-        "data": "",
-        "dataType": "json",
-        "mergecontext": "",
-        "mustacheAltTags": false,
-        "outputProperties": [
-            {
-                "property": "payload",
-                "propertyType": "msg",
-                "value": "",
-                "valueType": "data"
-            }
-        ],
-        "queue": "none",
-        "x": 700,
-        "y": 260,
-        "wires": [
-            []
-        ]
-    },
-    {
-        "id": "9bc871dc.88a4f",
-        "type": "comment",
-        "z": "45dd8798.2cfc88",
-        "name": "Xmas Light esterne",
-        "info": "Accende/spegne le luci di Natale all'inizio dell'imbrunire e alla fine dell'alba.",
-        "x": 110,
-        "y": 20,
-        "wires": []
-    },
-    {
-        "id": "2e9df7be.cb2f28",
-        "type": "inject",
-        "z": "45dd8798.2cfc88",
-        "name": "Spegnimento manuale",
-        "repeat": "",
-        "crontab": "",
-        "once": false,
-        "onceDelay": 0.1,
-        "topic": "",
-        "payload": "",
-        "payloadType": "date",
-        "x": 500,
-        "y": 340,
-        "wires": [
-            [
-                "7cb064d9.8a1514"
-            ]
-        ]
-    },
-    {
-        "id": "1d3111a2.e40926",
-        "type": "inject",
-        "z": "45dd8798.2cfc88",
-        "name": "Accensione manuale",
-        "repeat": "",
-        "crontab": "",
-        "once": false,
-        "onceDelay": 0.1,
-        "topic": "",
-        "payload": "",
-        "payloadType": "date",
-        "x": 500,
-        "y": 100,
-        "wires": [
-            [
-                "785b1e0.5e8c7e4"
-            ]
-        ]
-    },
-    {
-        "id": "929f8303.a26fa8",
-        "type": "comment",
-        "z": "f841e824.d474f",
-        "name": "Monitoraggio consumi elettrici",
-        "info": "# **Monitoraggio Consumo Elettrico**\nViene monitorato il consumo elettrico dei seguenti\nelettrodomestici:\n\n - Lavatrice\n - Lavastoviglie\n - Frigorifero\n - Forno\n \nIl monitoraggio è effettuato leggendo da Home Assistant\nil consumo rilevato dalla prese smart Innr\n\nInoltre viene monitorato il consumo globlale misurato\ndallo smart meter posizionato all'ingresso della linea elettrica.\n\nTutti i dati confluiscono verso un database Influxdb",
-        "x": 120,
-        "y": 60,
-        "wires": []
     },
     {
         "id": "588e2549.c8940c",
@@ -1006,401 +2759,6 @@
         ]
     },
     {
-        "id": "ffe2d279.f93d88",
-        "type": "server-state-changed",
-        "z": "f841e824.d474f",
-        "name": "Consumo Lavastoviglie Watt",
-        "server": "c6e21e6c.847e8",
-        "version": 3,
-        "exposeToHomeAssistant": false,
-        "haConfig": [
-            {
-                "property": "name",
-                "value": ""
-            },
-            {
-                "property": "icon",
-                "value": ""
-            }
-        ],
-        "entityidfilter": "sensor.power_15",
-        "entityidfiltertype": "exact",
-        "outputinitially": true,
-        "state_type": "num",
-        "haltifstate": "",
-        "halt_if_type": "str",
-        "halt_if_compare": "is",
-        "outputs": 1,
-        "output_only_on_state_change": false,
-        "for": "",
-        "forType": "num",
-        "forUnits": "minutes",
-        "ignorePrevStateNull": false,
-        "ignorePrevStateUnknown": false,
-        "ignorePrevStateUnavailable": false,
-        "ignoreCurrentStateUnknown": false,
-        "ignoreCurrentStateUnavailable": false,
-        "outputProperties": [
-            {
-                "property": "payload",
-                "propertyType": "msg",
-                "value": "",
-                "valueType": "entityState"
-            },
-            {
-                "property": "data",
-                "propertyType": "msg",
-                "value": "",
-                "valueType": "eventData"
-            },
-            {
-                "property": "topic",
-                "propertyType": "msg",
-                "value": "",
-                "valueType": "triggerId"
-            }
-        ],
-        "x": 140,
-        "y": 300,
-        "wires": [
-            [
-                "6e027ae9.8d00ec",
-                "dc96e344.03922"
-            ]
-        ]
-    },
-    {
-        "id": "6e027ae9.8d00ec",
-        "type": "switch",
-        "z": "f841e824.d474f",
-        "name": "<=1 or >5 ?",
-        "property": "payload",
-        "propertyType": "msg",
-        "rules": [
-            {
-                "t": "lte",
-                "v": "1",
-                "vt": "str"
-            },
-            {
-                "t": "gt",
-                "v": "5",
-                "vt": "str"
-            },
-            {
-                "t": "btwn",
-                "v": "2",
-                "vt": "num",
-                "v2": "40",
-                "v2t": "num"
-            }
-        ],
-        "checkall": "false",
-        "repair": false,
-        "outputs": 3,
-        "x": 370,
-        "y": 300,
-        "wires": [
-            [
-                "e3a6ed46.3e66f"
-            ],
-            [
-                "a6f2672e.495d1"
-            ],
-            []
-        ]
-    },
-    {
-        "id": "e3a6ed46.3e66f",
-        "type": "api-current-state",
-        "z": "f841e824.d474f",
-        "name": "Stato della lavastoviglie",
-        "server": "c6e21e6c.847e8",
-        "version": 2,
-        "outputs": 2,
-        "halt_if": "off",
-        "halt_if_type": "str",
-        "halt_if_compare": "is",
-        "entity_id": "input_boolean.dishwasher_status",
-        "state_type": "str",
-        "blockInputOverrides": false,
-        "outputProperties": [
-            {
-                "property": "payload",
-                "propertyType": "msg",
-                "value": "",
-                "valueType": "entityState"
-            },
-            {
-                "property": "data",
-                "propertyType": "msg",
-                "value": "",
-                "valueType": "entity"
-            },
-            {
-                "property": "topic",
-                "propertyType": "msg",
-                "value": "",
-                "valueType": "triggerId"
-            }
-        ],
-        "x": 670,
-        "y": 240,
-        "wires": [
-            [],
-            [
-                "97fa08e7.b95428"
-            ]
-        ]
-    },
-    {
-        "id": "a6f2672e.495d1",
-        "type": "api-current-state",
-        "z": "f841e824.d474f",
-        "name": "Stato della lavastoviglie",
-        "server": "c6e21e6c.847e8",
-        "version": 2,
-        "outputs": 2,
-        "halt_if": "on",
-        "halt_if_type": "str",
-        "halt_if_compare": "is",
-        "entity_id": "input_boolean.dishwasher_status",
-        "state_type": "str",
-        "blockInputOverrides": false,
-        "outputProperties": [
-            {
-                "property": "payload",
-                "propertyType": "msg",
-                "value": "",
-                "valueType": "entityState"
-            },
-            {
-                "property": "data",
-                "propertyType": "msg",
-                "value": "",
-                "valueType": "entity"
-            },
-            {
-                "property": "topic",
-                "propertyType": "msg",
-                "value": "",
-                "valueType": "triggerId"
-            }
-        ],
-        "x": 650,
-        "y": 340,
-        "wires": [
-            [],
-            [
-                "be6f3ee8.6368a"
-            ]
-        ]
-    },
-    {
-        "id": "3a8a3532.c7912a",
-        "type": "api-call-service",
-        "z": "f841e824.d474f",
-        "name": "imposta la lavastoviglie su \"off\"",
-        "server": "c6e21e6c.847e8",
-        "version": 3,
-        "debugenabled": false,
-        "service_domain": "input_boolean",
-        "service": "turn_off",
-        "entityId": "input_boolean.dishwasher_status",
-        "data": "",
-        "dataType": "json",
-        "mergecontext": "",
-        "mustacheAltTags": false,
-        "outputProperties": [],
-        "queue": "none",
-        "x": 1570,
-        "y": 180,
-        "wires": [
-            []
-        ]
-    },
-    {
-        "id": "be6f3ee8.6368a",
-        "type": "api-call-service",
-        "z": "f841e824.d474f",
-        "name": "Imposta la lavastoviglie su \"on\"",
-        "server": "c6e21e6c.847e8",
-        "version": 3,
-        "debugenabled": false,
-        "service_domain": "input_boolean",
-        "service": "turn_on",
-        "entityId": "input_boolean.dishwasher_status",
-        "data": "",
-        "dataType": "json",
-        "mergecontext": "",
-        "mustacheAltTags": false,
-        "outputProperties": [],
-        "queue": "none",
-        "x": 1050,
-        "y": 380,
-        "wires": [
-            []
-        ]
-    },
-    {
-        "id": "846d2ef1.3d76d",
-        "type": "api-call-service",
-        "z": "f841e824.d474f",
-        "name": "",
-        "server": "c6e21e6c.847e8",
-        "version": 3,
-        "debugenabled": false,
-        "service_domain": "notify",
-        "service": "mobile_app_soylents_iphone",
-        "entityId": "",
-        "data": "{\"title\":\"Piatti Lavati\",\"message\":\"{{payload}}\"}",
-        "dataType": "json",
-        "mergecontext": "",
-        "mustacheAltTags": false,
-        "outputProperties": [
-            {
-                "property": "payload",
-                "propertyType": "msg",
-                "value": "",
-                "valueType": "data"
-            }
-        ],
-        "queue": "none",
-        "x": 1560,
-        "y": 260,
-        "wires": [
-            []
-        ]
-    },
-    {
-        "id": "ec897701.132bc8",
-        "type": "server-state-changed",
-        "z": "f841e824.d474f",
-        "name": "Consumo Lavatrice Watt",
-        "server": "c6e21e6c.847e8",
-        "version": 3,
-        "exposeToHomeAssistant": false,
-        "haConfig": [
-            {
-                "property": "name",
-                "value": ""
-            },
-            {
-                "property": "icon",
-                "value": ""
-            }
-        ],
-        "entityidfilter": "sensor.power_20",
-        "entityidfiltertype": "substring",
-        "outputinitially": true,
-        "state_type": "num",
-        "haltifstate": "",
-        "halt_if_type": "str",
-        "halt_if_compare": "is",
-        "outputs": 1,
-        "output_only_on_state_change": false,
-        "for": "",
-        "forType": "num",
-        "forUnits": "minutes",
-        "ignorePrevStateNull": false,
-        "ignorePrevStateUnknown": false,
-        "ignorePrevStateUnavailable": false,
-        "ignoreCurrentStateUnknown": false,
-        "ignoreCurrentStateUnavailable": false,
-        "outputProperties": [
-            {
-                "property": "payload",
-                "propertyType": "msg",
-                "value": "",
-                "valueType": "entityState"
-            },
-            {
-                "property": "data",
-                "propertyType": "msg",
-                "value": "",
-                "valueType": "eventData"
-            },
-            {
-                "property": "topic",
-                "propertyType": "msg",
-                "value": "",
-                "valueType": "triggerId"
-            }
-        ],
-        "x": 130,
-        "y": 800,
-        "wires": [
-            [
-                "7a46ecc5.71988c",
-                "3803720a.e78c9e"
-            ]
-        ]
-    },
-    {
-        "id": "7a46ecc5.71988c",
-        "type": "switch",
-        "z": "f841e824.d474f",
-        "name": "<= 5 or >50 ?",
-        "property": "payload",
-        "propertyType": "msg",
-        "rules": [
-            {
-                "t": "lte",
-                "v": "5",
-                "vt": "str"
-            },
-            {
-                "t": "gt",
-                "v": "50",
-                "vt": "str"
-            }
-        ],
-        "checkall": "false",
-        "repair": false,
-        "outputs": 2,
-        "x": 460,
-        "y": 800,
-        "wires": [
-            [
-                "cce3c7a4.6a7b98"
-            ],
-            [
-                "c48c05d1.018608",
-                "bed4bf4f.e4b8d"
-            ]
-        ]
-    },
-    {
-        "id": "c0343eb2.3930d8",
-        "type": "api-call-service",
-        "z": "f841e824.d474f",
-        "name": "",
-        "server": "c6e21e6c.847e8",
-        "version": 3,
-        "debugenabled": false,
-        "service_domain": "notify",
-        "service": "mobile_app_soylents_iphone",
-        "entityId": "",
-        "data": "{\"title\":\"Bucato terminato\",\"message\":\"{{payload}}\"}",
-        "dataType": "json",
-        "mergecontext": "",
-        "mustacheAltTags": false,
-        "outputProperties": [
-            {
-                "property": "payload",
-                "propertyType": "msg",
-                "value": "",
-                "valueType": "data"
-            }
-        ],
-        "queue": "none",
-        "x": 1870,
-        "y": 700,
-        "wires": [
-            []
-        ]
-    },
-    {
         "id": "724eba6.0894a44",
         "type": "api-call-service",
         "z": "74e4c992.25d51",
@@ -1421,636 +2779,6 @@
         "y": 760,
         "wires": [
             []
-        ]
-    },
-    {
-        "id": "ddb9425d.c294",
-        "type": "api-call-service",
-        "z": "f841e824.d474f",
-        "name": "",
-        "server": "c6e21e6c.847e8",
-        "version": 3,
-        "debugenabled": false,
-        "service_domain": "notify",
-        "service": "mobile_app_grazia_cattaneos_iphone",
-        "entityId": "",
-        "data": "{\"title\":\"Bucato terminato\",\"message\":\"{{payload}}\"}",
-        "dataType": "json",
-        "mergecontext": "",
-        "mustacheAltTags": false,
-        "outputProperties": [],
-        "queue": "none",
-        "x": 1890,
-        "y": 780,
-        "wires": [
-            []
-        ]
-    },
-    {
-        "id": "64b67a33.f752fc",
-        "type": "api-call-service",
-        "z": "f841e824.d474f",
-        "name": "imposta la lavatrice su \"off\"",
-        "server": "c6e21e6c.847e8",
-        "version": 3,
-        "debugenabled": false,
-        "service_domain": "input_boolean",
-        "service": "turn_off",
-        "entityId": "input_boolean.washingmachine_status",
-        "data": "",
-        "dataType": "json",
-        "mergecontext": "",
-        "mustacheAltTags": false,
-        "outputProperties": [],
-        "queue": "none",
-        "x": 1820,
-        "y": 620,
-        "wires": [
-            []
-        ]
-    },
-    {
-        "id": "dbe27959.21a1b",
-        "type": "api-call-service",
-        "z": "f841e824.d474f",
-        "name": "Imposta la lavatrice su \"on\"",
-        "server": "c6e21e6c.847e8",
-        "version": 3,
-        "debugenabled": false,
-        "service_domain": "input_boolean",
-        "service": "turn_on",
-        "entityId": "input_boolean.washingmachine_status",
-        "data": "",
-        "dataType": "json",
-        "mergecontext": "",
-        "mustacheAltTags": false,
-        "outputProperties": [],
-        "queue": "none",
-        "x": 980,
-        "y": 920,
-        "wires": [
-            []
-        ]
-    },
-    {
-        "id": "c48c05d1.018608",
-        "type": "api-current-state",
-        "z": "f841e824.d474f",
-        "name": "Stato della lavatrice",
-        "server": "c6e21e6c.847e8",
-        "version": 2,
-        "outputs": 2,
-        "halt_if": "on",
-        "halt_if_type": "str",
-        "halt_if_compare": "is",
-        "entity_id": "input_boolean.washingmachine_status",
-        "state_type": "str",
-        "blockInputOverrides": false,
-        "outputProperties": [],
-        "x": 680,
-        "y": 920,
-        "wires": [
-            [],
-            [
-                "dbe27959.21a1b"
-            ]
-        ]
-    },
-    {
-        "id": "2e8f9e53.812b7a",
-        "type": "delay",
-        "z": "f841e824.d474f",
-        "name": "",
-        "pauseType": "rate",
-        "timeout": "5",
-        "timeoutUnits": "seconds",
-        "rate": "1",
-        "nbRateUnits": "1",
-        "rateUnits": "minute",
-        "randomFirst": "1",
-        "randomLast": "5",
-        "randomUnits": "seconds",
-        "drop": true,
-        "x": 970,
-        "y": 740,
-        "wires": [
-            [
-                "ff2d8a29.ed01d"
-            ]
-        ]
-    },
-    {
-        "id": "f3f0da13.d4cd2",
-        "type": "server-state-changed",
-        "z": "f841e824.d474f",
-        "name": "Consumo Frigorifero Watt",
-        "server": "c6e21e6c.847e8",
-        "version": 3,
-        "exposeToHomeAssistant": false,
-        "haConfig": [
-            {
-                "property": "name",
-                "value": ""
-            },
-            {
-                "property": "icon",
-                "value": ""
-            }
-        ],
-        "entityidfilter": "sensor.power_25",
-        "entityidfiltertype": "substring",
-        "outputinitially": true,
-        "state_type": "num",
-        "haltifstate": "",
-        "halt_if_type": "str",
-        "halt_if_compare": "is",
-        "outputs": 1,
-        "output_only_on_state_change": false,
-        "for": "",
-        "forType": "num",
-        "forUnits": "minutes",
-        "ignorePrevStateNull": false,
-        "ignorePrevStateUnknown": false,
-        "ignorePrevStateUnavailable": false,
-        "ignoreCurrentStateUnknown": false,
-        "ignoreCurrentStateUnavailable": false,
-        "outputProperties": [
-            {
-                "property": "payload",
-                "propertyType": "msg",
-                "value": "",
-                "valueType": "entityState"
-            },
-            {
-                "property": "data",
-                "propertyType": "msg",
-                "value": "",
-                "valueType": "eventData"
-            },
-            {
-                "property": "topic",
-                "propertyType": "msg",
-                "value": "",
-                "valueType": "triggerId"
-            }
-        ],
-        "x": 170,
-        "y": 1180,
-        "wires": [
-            [
-                "3de57654.f35602",
-                "609e5d56.9d006c"
-            ]
-        ]
-    },
-    {
-        "id": "3de57654.f35602",
-        "type": "influxdb out",
-        "z": "f841e824.d474f",
-        "influxdb": "a7c77e43.dccf78",
-        "name": "",
-        "measurement": "frigorifero",
-        "precision": "",
-        "retentionPolicy": "",
-        "x": 190,
-        "y": 1360,
-        "wires": []
-    },
-    {
-        "id": "3803720a.e78c9e",
-        "type": "influxdb out",
-        "z": "f841e824.d474f",
-        "influxdb": "a7c77e43.dccf78",
-        "name": "",
-        "measurement": "lavatrice",
-        "precision": "",
-        "retentionPolicy": "",
-        "x": 350,
-        "y": 940,
-        "wires": []
-    },
-    {
-        "id": "dc96e344.03922",
-        "type": "influxdb out",
-        "z": "f841e824.d474f",
-        "influxdb": "a7c77e43.dccf78",
-        "name": "",
-        "measurement": "lavastoviglie",
-        "precision": "",
-        "retentionPolicy": "",
-        "database": "",
-        "precisionV18FluxV20": "ns",
-        "retentionPolicyV18Flux": "",
-        "org": "",
-        "bucket": "",
-        "x": 340,
-        "y": 460,
-        "wires": []
-    },
-    {
-        "id": "d50a9414.8903d",
-        "type": "server-state-changed",
-        "z": "f841e824.d474f",
-        "name": "Consumo Forno Watt",
-        "server": "c6e21e6c.847e8",
-        "version": 3,
-        "exposeToHomeAssistant": false,
-        "haConfig": [
-            {
-                "property": "name",
-                "value": ""
-            },
-            {
-                "property": "icon",
-                "value": ""
-            }
-        ],
-        "entityidfilter": "sensor.power_23",
-        "entityidfiltertype": "substring",
-        "outputinitially": true,
-        "state_type": "num",
-        "haltifstate": "",
-        "halt_if_type": "str",
-        "halt_if_compare": "is",
-        "outputs": 1,
-        "output_only_on_state_change": false,
-        "for": "",
-        "forType": "num",
-        "forUnits": "minutes",
-        "ignorePrevStateNull": false,
-        "ignorePrevStateUnknown": false,
-        "ignorePrevStateUnavailable": false,
-        "ignoreCurrentStateUnknown": false,
-        "ignoreCurrentStateUnavailable": false,
-        "outputProperties": [
-            {
-                "property": "payload",
-                "propertyType": "msg",
-                "value": "",
-                "valueType": "entityState"
-            },
-            {
-                "property": "data",
-                "propertyType": "msg",
-                "value": "",
-                "valueType": "eventData"
-            },
-            {
-                "property": "topic",
-                "propertyType": "msg",
-                "value": "",
-                "valueType": "triggerId"
-            }
-        ],
-        "x": 160,
-        "y": 1620,
-        "wires": [
-            [
-                "f89c9626.f4949"
-            ]
-        ]
-    },
-    {
-        "id": "f89c9626.f4949",
-        "type": "influxdb out",
-        "z": "f841e824.d474f",
-        "influxdb": "a7c77e43.dccf78",
-        "name": "",
-        "measurement": "forno",
-        "precision": "",
-        "retentionPolicy": "",
-        "x": 500,
-        "y": 1620,
-        "wires": []
-    },
-    {
-        "id": "34e5b1f8.b68496",
-        "type": "api-current-state",
-        "z": "f841e824.d474f",
-        "name": "Stato presa frigorifero",
-        "server": "c6e21e6c.847e8",
-        "version": 2,
-        "outputs": 2,
-        "halt_if": "false",
-        "halt_if_type": "bool",
-        "halt_if_compare": "is_not",
-        "entity_id": "sensor.power_25.on",
-        "state_type": "habool",
-        "blockInputOverrides": false,
-        "outputProperties": [
-            {
-                "property": "payload",
-                "propertyType": "msg",
-                "value": "",
-                "valueType": "entityState"
-            },
-            {
-                "property": "data",
-                "propertyType": "msg",
-                "value": "",
-                "valueType": "entity"
-            },
-            {
-                "property": "topic",
-                "propertyType": "msg",
-                "value": "",
-                "valueType": "triggerId"
-            }
-        ],
-        "x": 960,
-        "y": 1180,
-        "wires": [
-            [],
-            [
-                "5417eda1.31b61c",
-                "e3922b5e.aee888",
-                "f7e0fc7a.127c5"
-            ]
-        ]
-    },
-    {
-        "id": "5417eda1.31b61c",
-        "type": "api-call-service",
-        "z": "f841e824.d474f",
-        "name": "",
-        "server": "c6e21e6c.847e8",
-        "version": 3,
-        "debugenabled": false,
-        "service_domain": "notify",
-        "service": "mobile_app_soylents_iphone",
-        "entityId": "",
-        "data": "{\"title\":\"Probelma al frigorifero\",\"message\":\"La presa è spenta!\"}",
-        "dataType": "json",
-        "mergecontext": "",
-        "mustacheAltTags": false,
-        "outputProperties": [
-            {
-                "property": "payload",
-                "propertyType": "msg",
-                "value": "",
-                "valueType": "data"
-            }
-        ],
-        "queue": "none",
-        "x": 1460,
-        "y": 1180,
-        "wires": [
-            []
-        ]
-    },
-    {
-        "id": "609e5d56.9d006c",
-        "type": "switch",
-        "z": "f841e824.d474f",
-        "name": "se <5 or >10",
-        "property": "payload",
-        "propertyType": "msg",
-        "rules": [
-            {
-                "t": "lte",
-                "v": "5",
-                "vt": "str"
-            },
-            {
-                "t": "gt",
-                "v": "5",
-                "vt": "str"
-            }
-        ],
-        "checkall": "true",
-        "repair": false,
-        "outputs": 2,
-        "x": 430,
-        "y": 1180,
-        "wires": [
-            [
-                "ef749ecd.b71b48",
-                "b35834bb.1da0b8"
-            ],
-            [
-                "b3d3d616.c7e658"
-            ]
-        ]
-    },
-    {
-        "id": "ef749ecd.b71b48",
-        "type": "delay",
-        "z": "f841e824.d474f",
-        "name": "",
-        "pauseType": "rate",
-        "timeout": "5",
-        "timeoutUnits": "seconds",
-        "rate": "1",
-        "nbRateUnits": "5",
-        "rateUnits": "minute",
-        "randomFirst": "1",
-        "randomLast": "5",
-        "randomUnits": "seconds",
-        "drop": true,
-        "x": 680,
-        "y": 1180,
-        "wires": [
-            [
-                "34e5b1f8.b68496"
-            ]
-        ]
-    },
-    {
-        "id": "2f9c93eb.587f64",
-        "type": "api-call-service",
-        "z": "f841e824.d474f",
-        "name": "",
-        "server": "c6e21e6c.847e8",
-        "version": 3,
-        "debugenabled": false,
-        "service_domain": "notify",
-        "service": "alexa_media_terra",
-        "entityId": "",
-        "data": "{\"message\":\"{{payload}}\",\"title\":\"Bucato Terminato\",\"data\":{\"type\":\"announce\",\"method\":\"all\"},\"target\":[\"Cucina\"]}",
-        "dataType": "json",
-        "mergecontext": "",
-        "mustacheAltTags": false,
-        "outputProperties": [
-            {
-                "property": "payload",
-                "propertyType": "msg",
-                "value": "",
-                "valueType": "data"
-            }
-        ],
-        "queue": "none",
-        "x": 1830,
-        "y": 860,
-        "wires": [
-            []
-        ]
-    },
-    {
-        "id": "e3922b5e.aee888",
-        "type": "api-call-service",
-        "z": "f841e824.d474f",
-        "name": "",
-        "server": "c6e21e6c.847e8",
-        "version": 3,
-        "debugenabled": false,
-        "service_domain": "notify",
-        "service": "alexa_media",
-        "entityId": "",
-        "data": "{\"message\":\"Attenzione! Sembra che la presa del frigorifero sia spenta. Controlla subito!\",\"title\":\"Presa frigorifero off\",\"data\":{\"type\":\"announce\",\"method\":\"all\"},\"target\":[\"Cucina\"]}",
-        "dataType": "json",
-        "mergecontext": "",
-        "mustacheAltTags": false,
-        "outputProperties": [
-            {
-                "property": "payload",
-                "propertyType": "msg",
-                "value": "",
-                "valueType": "data"
-            }
-        ],
-        "queue": "none",
-        "x": 1410,
-        "y": 1240,
-        "wires": [
-            []
-        ]
-    },
-    {
-        "id": "4a76b909.bb8f48",
-        "type": "api-call-service",
-        "z": "f841e824.d474f",
-        "name": "",
-        "server": "c6e21e6c.847e8",
-        "version": 3,
-        "debugenabled": false,
-        "service_domain": "notify",
-        "service": "mobile_app_soylents_iphone",
-        "entityId": "",
-        "data": "{\"title\":\"Probelma al frigorifero\",\"message\":\"Non è stato rilevato consumo lettrico da più di 60 minuti\"}",
-        "dataType": "json",
-        "mergecontext": "",
-        "mustacheAltTags": false,
-        "outputProperties": [],
-        "queue": "none",
-        "x": 1020,
-        "y": 1300,
-        "wires": [
-            []
-        ]
-    },
-    {
-        "id": "b35834bb.1da0b8",
-        "type": "trigger",
-        "z": "f841e824.d474f",
-        "name": "",
-        "op1": "",
-        "op2": "",
-        "op1type": "nul",
-        "op2type": "payl",
-        "duration": "60",
-        "extend": false,
-        "units": "min",
-        "reset": "reset",
-        "bytopic": "all",
-        "outputs": 1,
-        "x": 710,
-        "y": 1300,
-        "wires": [
-            [
-                "4a76b909.bb8f48"
-            ]
-        ]
-    },
-    {
-        "id": "b3d3d616.c7e658",
-        "type": "change",
-        "z": "f841e824.d474f",
-        "name": "reset",
-        "rules": [
-            {
-                "t": "set",
-                "p": "reset",
-                "pt": "msg",
-                "to": "true",
-                "tot": "bool"
-            },
-            {
-                "t": "set",
-                "p": "payload",
-                "pt": "msg",
-                "to": "false",
-                "tot": "bool"
-            }
-        ],
-        "action": "",
-        "property": "",
-        "from": "",
-        "to": "",
-        "reg": false,
-        "x": 490,
-        "y": 1300,
-        "wires": [
-            [
-                "b35834bb.1da0b8"
-            ]
-        ]
-    },
-    {
-        "id": "ff2d8a29.ed01d",
-        "type": "trigger",
-        "z": "f841e824.d474f",
-        "name": "",
-        "op1": "",
-        "op2": "",
-        "op1type": "nul",
-        "op2type": "payl",
-        "duration": "3",
-        "extend": false,
-        "units": "min",
-        "reset": "reset",
-        "bytopic": "all",
-        "outputs": 1,
-        "x": 1250,
-        "y": 740,
-        "wires": [
-            [
-                "11fd7980.c38c37",
-                "c0c39c5d.4c3da8"
-            ]
-        ]
-    },
-    {
-        "id": "bed4bf4f.e4b8d",
-        "type": "change",
-        "z": "f841e824.d474f",
-        "name": "reset",
-        "rules": [
-            {
-                "t": "set",
-                "p": "reset",
-                "pt": "msg",
-                "to": "true",
-                "tot": "bool"
-            },
-            {
-                "t": "set",
-                "p": "payload",
-                "pt": "msg",
-                "to": "false",
-                "tot": "bool"
-            }
-        ],
-        "action": "",
-        "property": "",
-        "from": "",
-        "to": "",
-        "reg": false,
-        "x": 1010,
-        "y": 800,
-        "wires": [
-            [
-                "ff2d8a29.ed01d"
-            ]
         ]
     },
     {
@@ -2137,25 +2865,6 @@
         ]
     },
     {
-        "id": "c0c39c5d.4c3da8",
-        "type": "function",
-        "z": "f841e824.d474f",
-        "name": "Prepara il messaggio",
-        "func": "function millisToMinutesAndSeconds(millis) {\n  var minutes = Math.floor(millis / 60000);\n  var seconds = ((millis % 60000) / 1000).toFixed(0);\n  return minutes + \" minuti e \" + (seconds < 10 ? '0' : '') + seconds + \" secondi\";\n}\n\nvar text = \"La lavatrice ha finito. Ora puoi stendere il bucato. Durata lavaggio: \"\nvar msg1 = {payload: text + millisToMinutesAndSeconds(msg.data.timeSinceChangedMs) }\nreturn msg1\n\n\n  \n\n\n",
-        "outputs": 1,
-        "noerr": 0,
-        "x": 1540,
-        "y": 740,
-        "wires": [
-            [
-                "2f9c93eb.587f64",
-                "c0343eb2.3930d8",
-                "64b67a33.f752fc",
-                "ddb9425d.c294"
-            ]
-        ]
-    },
-    {
         "id": "a076a8c2.1374d",
         "type": "poll-state",
         "z": "74e4c992.25d51",
@@ -2193,387 +2902,49 @@
         ]
     },
     {
-        "id": "97fa08e7.b95428",
-        "type": "function",
-        "z": "f841e824.d474f",
-        "name": "Prepara il messaggio",
-        "func": "function millisToMinutesAndSeconds(millis) {\n  var minutes = Math.floor(millis / 60000);\n  var seconds = ((millis % 60000) / 1000).toFixed(0);\n  return minutes + \" minuti e \" + (seconds < 10 ? '0' : '') + seconds + \" secondi\";\n}\n\nvar text = \"Piatti lavati. Durata ciclo di lavaggio lavaggio: \"\nvar msg1 = {payload: text + millisToMinutesAndSeconds(msg.data.timeSinceChangedMs) }\nreturn msg1\n  \n\n\n",
-        "outputs": 1,
-        "noerr": 0,
-        "x": 980,
-        "y": 260,
-        "wires": [
-            [
-                "940ec4f1.3bbc9"
-            ]
-        ]
-    },
-    {
-        "id": "7916216.3f0bc6",
-        "type": "mqtt in",
-        "z": "f841e824.d474f",
-        "name": "Generale W",
-        "topic": "1694498882.W",
-        "qos": "2",
-        "datatype": "auto",
-        "broker": "efdb8d8d.4fdfe8",
-        "x": 150,
-        "y": 1880,
-        "wires": [
-            [
-                "ccef8db8.407948"
-            ]
-        ]
-    },
-    {
-        "id": "90ce68bb.28e028",
-        "type": "influxdb out",
-        "z": "f841e824.d474f",
-        "influxdb": "a7c77e43.dccf78",
-        "name": "generale_w",
-        "measurement": "generale_w",
-        "precision": "",
-        "retentionPolicy": "",
-        "x": 550,
-        "y": 1880,
-        "wires": []
-    },
-    {
-        "id": "886d5780.8a7f7",
-        "type": "mqtt in",
-        "z": "f841e824.d474f",
-        "name": "Generale A",
-        "topic": "1694498882.A",
-        "qos": "2",
-        "datatype": "auto",
-        "broker": "efdb8d8d.4fdfe8",
-        "x": 140,
-        "y": 1940,
-        "wires": [
-            [
-                "ca5476a7.f22e"
-            ]
-        ]
-    },
-    {
-        "id": "8ecd5a59.d7cac8",
-        "type": "mqtt in",
-        "z": "f841e824.d474f",
-        "name": "Generale V",
-        "topic": "1694498882.V",
-        "qos": "2",
-        "datatype": "auto",
-        "broker": "efdb8d8d.4fdfe8",
-        "x": 140,
-        "y": 2000,
-        "wires": [
-            [
-                "36c440c6.e32d4"
-            ]
-        ]
-    },
-    {
-        "id": "f346feec.c9453",
-        "type": "mqtt in",
-        "z": "f841e824.d474f",
-        "name": "Generale PF",
-        "topic": "1694498882.PF",
-        "qos": "2",
-        "datatype": "auto",
-        "broker": "efdb8d8d.4fdfe8",
-        "x": 150,
-        "y": 2060,
-        "wires": [
-            [
-                "d4adf237.a4de08"
-            ]
-        ]
-    },
-    {
-        "id": "3aed4e06.6a055a",
-        "type": "influxdb out",
-        "z": "f841e824.d474f",
-        "influxdb": "a7c77e43.dccf78",
-        "name": "generale_a",
-        "measurement": "generale_a",
-        "precision": "",
-        "retentionPolicy": "",
-        "x": 550,
-        "y": 1940,
-        "wires": []
-    },
-    {
-        "id": "388d1b3e.13e2f4",
-        "type": "influxdb out",
-        "z": "f841e824.d474f",
-        "influxdb": "a7c77e43.dccf78",
-        "name": "generale_v",
-        "measurement": "generale_v",
-        "precision": "",
-        "retentionPolicy": "",
-        "x": 550,
-        "y": 2000,
-        "wires": []
-    },
-    {
-        "id": "fb32d4b3.ab5e9",
-        "type": "influxdb out",
-        "z": "f841e824.d474f",
-        "influxdb": "a7c77e43.dccf78",
-        "name": "generale_pf",
-        "measurement": "generale_pf",
-        "precision": "",
-        "retentionPolicy": "",
-        "x": 550,
-        "y": 2060,
-        "wires": []
-    },
-    {
-        "id": "ccef8db8.407948",
-        "type": "json",
-        "z": "f841e824.d474f",
-        "name": "",
+        "id": "3b028a67.70c13e",
+        "type": "switch",
+        "z": "45dd8798.2cfc88",
+        "name": "alba o tramonto ?",
         "property": "payload",
-        "action": "",
-        "pretty": false,
-        "x": 330,
-        "y": 1880,
-        "wires": [
-            [
-                "90ce68bb.28e028",
-                "c6ce6533.ab36a8",
-                "76701afb.5da6c4",
-                "b9c0c857.65e488",
-                "740f02d.fe147fc"
-            ]
-        ]
-    },
-    {
-        "id": "ca5476a7.f22e",
-        "type": "json",
-        "z": "f841e824.d474f",
-        "name": "",
-        "property": "payload",
-        "action": "",
-        "pretty": false,
-        "x": 330,
-        "y": 1940,
-        "wires": [
-            [
-                "3aed4e06.6a055a"
-            ]
-        ]
-    },
-    {
-        "id": "36c440c6.e32d4",
-        "type": "json",
-        "z": "f841e824.d474f",
-        "name": "",
-        "property": "payload",
-        "action": "",
-        "pretty": false,
-        "x": 330,
-        "y": 2000,
-        "wires": [
-            [
-                "388d1b3e.13e2f4"
-            ]
-        ]
-    },
-    {
-        "id": "d4adf237.a4de08",
-        "type": "json",
-        "z": "f841e824.d474f",
-        "name": "",
-        "property": "payload",
-        "action": "",
-        "pretty": false,
-        "x": 330,
-        "y": 2060,
-        "wires": [
-            [
-                "fb32d4b3.ab5e9"
-            ]
-        ]
-    },
-    {
-        "id": "cce3c7a4.6a7b98",
-        "type": "api-current-state",
-        "z": "f841e824.d474f",
-        "name": "Stato della lavatrice",
-        "server": "c6e21e6c.847e8",
-        "version": 2,
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "on",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "off",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
         "outputs": 2,
-        "halt_if": "off",
-        "halt_if_type": "str",
-        "halt_if_compare": "is",
-        "entity_id": "input_boolean.washingmachine_status",
-        "state_type": "str",
-        "blockInputOverrides": false,
-        "outputProperties": [
-            {
-                "property": "payload",
-                "propertyType": "msg",
-                "value": "",
-                "valueType": "entityState"
-            },
-            {
-                "property": "data",
-                "propertyType": "msg",
-                "value": "",
-                "valueType": "entity"
-            },
-            {
-                "property": "topic",
-                "propertyType": "msg",
-                "value": "",
-                "valueType": "triggerId"
-            }
-        ],
-        "x": 680,
-        "y": 740,
+        "x": 370,
+        "y": 220,
         "wires": [
-            [],
             [
-                "2e8f9e53.812b7a"
+                "785b1e0.5e8c7e4"
+            ],
+            [
+                "7cb064d9.8a1514"
             ]
         ]
     },
     {
-        "id": "11fd7980.c38c37",
-        "type": "debug",
-        "z": "f841e824.d474f",
-        "name": "prova",
-        "active": false,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "true",
-        "targetType": "full",
-        "x": 1450,
-        "y": 640,
-        "wires": []
-    },
-    {
-        "id": "6fe8555e.62a4ec",
-        "type": "inject",
-        "z": "f841e824.d474f",
-        "name": "Reset",
-        "repeat": "",
-        "crontab": "",
-        "once": false,
-        "onceDelay": 0.1,
-        "topic": "",
-        "payload": "reset",
-        "payloadType": "str",
-        "x": 1030,
-        "y": 640,
-        "wires": [
-            [
-                "ff2d8a29.ed01d"
-            ]
-        ]
-    },
-    {
-        "id": "aa05600a.cc269",
-        "type": "inject",
-        "z": "f841e824.d474f",
-        "name": "Reset",
-        "repeat": "",
-        "crontab": "",
-        "once": false,
-        "onceDelay": 0.1,
-        "topic": "",
-        "payload": "reset",
-        "payloadType": "str",
-        "x": 490,
-        "y": 1400,
-        "wires": [
-            [
-                "b35834bb.1da0b8"
-            ]
-        ]
-    },
-    {
-        "id": "c6ce6533.ab36a8",
-        "type": "function",
-        "z": "f841e824.d474f",
-        "name": "Prepara messaggio se il consumo è >= 3300 W",
-        "func": "var max_w = 3300\nif (msg.payload >= max_w) {\n  var msg1 = {payload: \"Attenzione! Il consumo di energia elettrica è pari a \" + msg.payload + \" watt. Rischio di distacco!\"}  \n} else {msg1 = null}\n\nreturn msg1;",
-        "outputs": 1,
-        "noerr": 0,
-        "x": 660,
-        "y": 1800,
-        "wires": [
-            [
-                "b1cf814b.a7b2"
-            ]
-        ]
-    },
-    {
-        "id": "f3df76e8.56402",
+        "id": "785b1e0.5e8c7e4",
         "type": "api-call-service",
-        "z": "f841e824.d474f",
-        "name": "",
+        "z": "45dd8798.2cfc88",
+        "name": "Accende luci di Natale",
         "server": "c6e21e6c.847e8",
         "version": 3,
         "debugenabled": false,
-        "service_domain": "notify",
-        "service": "alexa_media_ovunque",
-        "entityId": "",
-        "data": "{\"message\":\"{{payload}}\",\"title\":\"Rischio di distacco\",\"data\":{\"type\":\"announce\",\"method\":\"all\"},\"target\":[\"ovunque\"]}",
-        "dataType": "json",
-        "mergecontext": "",
-        "mustacheAltTags": false,
-        "outputProperties": [
-            {
-                "property": "payload",
-                "propertyType": "msg",
-                "value": "",
-                "valueType": "data"
-            }
-        ],
-        "queue": "none",
-        "x": 1020,
-        "y": 1940,
-        "wires": [
-            []
-        ]
-    },
-    {
-        "id": "b1cf814b.a7b2",
-        "type": "delay",
-        "z": "f841e824.d474f",
-        "name": "",
-        "pauseType": "rate",
-        "timeout": "5",
-        "timeoutUnits": "seconds",
-        "rate": "1",
-        "nbRateUnits": "1",
-        "rateUnits": "minute",
-        "randomFirst": "1",
-        "randomLast": "5",
-        "randomUnits": "seconds",
-        "drop": true,
-        "x": 1020,
-        "y": 1800,
-        "wires": [
-            [
-                "f3df76e8.56402"
-            ]
-        ]
-    },
-    {
-        "id": "a38f8e5e.591a38",
-        "type": "api-call-service",
-        "z": "f841e824.d474f",
-        "name": "Accendi forno",
-        "server": "c6e21e6c.847e8",
-        "version": 3,
-        "debugenabled": false,
-        "service_domain": "switch",
+        "service_domain": "homeassistant",
         "service": "turn_on",
-        "entityId": "switch.forno",
+        "entityId": "switch.lucine",
         "data": "",
         "dataType": "json",
         "mergecontext": "",
@@ -2587,46 +2958,24 @@
             }
         ],
         "queue": "none",
-        "x": 340,
-        "y": 1560,
+        "x": 700,
+        "y": 180,
         "wires": [
-            [
-                "47f4314c.f9005"
-            ]
+            []
         ]
     },
     {
-        "id": "ed54a7c1.7c85b8",
-        "type": "inject",
-        "z": "f841e824.d474f",
-        "name": "",
-        "repeat": "",
-        "crontab": "",
-        "once": false,
-        "onceDelay": 0.1,
-        "topic": "",
-        "payload": "",
-        "payloadType": "date",
-        "x": 120,
-        "y": 1560,
-        "wires": [
-            [
-                "a38f8e5e.591a38"
-            ]
-        ]
-    },
-    {
-        "id": "47f4314c.f9005",
+        "id": "7cb064d9.8a1514",
         "type": "api-call-service",
-        "z": "f841e824.d474f",
-        "name": "",
+        "z": "45dd8798.2cfc88",
+        "name": "Spegne luci di Natale",
         "server": "c6e21e6c.847e8",
         "version": 3,
-        "debugenabled": true,
-        "service_domain": "notify",
-        "service": "mobile_app_soylents_iphone",
-        "entityId": "",
-        "data": "{\"message\":\"Forno acceso\",\"title\":\"Accensione forno\"}",
+        "debugenabled": false,
+        "service_domain": "homeassistant",
+        "service": "turn_off",
+        "entityId": "switch.lucine",
+        "data": "",
         "dataType": "json",
         "mergecontext": "",
         "mustacheAltTags": false,
@@ -2640,205 +2989,26 @@
         ],
         "queue": "none",
         "x": 700,
-        "y": 1560,
+        "y": 260,
         "wires": [
             []
         ]
     },
     {
-        "id": "76701afb.5da6c4",
-        "type": "function",
-        "z": "f841e824.d474f",
-        "name": "Prepara messaggio se il consumo è >= 3300 W",
-        "func": "var high_watermark = 4000;\nvar low_watermark = 3300;\nvar timer_high_value = 1;\nvar timer_low_value = 90;\nvar over_power = flow.get('over_power') || false;\nvar low_timer = flow.get('timer_low') || null;\nvar high_timer = flow.get('timer_high') || null;\nvar msg1, msg2 = null;\nvar input = msg.payload;\n// OUTPUT:\n// msg1 Messagge to TTS system\n// msg2 Timer or reset\n// msg3 over_power boolean condition\n\nswitch(true) {\n  case (input >= high_watermark):\n    if (over_power === false) {\n      msg2 = {payload: timer_high_value};\n      msg1 = {payload:\"Attenzione! Distacco energia elettrica imminente! Superata la soglia dei 4000 watt.\"};\n      flow.set('over_power', true);\n      flow.set('timer_low', now.getTime())\n    }\n    break;\n  case (input >= low_watermark):\n    msg2 = {payload: timer_low_value};\n    msg1 = {payload: \"Attenzione! Il consumo di energia elettrica è pari a \" + msg.payload + \" watt. Rischio di distacco!\"}\n    flow.set('over_power', true);\n    break;\n  default:\n    if (over_power === true) {\n      msg2 = {payload: 'reset'};   \n      flow.set('over_power', false);\n    } else {msg2 = null}\n}\n\nif (msg2 !== null) {\n  msg1 = {payload: \"Attenzione! Il consumo di energia elettrica è pari a \" + msg.payload + \" watt. Rischio di distacco!\"}  \n} else {msg1 = null}\nover_power = flow.get('over_power')\nmsg3 = {payload: over_power} \nreturn [msg1, msg2, msg3];\n//\n//",
-        "outputs": 3,
-        "noerr": 0,
-        "x": 360,
-        "y": 2280,
-        "wires": [
-            [
-                "30f032d2.af82e6"
-            ],
-            [
-                "3ccc78e8.a0785"
-            ],
-            [
-                "310b9b54.36985c"
-            ]
-        ]
-    },
-    {
-        "id": "30f032d2.af82e6",
-        "type": "debug",
-        "z": "f841e824.d474f",
-        "name": "",
-        "active": false,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "payload",
-        "targetType": "msg",
-        "x": 770,
-        "y": 2220,
+        "id": "9bc871dc.88a4f",
+        "type": "comment",
+        "z": "45dd8798.2cfc88",
+        "name": "Xmas Light esterne",
+        "info": "Accende/spegne le luci di Natale all'inizio dell'imbrunire e alla fine dell'alba.",
+        "x": 110,
+        "y": 20,
         "wires": []
     },
     {
-        "id": "3ccc78e8.a0785",
-        "type": "debug",
-        "z": "f841e824.d474f",
-        "name": "",
-        "active": false,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "payload",
-        "targetType": "msg",
-        "x": 770,
-        "y": 2280,
-        "wires": []
-    },
-    {
-        "id": "b9c0c857.65e488",
-        "type": "debug",
-        "z": "f841e824.d474f",
-        "name": "",
-        "active": false,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "false",
-        "x": 440,
-        "y": 1720,
-        "wires": []
-    },
-    {
-        "id": "34f5d045.0511c8",
-        "type": "trigger",
-        "z": "f841e824.d474f",
-        "name": "",
-        "op1": "",
-        "op2": "0",
-        "op1type": "nul",
-        "op2type": "str",
-        "duration": "250",
-        "extend": false,
-        "units": "min",
-        "reset": "",
-        "bytopic": "all",
-        "outputs": 1,
-        "x": 1020,
-        "y": 2080,
-        "wires": [
-            []
-        ]
-    },
-    {
-        "id": "310b9b54.36985c",
-        "type": "debug",
-        "z": "f841e824.d474f",
-        "name": "",
-        "active": false,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "false",
-        "x": 770,
-        "y": 2340,
-        "wires": []
-    },
-    {
-        "id": "f7e0fc7a.127c5",
-        "type": "function",
-        "z": "f841e824.d474f",
-        "name": "",
-        "func": "var lastChange = new Date(msg.data.old_state.last_changed).getTime();\nvar now = new Date().getTime();\nvar secs = Math.floor((now / 1000)-(lastChange / 1000));\nmsg.sensor = {};\nmsg.sensor.lastChange = secs;\nreturn msg;",
-        "outputs": 1,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "x": 1180,
-        "y": 1100,
-        "wires": [
-            [
-                "93f4ae5a.29b42"
-            ]
-        ]
-    },
-    {
-        "id": "93f4ae5a.29b42",
-        "type": "debug",
-        "z": "f841e824.d474f",
-        "name": "",
-        "active": false,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "false",
-        "x": 1360,
-        "y": 1100,
-        "wires": []
-    },
-    {
-        "id": "740f02d.fe147fc",
-        "type": "ui_gauge",
-        "z": "f841e824.d474f",
-        "name": "",
-        "group": "7056ab47.4136fc",
-        "order": 0,
-        "width": 0,
-        "height": 0,
-        "gtype": "gage",
-        "title": "Potenza assorbita",
-        "label": "Kw",
-        "format": "{{value}}",
-        "min": 0,
-        "max": "4100",
-        "colors": [
-            "#00b500",
-            "#e6e600",
-            "#ca3838"
-        ],
-        "seg1": "3300",
-        "seg2": "3301",
-        "x": 530,
-        "y": 2140,
-        "wires": []
-    },
-    {
-        "id": "223449e3.378f66",
-        "type": "api-call-service",
-        "z": "f841e824.d474f",
-        "name": "Test Alexa",
-        "server": "c6e21e6c.847e8",
-        "version": 3,
-        "debugenabled": true,
-        "service_domain": "notify",
-        "service": "alexa_media_studio",
-        "entityId": "",
-        "data": "{\"message\":\"Questo è un test\",\"title\":\"Test\",\"data\":{\"type\":\"announce\",\"method\":\"all\"},\"target\":[\"terra\"]}",
-        "dataType": "json",
-        "mergecontext": "",
-        "mustacheAltTags": false,
-        "outputProperties": [
-            {
-                "property": "payload",
-                "propertyType": "msg",
-                "value": "",
-                "valueType": "data"
-            }
-        ],
-        "queue": "none",
-        "x": 630,
-        "y": 80,
-        "wires": [
-            []
-        ]
-    },
-    {
-        "id": "66a59c22.18cf2c",
+        "id": "2e9df7be.cb2f28",
         "type": "inject",
-        "z": "f841e824.d474f",
-        "name": "",
+        "z": "45dd8798.2cfc88",
+        "name": "Spegnimento manuale",
         "repeat": "",
         "crontab": "",
         "once": false,
@@ -2846,35 +3016,31 @@
         "topic": "",
         "payload": "",
         "payloadType": "date",
-        "x": 420,
-        "y": 80,
+        "x": 500,
+        "y": 340,
         "wires": [
             [
-                "223449e3.378f66"
+                "7cb064d9.8a1514"
             ]
         ]
     },
     {
-        "id": "940ec4f1.3bbc9",
-        "type": "delay",
-        "z": "f841e824.d474f",
-        "name": "Limita 1 msg/5min",
-        "pauseType": "rate",
-        "timeout": "5",
-        "timeoutUnits": "seconds",
-        "rate": "1",
-        "nbRateUnits": "5",
-        "rateUnits": "minute",
-        "randomFirst": "1",
-        "randomLast": "5",
-        "randomUnits": "seconds",
-        "drop": false,
-        "x": 1230,
-        "y": 260,
+        "id": "1d3111a2.e40926",
+        "type": "inject",
+        "z": "45dd8798.2cfc88",
+        "name": "Accensione manuale",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 500,
+        "y": 100,
         "wires": [
             [
-                "3a8a3532.c7912a",
-                "846d2ef1.3d76d"
+                "785b1e0.5e8c7e4"
             ]
         ]
     },
@@ -3013,380 +3179,13 @@
         "topic": "",
         "payload": "off",
         "payloadType": "str",
-        "x": 410,
+        "x": 430,
         "y": 1020,
         "wires": [
             [
                 "18afb449.c170ec"
             ]
         ]
-    },
-    {
-        "id": "f39978f9.c01c18",
-        "type": "server-state-changed",
-        "z": "50bf18d8.6664b",
-        "name": "",
-        "server": "c6e21e6c.847e8",
-        "version": 3,
-        "exposeToHomeAssistant": false,
-        "haConfig": [
-            {
-                "property": "name",
-                "value": ""
-            },
-            {
-                "property": "icon",
-                "value": ""
-            }
-        ],
-        "entityidfilter": "sensor.fritz_netmonitor",
-        "entityidfiltertype": "exact",
-        "outputinitially": true,
-        "state_type": "str",
-        "haltifstate": "",
-        "halt_if_type": "str",
-        "halt_if_compare": "is",
-        "outputs": 1,
-        "output_only_on_state_change": false,
-        "for": 0,
-        "forType": "num",
-        "forUnits": "minutes",
-        "ignorePrevStateNull": false,
-        "ignorePrevStateUnknown": false,
-        "ignorePrevStateUnavailable": false,
-        "ignoreCurrentStateUnknown": false,
-        "ignoreCurrentStateUnavailable": false,
-        "outputProperties": [
-            {
-                "property": "payload",
-                "propertyType": "msg",
-                "value": "",
-                "valueType": "entityState"
-            },
-            {
-                "property": "data",
-                "propertyType": "msg",
-                "value": "",
-                "valueType": "eventData"
-            },
-            {
-                "property": "topic",
-                "propertyType": "msg",
-                "value": "",
-                "valueType": "triggerId"
-            }
-        ],
-        "x": 210,
-        "y": 240,
-        "wires": [
-            [
-                "670df638.93fa38",
-                "6d385b20.1bc29c",
-                "1b2947f6.e2d178",
-                "220559a7.61c69e"
-            ]
-        ]
-    },
-    {
-        "id": "670df638.93fa38",
-        "type": "change",
-        "z": "50bf18d8.6664b",
-        "name": "transmission_rate_up",
-        "rules": [
-            {
-                "t": "set",
-                "p": "payload",
-                "pt": "msg",
-                "to": "data.new_state.attributes.transmission_rate_up",
-                "tot": "msg"
-            }
-        ],
-        "action": "",
-        "property": "",
-        "from": "",
-        "to": "",
-        "reg": false,
-        "x": 600,
-        "y": 160,
-        "wires": [
-            [
-                "b99955ff.67b77"
-            ]
-        ]
-    },
-    {
-        "id": "6d385b20.1bc29c",
-        "type": "change",
-        "z": "50bf18d8.6664b",
-        "name": "transmission_rate_down",
-        "rules": [
-            {
-                "t": "set",
-                "p": "payload",
-                "pt": "msg",
-                "to": "data.new_state.attributes.transmission_rate_down",
-                "tot": "msg"
-            }
-        ],
-        "action": "",
-        "property": "",
-        "from": "",
-        "to": "",
-        "reg": false,
-        "x": 610,
-        "y": 220,
-        "wires": [
-            [
-                "d93d82af.f1982"
-            ]
-        ]
-    },
-    {
-        "id": "1b2947f6.e2d178",
-        "type": "change",
-        "z": "50bf18d8.6664b",
-        "name": "max_byte_rate_up",
-        "rules": [
-            {
-                "t": "set",
-                "p": "payload",
-                "pt": "msg",
-                "to": "data.new_state.attributes.max_byte_rate_up",
-                "tot": "msg"
-            }
-        ],
-        "action": "",
-        "property": "",
-        "from": "",
-        "to": "",
-        "reg": false,
-        "x": 590,
-        "y": 280,
-        "wires": [
-            [
-                "33c025e8.fcfcea"
-            ]
-        ]
-    },
-    {
-        "id": "220559a7.61c69e",
-        "type": "change",
-        "z": "50bf18d8.6664b",
-        "name": "max_byte_rate_down",
-        "rules": [
-            {
-                "t": "set",
-                "p": "payload",
-                "pt": "msg",
-                "to": "data.new_state.attributes.max_byte_rate_down",
-                "tot": "msg"
-            }
-        ],
-        "action": "",
-        "property": "",
-        "from": "",
-        "to": "",
-        "reg": false,
-        "x": 600,
-        "y": 340,
-        "wires": [
-            [
-                "ec2fd6f9.61e55"
-            ]
-        ]
-    },
-    {
-        "id": "b99955ff.67b77",
-        "type": "influxdb out",
-        "z": "50bf18d8.6664b",
-        "influxdb": "66d7f6c2.eeb478",
-        "name": "",
-        "measurement": "adsl.transmission_rate_up",
-        "precision": "",
-        "retentionPolicy": "",
-        "x": 940,
-        "y": 160,
-        "wires": []
-    },
-    {
-        "id": "d93d82af.f1982",
-        "type": "influxdb out",
-        "z": "50bf18d8.6664b",
-        "influxdb": "66d7f6c2.eeb478",
-        "name": "",
-        "measurement": "adsl.transmission_rate_down",
-        "precision": "",
-        "retentionPolicy": "",
-        "x": 950,
-        "y": 220,
-        "wires": []
-    },
-    {
-        "id": "33c025e8.fcfcea",
-        "type": "influxdb out",
-        "z": "50bf18d8.6664b",
-        "influxdb": "66d7f6c2.eeb478",
-        "name": "",
-        "measurement": "adsl.max_byte_rate_up",
-        "precision": "",
-        "retentionPolicy": "",
-        "x": 930,
-        "y": 280,
-        "wires": []
-    },
-    {
-        "id": "ec2fd6f9.61e55",
-        "type": "influxdb out",
-        "z": "50bf18d8.6664b",
-        "influxdb": "66d7f6c2.eeb478",
-        "name": "",
-        "measurement": "adsl.max_byte_rate_down",
-        "precision": "",
-        "retentionPolicy": "",
-        "x": 940,
-        "y": 340,
-        "wires": []
-    },
-    {
-        "id": "cec6f7e5.771578",
-        "type": "server-state-changed",
-        "z": "f841e824.d474f",
-        "name": "",
-        "server": "c6e21e6c.847e8",
-        "version": 3,
-        "exposeToHomeAssistant": false,
-        "haConfig": [
-            {
-                "property": "name",
-                "value": ""
-            },
-            {
-                "property": "icon",
-                "value": ""
-            }
-        ],
-        "entityidfilter": "sensor.zinto1000_status_data",
-        "entityidfiltertype": "exact",
-        "outputinitially": true,
-        "state_type": "str",
-        "haltifstate": "",
-        "halt_if_type": "str",
-        "halt_if_compare": "is",
-        "outputs": 1,
-        "output_only_on_state_change": true,
-        "for": 0,
-        "forType": "num",
-        "forUnits": "minutes",
-        "ignorePrevStateNull": false,
-        "ignorePrevStateUnknown": true,
-        "ignorePrevStateUnavailable": true,
-        "ignoreCurrentStateUnknown": true,
-        "ignoreCurrentStateUnavailable": true,
-        "outputProperties": [
-            {
-                "property": "payload",
-                "propertyType": "msg",
-                "value": "",
-                "valueType": "entityState"
-            },
-            {
-                "property": "data",
-                "propertyType": "msg",
-                "value": "",
-                "valueType": "eventData"
-            },
-            {
-                "property": "topic",
-                "propertyType": "msg",
-                "value": "",
-                "valueType": "triggerId"
-            }
-        ],
-        "x": 590,
-        "y": 2540,
-        "wires": [
-            [
-                "d46c8dfb.835408"
-            ]
-        ]
-    },
-    {
-        "id": "f5b0b328.e7cb28",
-        "type": "api-current-state",
-        "z": "f841e824.d474f",
-        "name": "",
-        "server": "c6e21e6c.847e8",
-        "version": 2,
-        "outputs": 1,
-        "halt_if": "",
-        "halt_if_type": "str",
-        "halt_if_compare": "is",
-        "entity_id": "sensor.zinto1000_status_data",
-        "state_type": "str",
-        "blockInputOverrides": false,
-        "outputProperties": [
-            {
-                "property": "payload",
-                "propertyType": "msg",
-                "value": "",
-                "valueType": "entityState"
-            },
-            {
-                "property": "data",
-                "propertyType": "msg",
-                "value": "",
-                "valueType": "entity"
-            }
-        ],
-        "x": 590,
-        "y": 2600,
-        "wires": [
-            [
-                "d46c8dfb.835408"
-            ]
-        ]
-    },
-    {
-        "id": "46e98a09.a047dc",
-        "type": "inject",
-        "z": "f841e824.d474f",
-        "name": "check every minutes",
-        "props": [
-            {
-                "p": "payload"
-            },
-            {
-                "p": "topic",
-                "vt": "str"
-            }
-        ],
-        "repeat": "60",
-        "crontab": "",
-        "once": false,
-        "onceDelay": 0.1,
-        "topic": "",
-        "payload": "",
-        "payloadType": "date",
-        "x": 180,
-        "y": 2600,
-        "wires": [
-            [
-                "f5b0b328.e7cb28"
-            ]
-        ]
-    },
-    {
-        "id": "d46c8dfb.835408",
-        "type": "influxdb out",
-        "z": "f841e824.d474f",
-        "influxdb": "a7c77e43.dccf78",
-        "name": "",
-        "measurement": "power.ups_status",
-        "precision": "",
-        "retentionPolicy": "",
-        "x": 1000,
-        "y": 2600,
-        "wires": []
     },
     {
         "id": "ddea01dc.143568",
@@ -3776,7 +3575,7 @@
         "starttime2": 0,
         "endtime2": 0,
         "startoff": 0,
-        "endoff": "20",
+        "endoff": "",
         "startoff2": 0,
         "endoff2": 0,
         "offs": 0,
@@ -3910,7 +3709,7 @@
         "y": 1280,
         "wires": [
             [
-                "abfada1f.623368"
+                "62ece8bf.7e83a"
             ],
             [],
             []
@@ -4068,7 +3867,7 @@
         "checkall": "false",
         "repair": false,
         "outputs": 2,
-        "x": 830,
+        "x": 770,
         "y": 1260,
         "wires": [
             [
@@ -4174,10 +3973,10 @@
         "mar": true,
         "apr": true,
         "may": true,
-        "jun": true,
-        "jul": true,
-        "aug": true,
-        "sep": true,
+        "jun": false,
+        "jul": false,
+        "aug": false,
+        "sep": false,
         "oct": true,
         "nov": true,
         "dec": true,
@@ -4253,7 +4052,7 @@
         "xw5": 0,
         "xd6": 0,
         "xw6": 0,
-        "suspend": false,
+        "suspend": true,
         "random": false,
         "randon1": false,
         "randoff1": false,
@@ -4592,12 +4391,1055 @@
         "start": "",
         "inout": "out",
         "property": "payload",
-        "x": 650,
-        "y": 1260,
+        "x": 710,
+        "y": 1420,
         "wires": [
             [
                 "e3759707.e305b8"
             ]
+        ]
+    },
+    {
+        "id": "62ece8bf.7e83a",
+        "type": "StatusUltimate",
+        "z": "45dd8798.2cfc88",
+        "name": "Status",
+        "property": "payload",
+        "x": 570,
+        "y": 1420,
+        "wires": [
+            [
+                "abfada1f.623368"
+            ]
+        ]
+    },
+    {
+        "id": "b99955ff.67b77",
+        "type": "influxdb out",
+        "z": "50bf18d8.6664b",
+        "influxdb": "66d7f6c2.eeb478",
+        "name": "",
+        "measurement": "adsl.transmission_rate_up",
+        "precision": "",
+        "retentionPolicy": "",
+        "database": "",
+        "precisionV18FluxV20": "ns",
+        "retentionPolicyV18Flux": "",
+        "org": "",
+        "bucket": "",
+        "x": 860,
+        "y": 160,
+        "wires": []
+    },
+    {
+        "id": "d93d82af.f1982",
+        "type": "influxdb out",
+        "z": "50bf18d8.6664b",
+        "influxdb": "66d7f6c2.eeb478",
+        "name": "",
+        "measurement": "adsl.transmission_rate_down",
+        "precision": "",
+        "retentionPolicy": "",
+        "x": 870,
+        "y": 220,
+        "wires": []
+    },
+    {
+        "id": "33c025e8.fcfcea",
+        "type": "influxdb out",
+        "z": "50bf18d8.6664b",
+        "influxdb": "66d7f6c2.eeb478",
+        "name": "",
+        "measurement": "adsl.max_byte_rate_up",
+        "precision": "",
+        "retentionPolicy": "",
+        "x": 850,
+        "y": 280,
+        "wires": []
+    },
+    {
+        "id": "ec2fd6f9.61e55",
+        "type": "influxdb out",
+        "z": "50bf18d8.6664b",
+        "influxdb": "66d7f6c2.eeb478",
+        "name": "",
+        "measurement": "adsl.max_byte_rate_down",
+        "precision": "",
+        "retentionPolicy": "",
+        "x": 860,
+        "y": 340,
+        "wires": []
+    },
+    {
+        "id": "96041b3c.d66ff8",
+        "type": "server-state-changed",
+        "z": "50bf18d8.6664b",
+        "name": "",
+        "server": "c6e21e6c.847e8",
+        "version": 3,
+        "exposeToHomeAssistant": false,
+        "haConfig": [
+            {
+                "property": "name",
+                "value": ""
+            },
+            {
+                "property": "icon",
+                "value": ""
+            }
+        ],
+        "entityidfilter": "sensor.fritz_box_7590_max_kbit_s_received",
+        "entityidfiltertype": "exact",
+        "outputinitially": true,
+        "state_type": "num",
+        "haltifstate": "",
+        "halt_if_type": "str",
+        "halt_if_compare": "is",
+        "outputs": 1,
+        "output_only_on_state_change": false,
+        "for": 0,
+        "forType": "num",
+        "forUnits": "minutes",
+        "ignorePrevStateNull": false,
+        "ignorePrevStateUnknown": false,
+        "ignorePrevStateUnavailable": false,
+        "ignoreCurrentStateUnknown": false,
+        "ignoreCurrentStateUnavailable": false,
+        "outputProperties": [
+            {
+                "property": "payload",
+                "propertyType": "msg",
+                "value": "",
+                "valueType": "entityState"
+            },
+            {
+                "property": "data",
+                "propertyType": "msg",
+                "value": "",
+                "valueType": "eventData"
+            },
+            {
+                "property": "topic",
+                "propertyType": "msg",
+                "value": "",
+                "valueType": "triggerId"
+            }
+        ],
+        "x": 380,
+        "y": 340,
+        "wires": [
+            [
+                "ec2fd6f9.61e55"
+            ]
+        ]
+    },
+    {
+        "id": "6fd05401.d8a554",
+        "type": "server-state-changed",
+        "z": "50bf18d8.6664b",
+        "name": "",
+        "server": "c6e21e6c.847e8",
+        "version": 3,
+        "exposeToHomeAssistant": false,
+        "haConfig": [
+            {
+                "property": "name",
+                "value": ""
+            },
+            {
+                "property": "icon",
+                "value": ""
+            }
+        ],
+        "entityidfilter": "sensor.fritz_box_7590_max_kbit_s_sent",
+        "entityidfiltertype": "exact",
+        "outputinitially": true,
+        "state_type": "num",
+        "haltifstate": "",
+        "halt_if_type": "str",
+        "halt_if_compare": "is",
+        "outputs": 1,
+        "output_only_on_state_change": false,
+        "for": 0,
+        "forType": "num",
+        "forUnits": "minutes",
+        "ignorePrevStateNull": false,
+        "ignorePrevStateUnknown": false,
+        "ignorePrevStateUnavailable": false,
+        "ignoreCurrentStateUnknown": false,
+        "ignoreCurrentStateUnavailable": false,
+        "outputProperties": [
+            {
+                "property": "payload",
+                "propertyType": "msg",
+                "value": "",
+                "valueType": "entityState"
+            },
+            {
+                "property": "data",
+                "propertyType": "msg",
+                "value": "",
+                "valueType": "eventData"
+            },
+            {
+                "property": "topic",
+                "propertyType": "msg",
+                "value": "",
+                "valueType": "triggerId"
+            }
+        ],
+        "x": 360,
+        "y": 280,
+        "wires": [
+            [
+                "33c025e8.fcfcea"
+            ]
+        ]
+    },
+    {
+        "id": "52bdcb9a.cb5694",
+        "type": "server-state-changed",
+        "z": "50bf18d8.6664b",
+        "name": "",
+        "server": "c6e21e6c.847e8",
+        "version": 3,
+        "exposeToHomeAssistant": false,
+        "haConfig": [
+            {
+                "property": "name",
+                "value": ""
+            },
+            {
+                "property": "icon",
+                "value": ""
+            }
+        ],
+        "entityidfilter": "sensor.fritz_box_7590_kb_s_received",
+        "entityidfiltertype": "exact",
+        "outputinitially": true,
+        "state_type": "num",
+        "haltifstate": "",
+        "halt_if_type": "str",
+        "halt_if_compare": "is",
+        "outputs": 1,
+        "output_only_on_state_change": false,
+        "for": 0,
+        "forType": "num",
+        "forUnits": "minutes",
+        "ignorePrevStateNull": false,
+        "ignorePrevStateUnknown": false,
+        "ignorePrevStateUnavailable": false,
+        "ignoreCurrentStateUnknown": false,
+        "ignoreCurrentStateUnavailable": false,
+        "outputProperties": [
+            {
+                "property": "payload",
+                "propertyType": "msg",
+                "value": "",
+                "valueType": "entityState"
+            },
+            {
+                "property": "data",
+                "propertyType": "msg",
+                "value": "",
+                "valueType": "eventData"
+            },
+            {
+                "property": "topic",
+                "propertyType": "msg",
+                "value": "",
+                "valueType": "triggerId"
+            }
+        ],
+        "x": 360,
+        "y": 220,
+        "wires": [
+            [
+                "d93d82af.f1982"
+            ]
+        ]
+    },
+    {
+        "id": "16e99012.4bcc88",
+        "type": "server-state-changed",
+        "z": "50bf18d8.6664b",
+        "name": "",
+        "server": "c6e21e6c.847e8",
+        "version": 3,
+        "exposeToHomeAssistant": false,
+        "haConfig": [
+            {
+                "property": "name",
+                "value": ""
+            },
+            {
+                "property": "icon",
+                "value": ""
+            }
+        ],
+        "entityidfilter": "sensor.fritz_box_7590_kb_s_sent",
+        "entityidfiltertype": "exact",
+        "outputinitially": true,
+        "state_type": "num",
+        "haltifstate": "",
+        "halt_if_type": "str",
+        "halt_if_compare": "is",
+        "outputs": 1,
+        "output_only_on_state_change": false,
+        "for": 0,
+        "forType": "num",
+        "forUnits": "minutes",
+        "ignorePrevStateNull": false,
+        "ignorePrevStateUnknown": false,
+        "ignorePrevStateUnavailable": false,
+        "ignoreCurrentStateUnknown": false,
+        "ignoreCurrentStateUnavailable": false,
+        "outputProperties": [
+            {
+                "property": "payload",
+                "propertyType": "msg",
+                "value": "",
+                "valueType": "entityState"
+            },
+            {
+                "property": "data",
+                "propertyType": "msg",
+                "value": "",
+                "valueType": "eventData"
+            },
+            {
+                "property": "topic",
+                "propertyType": "msg",
+                "value": "",
+                "valueType": "triggerId"
+            }
+        ],
+        "x": 340,
+        "y": 160,
+        "wires": [
+            [
+                "b99955ff.67b77"
+            ]
+        ]
+    },
+    {
+        "id": "99271863.e0bbd8",
+        "type": "server-state-changed",
+        "z": "ea0b4953.6bd2b",
+        "name": "",
+        "server": "c6e21e6c.847e8",
+        "version": 3,
+        "exposeToHomeAssistant": false,
+        "haConfig": [
+            {
+                "property": "name",
+                "value": ""
+            },
+            {
+                "property": "icon",
+                "value": ""
+            }
+        ],
+        "entityidfilter": "binary_sensor.due",
+        "entityidfiltertype": "exact",
+        "outputinitially": false,
+        "state_type": "str",
+        "haltifstate": "on",
+        "halt_if_type": "str",
+        "halt_if_compare": "is",
+        "outputs": 2,
+        "output_only_on_state_change": true,
+        "for": 0,
+        "forType": "num",
+        "forUnits": "minutes",
+        "ignorePrevStateNull": false,
+        "ignorePrevStateUnknown": false,
+        "ignorePrevStateUnavailable": false,
+        "ignoreCurrentStateUnknown": false,
+        "ignoreCurrentStateUnavailable": false,
+        "outputProperties": [
+            {
+                "property": "payload",
+                "propertyType": "msg",
+                "value": "true",
+                "valueType": "bool"
+            },
+            {
+                "property": "data",
+                "propertyType": "msg",
+                "value": "",
+                "valueType": "eventData"
+            },
+            {
+                "property": "topic",
+                "propertyType": "msg",
+                "value": "",
+                "valueType": "triggerId"
+            }
+        ],
+        "x": 200,
+        "y": 300,
+        "wires": [
+            [
+                "56e71ed1.9acc18"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "c95837f9.caaef8",
+        "type": "api-call-service",
+        "z": "ea0b4953.6bd2b",
+        "name": "",
+        "server": "c6e21e6c.847e8",
+        "version": 3,
+        "debugenabled": false,
+        "service_domain": "notify",
+        "service": "alexa_media_terra",
+        "entityId": "",
+        "data": "{\"message\":\"Il gatto vuole forse entrare?\",\"title\":\"Toc Toc\",\"data\":{\"type\":\"announce\",\"method\":\"all\"},\"target\":[\"Cucina\"]}",
+        "dataType": "json",
+        "mergecontext": "",
+        "mustacheAltTags": false,
+        "outputProperties": [
+            {
+                "property": "payload",
+                "propertyType": "msg",
+                "value": "",
+                "valueType": "data"
+            }
+        ],
+        "queue": "none",
+        "x": 1350,
+        "y": 120,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "99b8651b.84cba8",
+        "type": "bigtimer",
+        "z": "ea0b4953.6bd2b",
+        "outtopic": "gatto",
+        "outpayload1": "1",
+        "outpayload2": "0",
+        "name": "Gatto: Orario Libera Uscita",
+        "comment": "",
+        "lat": "45.6666400",
+        "lon": "9.0488400",
+        "starttime": "420",
+        "endtime": "405",
+        "starttime2": "0",
+        "endtime2": "0",
+        "startoff": 0,
+        "endoff": "",
+        "startoff2": 0,
+        "endoff2": 0,
+        "offs": 0,
+        "outtext1": "",
+        "outtext2": "",
+        "timeout": 1440,
+        "sun": true,
+        "mon": true,
+        "tue": true,
+        "wed": true,
+        "thu": true,
+        "fri": true,
+        "sat": true,
+        "jan": true,
+        "feb": true,
+        "mar": true,
+        "apr": true,
+        "may": true,
+        "jun": true,
+        "jul": true,
+        "aug": true,
+        "sep": true,
+        "oct": true,
+        "nov": true,
+        "dec": true,
+        "day1": 0,
+        "month1": 0,
+        "day2": 0,
+        "month2": 0,
+        "day3": 0,
+        "month3": 0,
+        "day4": 0,
+        "month4": 0,
+        "day5": 0,
+        "month5": 0,
+        "day6": 0,
+        "month6": 0,
+        "day7": 0,
+        "month7": 0,
+        "day8": 0,
+        "month8": 0,
+        "day9": 0,
+        "month9": 0,
+        "day10": 0,
+        "month10": 0,
+        "day11": 0,
+        "month11": 0,
+        "day12": 0,
+        "month12": 0,
+        "d1": 0,
+        "w1": 0,
+        "d2": 0,
+        "w2": 0,
+        "d3": 0,
+        "w3": 0,
+        "d4": 0,
+        "w4": 0,
+        "d5": 0,
+        "w5": 0,
+        "d6": 0,
+        "w6": 0,
+        "xday1": 0,
+        "xmonth1": 0,
+        "xday2": 0,
+        "xmonth2": 0,
+        "xday3": 0,
+        "xmonth3": 0,
+        "xday4": 0,
+        "xmonth4": 0,
+        "xday5": 0,
+        "xmonth5": 0,
+        "xday6": 0,
+        "xmonth6": 0,
+        "xday7": "",
+        "xmonth7": "",
+        "xday8": "",
+        "xmonth8": "",
+        "xday9": "",
+        "xmonth9": "",
+        "xday10": "",
+        "xmonth10": "",
+        "xday11": "",
+        "xmonth11": "",
+        "xday12": "",
+        "xmonth12": "",
+        "xd1": 0,
+        "xw1": 0,
+        "xd2": 0,
+        "xw2": 0,
+        "xd3": 0,
+        "xw3": 0,
+        "xd4": 0,
+        "xw4": 0,
+        "xd5": 0,
+        "xw5": 0,
+        "xd6": 0,
+        "xw6": 0,
+        "suspend": false,
+        "random": false,
+        "randon1": false,
+        "randoff1": false,
+        "randon2": false,
+        "randoff2": false,
+        "repeat": true,
+        "atstart": true,
+        "odd": false,
+        "even": false,
+        "x": 180,
+        "y": 160,
+        "wires": [
+            [
+                "56e71ed1.9acc18"
+            ],
+            [],
+            []
+        ]
+    },
+    {
+        "id": "56e71ed1.9acc18",
+        "type": "BooleanLogicUltimate",
+        "z": "ea0b4953.6bd2b",
+        "name": "",
+        "filtertrue": "both",
+        "persist": true,
+        "sInitializeWith": "WaitForPayload",
+        "triggertopic": "binary_sensor.due",
+        "outputtriggeredby": "onlyonetopic",
+        "inputCount": 2,
+        "topic": "result",
+        "x": 540,
+        "y": 240,
+        "wires": [
+            [
+                "26d5a4a0e141be73"
+            ],
+            [],
+            []
+        ]
+    },
+    {
+        "id": "97f4b892.34c718",
+        "type": "server-state-changed",
+        "z": "ea0b4953.6bd2b",
+        "name": "",
+        "server": "c6e21e6c.847e8",
+        "version": 3,
+        "exposeToHomeAssistant": false,
+        "haConfig": [
+            {
+                "property": "name",
+                "value": ""
+            },
+            {
+                "property": "icon",
+                "value": ""
+            }
+        ],
+        "entityidfilter": "binary_sensor.motion1",
+        "entityidfiltertype": "exact",
+        "outputinitially": false,
+        "state_type": "str",
+        "haltifstate": "on",
+        "halt_if_type": "str",
+        "halt_if_compare": "is",
+        "outputs": 2,
+        "output_only_on_state_change": true,
+        "for": 0,
+        "forType": "num",
+        "forUnits": "minutes",
+        "ignorePrevStateNull": false,
+        "ignorePrevStateUnknown": false,
+        "ignorePrevStateUnavailable": false,
+        "ignoreCurrentStateUnknown": false,
+        "ignoreCurrentStateUnavailable": false,
+        "outputProperties": [
+            {
+                "property": "payload",
+                "propertyType": "msg",
+                "value": "true",
+                "valueType": "bool"
+            },
+            {
+                "property": "data",
+                "propertyType": "msg",
+                "value": "",
+                "valueType": "eventData"
+            },
+            {
+                "property": "topic",
+                "propertyType": "msg",
+                "value": "",
+                "valueType": "triggerId"
+            }
+        ],
+        "x": 190,
+        "y": 440,
+        "wires": [
+            [
+                "b753f15760fce787"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "8fecfe0a.1761d8",
+        "type": "api-call-service",
+        "z": "ea0b4953.6bd2b",
+        "name": "",
+        "server": "c6e21e6c.847e8",
+        "version": 3,
+        "debugenabled": false,
+        "service_domain": "notify",
+        "service": "mobile_app_soylent_iphone",
+        "entityId": "",
+        "data": "{\t  \"title\": \"Gatto!\",\t  \"message\": \"C'è movimento davanti alla porta. Il gatto vuole forse entrare?\"\t}",
+        "dataType": "jsonata",
+        "mergecontext": "",
+        "mustacheAltTags": false,
+        "outputProperties": [],
+        "queue": "none",
+        "x": 1430,
+        "y": 240,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "5a7d06f4.1a0c78",
+        "type": "inject",
+        "z": "ea0b4953.6bd2b",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "binary_sensor.due",
+        "payload": "true",
+        "payloadType": "bool",
+        "x": 200,
+        "y": 240,
+        "wires": [
+            [
+                "56e71ed1.9acc18"
+            ]
+        ]
+    },
+    {
+        "id": "2a7aa13706830856",
+        "type": "api-call-service",
+        "z": "ea0b4953.6bd2b",
+        "name": "",
+        "server": "c6e21e6c.847e8",
+        "version": 3,
+        "debugenabled": false,
+        "service_domain": "notify",
+        "service": "mobile_app_soylent_iphone",
+        "entityId": "",
+        "data": "{\t  \"title\": \"Gatto!\",\t  \"message\": \"Il gatto è nella cuccetta\"\t}",
+        "dataType": "jsonata",
+        "mergecontext": "",
+        "mustacheAltTags": false,
+        "outputProperties": [],
+        "queue": "none",
+        "x": 890,
+        "y": 440,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "b753f15760fce787",
+        "type": "delay",
+        "z": "ea0b4953.6bd2b",
+        "name": "",
+        "pauseType": "rate",
+        "timeout": "5",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "10",
+        "rateUnits": "minute",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": true,
+        "allowrate": false,
+        "outputs": 1,
+        "x": 540,
+        "y": 440,
+        "wires": [
+            [
+                "2a7aa13706830856"
+            ]
+        ]
+    },
+    {
+        "id": "76a97fb88b3a8f14",
+        "type": "switch",
+        "z": "ea0b4953.6bd2b",
+        "name": "",
+        "property": "payload.event.event",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "1000",
+                "vt": "num"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 390,
+        "y": 80,
+        "wires": [
+            [
+                "f2389dbc8c286e75"
+            ]
+        ]
+    },
+    {
+        "id": "3069452300716f69",
+        "type": "server-events",
+        "z": "ea0b4953.6bd2b",
+        "name": "",
+        "server": "c6e21e6c.847e8",
+        "version": 1,
+        "event_type": "deconz_event",
+        "exposeToHomeAssistant": false,
+        "haConfig": [
+            {
+                "property": "name",
+                "value": ""
+            },
+            {
+                "property": "icon",
+                "value": ""
+            }
+        ],
+        "waitForRunning": true,
+        "outputProperties": [
+            {
+                "property": "payload",
+                "propertyType": "msg",
+                "value": "",
+                "valueType": "eventData"
+            },
+            {
+                "property": "topic",
+                "propertyType": "msg",
+                "value": "$outputData(\"eventData\").event_type",
+                "valueType": "jsonata"
+            }
+        ],
+        "x": 160,
+        "y": 80,
+        "wires": [
+            [
+                "76a97fb88b3a8f14"
+            ]
+        ]
+    },
+    {
+        "id": "26d5a4a0e141be73",
+        "type": "gate",
+        "z": "ea0b4953.6bd2b",
+        "name": "",
+        "controlTopic": "control",
+        "defaultState": "open",
+        "openCmd": "open",
+        "closeCmd": "close",
+        "toggleCmd": "toggle",
+        "defaultCmd": "default",
+        "statusCmd": "status",
+        "persist": false,
+        "storeName": "memory",
+        "x": 770,
+        "y": 240,
+        "wires": [
+            [
+                "084c63059f27d927",
+                "48730b342f68e066",
+                "f2157e56c492e4e3"
+            ]
+        ]
+    },
+    {
+        "id": "f2389dbc8c286e75",
+        "type": "change",
+        "z": "ea0b4953.6bd2b",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "topic",
+                "pt": "msg",
+                "to": "control",
+                "tot": "str"
+            },
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "toggle",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 580,
+        "y": 80,
+        "wires": [
+            [
+                "98332f0e366cea69"
+            ]
+        ]
+    },
+    {
+        "id": "98332f0e366cea69",
+        "type": "trigger",
+        "z": "ea0b4953.6bd2b",
+        "name": "",
+        "op1": "",
+        "op2": "",
+        "op1type": "pay",
+        "op2type": "pay",
+        "duration": "5",
+        "extend": true,
+        "overrideDelay": false,
+        "units": "min",
+        "reset": "",
+        "bytopic": "all",
+        "topic": "topic",
+        "outputs": 1,
+        "x": 790,
+        "y": 80,
+        "wires": [
+            [
+                "26d5a4a0e141be73"
+            ]
+        ]
+    },
+    {
+        "id": "084c63059f27d927",
+        "type": "api-current-state",
+        "z": "ea0b4953.6bd2b",
+        "name": "",
+        "server": "c6e21e6c.847e8",
+        "version": 2,
+        "outputs": 2,
+        "halt_if": "home",
+        "halt_if_type": "str",
+        "halt_if_compare": "is",
+        "entity_id": "device_tracker.soylent_iphone",
+        "state_type": "str",
+        "blockInputOverrides": false,
+        "outputProperties": [
+            {
+                "property": "payload",
+                "propertyType": "msg",
+                "value": "",
+                "valueType": "entityState"
+            },
+            {
+                "property": "data",
+                "propertyType": "msg",
+                "value": "",
+                "valueType": "entity"
+            }
+        ],
+        "override_topic": false,
+        "state_location": "payload",
+        "override_payload": "msg",
+        "entity_location": "data",
+        "override_data": "msg",
+        "x": 1050,
+        "y": 240,
+        "wires": [
+            [
+                "8fecfe0a.1761d8"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "3a4c83a62d2c8839",
+        "type": "api-call-service",
+        "z": "ea0b4953.6bd2b",
+        "name": "",
+        "server": "c6e21e6c.847e8",
+        "version": 3,
+        "debugenabled": false,
+        "service_domain": "notify",
+        "service": "mobile_app_chiaras_iphone",
+        "entityId": "",
+        "data": "{\t  \"title\": \"Gatto!\",\t  \"message\": \"C'è movimento davanti alla porta. Il gatto vuole forse entrare?\"\t}",
+        "dataType": "jsonata",
+        "mergecontext": "",
+        "mustacheAltTags": false,
+        "outputProperties": [],
+        "queue": "none",
+        "x": 1510,
+        "y": 380,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "48730b342f68e066",
+        "type": "api-current-state",
+        "z": "ea0b4953.6bd2b",
+        "name": "",
+        "server": "c6e21e6c.847e8",
+        "version": 2,
+        "outputs": 2,
+        "halt_if": "home",
+        "halt_if_type": "str",
+        "halt_if_compare": "is",
+        "entity_id": "device_tracker.chiaras_iphone",
+        "state_type": "str",
+        "blockInputOverrides": false,
+        "outputProperties": [
+            {
+                "property": "payload",
+                "propertyType": "msg",
+                "value": "",
+                "valueType": "entityState"
+            },
+            {
+                "property": "data",
+                "propertyType": "msg",
+                "value": "",
+                "valueType": "entity"
+            }
+        ],
+        "override_topic": false,
+        "state_location": "payload",
+        "override_payload": "msg",
+        "entity_location": "data",
+        "override_data": "msg",
+        "x": 1070,
+        "y": 360,
+        "wires": [
+            [
+                "3a4c83a62d2c8839"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "57d76a0e9c2886f0",
+        "type": "inject",
+        "z": "ea0b4953.6bd2b",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 1280,
+        "y": 320,
+        "wires": [
+            [
+                "3a4c83a62d2c8839"
+            ]
+        ]
+    },
+    {
+        "id": "f2157e56c492e4e3",
+        "type": "time-range-switch",
+        "z": "ea0b4953.6bd2b",
+        "name": "",
+        "lat": "45.6666400",
+        "lon": "9.0488400",
+        "startTime": "08:00",
+        "endTime": "22:00",
+        "startOffset": 0,
+        "endOffset": 0,
+        "x": 1060,
+        "y": 120,
+        "wires": [
+            [
+                "c95837f9.caaef8"
+            ],
+            []
         ]
     }
 ]
